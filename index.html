@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NASSAB (نَسَب) — Digital Family Tree & Heritage Preservation</title>
+    <meta name="description" content="NASSAB is a modern digital genealogy platform dedicated to preserving, organizing, and exploring family records, Shajra, and complex lineages.">
+    
+    <!-- Google Fonts: Plus Jakarta Sans & Noto Nastaliq Urdu -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind Custom Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        emerald: {
+                            850: '#064e3b',
+                            900: '#022c22',
+                            950: '#011c15',
+                        },
+                        gold: {
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                            700: '#b45309',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        urdu: ['"Noto Nastaliq Urdu"', 'serif'],
+                        arabic: ['"Noto Nastaliq Urdu"', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-emerald-950 text-slate-100 font-sans antialiased selection:bg-gold-500 selection:text-emerald-950 min-h-screen flex flex-col justify-between">
+
+    <!-- NAVIGATION HEADER -->
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-emerald-950/80 border-b border-emerald-800/40 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- LOGO WITH CUSTOM LOGO.PNG INTEGRATION -->
+                <a href="#home" onclick="navTo('home')" class="flex items-center space-x-3 group">
+                    <img src="logo.png" alt="NASSAB Logo" class="h-12 w-auto object-contain rounded-xl drop-shadow-md group-hover:scale-105 transition-transform duration-300">
+                    <div class="flex flex-col">
+                        <span class="text-2xl font-extrabold tracking-wider bg-gradient-to-r from-white via-slate-100 to-gold-400 bg-clip-text text-transparent">
+                            NASSAB
+                        </span>
+                        <span class="text-xs font-urdu text-gold-400 -mt-1 tracking-wide leading-normal">نَسَب — شجرۂ نسب</span>
+                    </div>
+                </a>
+
+                <!-- DESKTOP NAV LINKS -->
+                <nav class="hidden md:flex items-center space-x-1 lg:space-x-2">
+                    <button onclick="navTo('home')" id="nav-home" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium transition-all text-gold-400 bg-emerald-900/60 border border-gold-500/30">
+                        Home
+                    </button>
+                    <button onclick="navTo('about')" id="nav-about" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium transition-all text-slate-300 hover:text-white hover:bg-emerald-900/40">
+                        About NASSAB
+                    </button>
+                    <button onclick="navTo('features')" id="nav-features" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium transition-all text-slate-300 hover:text-white hover:bg-emerald-900/40">
+                        App Features
+                    </button>
+                    <button onclick="navTo('contact')" id="nav-contact" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium transition-all text-slate-300 hover:text-white hover:bg-emerald-900/40">
+                        Record Updates
+                    </button>
+                    <button onclick="navTo('privacy')" id="nav-privacy" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium transition-all text-slate-300 hover:text-white hover:bg-emerald-900/40">
+                        Privacy Policy
+                    </button>
+                    <button onclick="navTo('terms')" id="nav-terms" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium transition-all text-slate-300 hover:text-white hover:bg-emerald-900/40">
+                        Terms
+                    </button>
+                </nav>
+
+                <!-- EXTERNAL ACTION BUTTONS -->
+                <div class="hidden lg:flex items-center space-x-3">
+                    <a href="https://wa.me/923408100868" target="_blank" rel="noopener noreferrer" 
+                       class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white font-semibold text-xs tracking-wider uppercase shadow-lg shadow-emerald-600/30 flex items-center space-x-2 transition-all hover:scale-[1.02]">
+                        <i class="fa-brands fa-whatsapp text-lg"></i>
+                        <span>WhatsApp Chat</span>
+                    </a>
+                </div>
+
+                <!-- MOBILE MENU BUTTON -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-toggle" onclick="toggleMobileMenu()" class="p-2.5 rounded-xl bg-emerald-900/60 border border-emerald-800/60 text-slate-300 hover:text-white">
+                        <i class="fa-solid fa-bars text-xl" id="menu-icon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MOBILE NAV MENU -->
+        <div id="mobile-menu" class="hidden md:hidden bg-emerald-950/95 border-b border-emerald-800/60 px-4 pt-3 pb-6 space-y-2 backdrop-blur-xl">
+            <button onclick="navTo('home'); toggleMobileMenu()" class="w-full text-left px-4 py-3 rounded-lg text-base font-medium text-slate-200 hover:bg-emerald-900/50">Home</button>
+            <button onclick="navTo('about'); toggleMobileMenu()" class="w-full text-left px-4 py-3 rounded-lg text-base font-medium text-slate-200 hover:bg-emerald-900/50">About NASSAB</button>
+            <button onclick="navTo('features'); toggleMobileMenu()" class="w-full text-left px-4 py-3 rounded-lg text-base font-medium text-slate-200 hover:bg-emerald-900/50">App Features</button>
+            <button onclick="navTo('contact'); toggleMobileMenu()" class="w-full text-left px-4 py-3 rounded-lg text-base font-medium text-slate-200 hover:bg-emerald-900/50">Record Updates</button>
+            <button onclick="navTo('privacy'); toggleMobileMenu()" class="w-full text-left px-4 py-3 rounded-lg text-base font-medium text-slate-200 hover:bg-emerald-900/50">Privacy Policy</button>
+            <button onclick="navTo('terms'); toggleMobileMenu()" class="w-full text-left px-4 py-3 rounded-lg text-base font-medium text-slate-200 hover:bg-emerald-900/50">Terms of Service</button>
+            <div class="pt-3 border-t border-emerald-800/40 flex flex-col space-y-2">
+                <a href="https://wa.me/923408100868" target="_blank" class="w-full text-center py-3 rounded-xl bg-emerald-600 text-white font-semibold flex items-center justify-center space-x-2">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span>Chat on WhatsApp (+92 340 8100868)</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="flex-grow">
+
+        <!-- ==================== HOME PAGE / HERO ==================== -->
+        <section id="page-home" class="page-section relative overflow-hidden py-16 lg:py-24">
+            <!-- Background Glow Effects -->
+            <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gold-500/10 rounded-full blur-[140px] pointer-events-none"></div>
+            <div class="absolute top-1/3 left-10 w-[400px] h-[400px] bg-emerald-500/15 rounded-full blur-[120px] pointer-events-none"></div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+                    
+                    <!-- LEFT COLUMN: INTRO TEXT -->
+                    <div class="lg:col-span-7 space-y-8 text-center lg:text-left">
+                        <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-emerald-900/70 border border-gold-500/30 text-gold-400 text-xs font-semibold uppercase tracking-widest shadow-md">
+                            <i class="fa-solid fa-gem text-xs"></i>
+                            <span>Official NASSAB Genealogy Platform</span>
+                        </div>
+
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.15]">
+                            Preserving Heritage.<br/>
+                            <span class="bg-gradient-to-r from-gold-300 via-gold-400 to-amber-500 bg-clip-text text-transparent">
+                                Connecting Lineages.
+                            </span>
+                        </h1>
+
+                        <p class="text-lg sm:text-xl text-slate-300 font-normal leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                            NASSAB is a digital genealogy project dedicated to preserving, organizing, and exploring family records and Shajra. Designed to represent complete family relationships, including male and female descendants, remarriages, and complex connections.
+                        </p>
+
+                        <!-- CALL TO ACTIONS -->
+                        <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                            <button onclick="navTo('about')" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-gold-500 to-amber-600 hover:from-gold-400 hover:to-amber-500 text-emerald-950 font-bold text-base shadow-xl shadow-gold-500/20 flex items-center justify-center space-x-3 transition-all hover:scale-105">
+                                <span>Discover About NASSAB</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                            <a href="https://wa.me/923408100868" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto px-7 py-4 rounded-xl bg-emerald-900/80 hover:bg-emerald-800 border border-emerald-700/60 text-white font-semibold text-base shadow-lg flex items-center justify-center space-x-3 transition-all hover:scale-[1.02]">
+                                <i class="fa-brands fa-whatsapp text-emerald-400 text-xl"></i>
+                                <span>WhatsApp: 0340-8100868</span>
+                            </a>
+                        </div>
+
+                        <!-- STATS / HIGHLIGHTS BAR -->
+                        <div class="pt-8 border-t border-emerald-800/40 grid grid-cols-3 gap-4 text-center lg:text-left">
+                            <div>
+                                <div class="text-2xl lg:text-3xl font-extrabold text-gold-400">100%</div>
+                                <div class="text-xs text-slate-400 font-medium">Digital Archiving</div>
+                            </div>
+                            <div>
+                                <div class="text-2xl lg:text-3xl font-extrabold text-gold-400">Complete</div>
+                                <div class="text-xs text-slate-400 font-medium">Male & Female Lineage</div>
+                            </div>
+                            <div>
+                                <div class="text-2xl lg:text-3xl font-extrabold text-gold-400">Verified</div>
+                                <div class="text-xs text-slate-400 font-medium">Record Updates</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- RIGHT COLUMN: APP SHOWCASE GRAPHIC WITH LOGO INTEGRATION -->
+                    <div class="lg:col-span-5 relative">
+                        <div class="relative mx-auto max-w-md lg:max-w-none">
+                            <!-- Glassmorphism Card Showcase -->
+                            <div class="relative z-10 rounded-3xl p-6 lg:p-8 bg-gradient-to-b from-emerald-900/80 to-emerald-950/90 border border-gold-500/30 shadow-2xl shadow-emerald-950/80 backdrop-blur-xl space-y-6">
+                                
+                                <div class="flex items-center justify-between border-b border-emerald-800/60 pb-4">
+                                    <div class="flex items-center space-x-3">
+                                        <img src="logo.png" alt="NASSAB Icon" class="w-10 h-10 object-contain rounded-lg">
+                                        <div>
+                                            <h3 class="text-base font-bold text-white">Shajra Explorer Preview</h3>
+                                            <p class="text-xs text-slate-400">Family Relationship Knowledge Graph</p>
+                                        </div>
+                                    </div>
+                                    <span class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-gold-500/20 text-gold-300 border border-gold-500/30">
+                                        App Showcase
+                                    </span>
+                                </div>
+
+                                <!-- MOCK GRAPH NODE DEMO -->
+                                <div class="space-y-4 font-sans text-xs">
+                                    <!-- Parent Node -->
+                                    <div class="p-3.5 rounded-xl bg-emerald-900/60 border border-emerald-700/50 flex items-center justify-between">
+                                        <div class="flex items-center space-x-3">
+                                            <div class="w-8 h-8 rounded-full bg-emerald-800 flex items-center justify-center text-gold-400 font-bold">
+                                                A
+                                            </div>
+                                            <div>
+                                                <div class="text-sm font-semibold text-white">Ahmed (Father)</div>
+                                                <div class="text-[11px] text-slate-400">Biological Parent & Ancestor</div>
+                                            </div>
+                                        </div>
+                                        <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-950 text-emerald-300">Head of Lineage</span>
+                                    </div>
+
+                                    <!-- Connecting Line -->
+                                    <div class="flex justify-center my-1">
+                                        <div class="w-0.5 h-6 bg-gradient-to-b from-gold-500 to-emerald-500"></div>
+                                    </div>
+
+                                    <!-- Sub Nodes: Marriage Contexts -->
+                                    <div class="grid grid-cols-2 gap-3">
+                                        <div class="p-3 rounded-xl bg-emerald-900/40 border border-emerald-800/60 space-y-1">
+                                            <div class="text-[11px] font-bold text-gold-400">1st Marriage: Fatima</div>
+                                            <div class="text-slate-300 font-medium">Children: Ali, Maryam</div>
+                                            <div class="text-[10px] text-slate-500">Full & Half Lineages</div>
+                                        </div>
+                                        <div class="p-3 rounded-xl bg-emerald-900/40 border border-emerald-800/60 space-y-1">
+                                            <div class="text-[11px] font-bold text-gold-400">2nd Marriage: Ayesha</div>
+                                            <div class="text-slate-300 font-medium">Children: Hassan, Zainab</div>
+                                            <div class="text-[10px] text-slate-500">Step & Remarriage Context</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="pt-3 border-t border-emerald-800/60 flex items-center justify-between text-xs text-slate-400">
+                                    <span><i class="fa-solid fa-check text-gold-400 mr-1"></i> No Duplicate Records</span>
+                                    <span><i class="fa-solid fa-check text-gold-400 mr-1"></i> Full Female Lineage</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== ABOUT NASSAB PAGE ==================== -->
+        <section id="page-about" class="page-section hidden py-16 lg:py-24">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+                
+                <!-- ABOUT HEADER -->
+                <div class="text-center space-y-4">
+                    <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs font-semibold uppercase tracking-wider">
+                        <i class="fa-solid fa-book-bookmark"></i>
+                        <span>Project Documentation</span>
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white">About NASSAB</h2>
+                    <p class="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto">
+                        Combining traditional genealogical heritage with modern software technology to preserve family records digitally.
+                    </p>
+
+                    <!-- TRADITIONAL VS MODERN TOGGLE BUTTON -->
+                    <div class="pt-4 flex justify-center">
+                        <div class="bg-emerald-900/80 p-1.5 rounded-2xl border border-emerald-800/80 flex items-center space-x-1 shadow-inner">
+                            <button id="toggle-modern" onclick="switchAboutStyle('modern')" class="px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all bg-gold-500 text-emerald-950 shadow-md">
+                                <i class="fa-solid fa-laptop-code mr-1.5"></i> Modern Overview
+                            </button>
+                            <button id="toggle-traditional" onclick="switchAboutStyle('traditional')" class="px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all text-slate-300 hover:text-white">
+                                <i class="fa-solid fa-scroll mr-1.5"></i> Traditional / Islamic View (<span class="font-urdu">شجرۂ نسب</span>)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DYNAMIC CONTENT BOX (MODERN OVERVIEW DEFAULT) -->
+                <div id="about-content-modern" class="space-y-8 bg-emerald-900/40 border border-emerald-800/60 rounded-3xl p-6 sm:p-10 backdrop-blur-lg shadow-xl">
+                    <div class="space-y-4">
+                        <h3 class="text-2xl font-bold text-gold-400 flex items-center space-x-3">
+                            <i class="fa-solid fa-compass"></i>
+                            <span>Purpose of NASSAB</span>
+                        </h3>
+                        <p class="text-slate-200 leading-relaxed text-base sm:text-lg">
+                            NASSAB is a digital genealogy project dedicated to preserving, organizing, and exploring family records and Shajra.
+                        </p>
+                        <p class="text-slate-300 leading-relaxed text-base">
+                            The purpose of NASSAB is to make genealogical information easier to access and understand while preserving connections between generations. The platform is designed to represent complete family relationships, including male and female descendants, marriages, divorces, remarriages, children from different marriages, and other complex family connections.
+                        </p>
+                        <p class="text-slate-300 leading-relaxed text-base">
+                            Users can explore individuals within the genealogy, discover their ancestors and descendants, and understand their relationship with other people in the recorded family tree.
+                        </p>
+                        <p class="text-slate-300 leading-relaxed text-base">
+                            NASSAB aims to combine traditional genealogical records with modern technology so that family history can be preserved digitally for future generations.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- TRADITIONAL ISLAMIC WORDING VARIANT (NOTO NASTALIQ URDU) -->
+                <div id="about-content-traditional" class="hidden space-y-8 bg-emerald-900/40 border border-gold-500/30 rounded-3xl p-6 sm:p-10 backdrop-blur-lg shadow-xl">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between border-b border-emerald-800/60 pb-3">
+                            <h3 class="text-2xl font-bold text-gold-400 font-urdu tracking-wide leading-relaxed flex items-center space-x-3">
+                                <i class="fa-solid fa-kaaba text-lg"></i>
+                                <span dir="rtl">محافظتِ نسب و شجرۂ طیبہ (Traditional Perspective)</span>
+                            </h3>
+                            <span class="text-xs px-3 py-1 rounded-full bg-gold-500/10 text-gold-300 border border-gold-500/20 font-urdu">
+                                نسب و سلسلہ
+                            </span>
+                        </div>
+                        <p class="text-slate-200 text-lg sm:text-xl font-urdu tracking-wide leading-[2.3]" dir="rtl">
+                            نَسب (Nassab) ایک جدید الرقمي منصوبہ ہے جس کا مقصد اسلاف (Ancestors) کی تاریخ، شجرۂ نسب، اور خلف (Descendants) کے تمام سلسلہ کو محفوظ و منظم کرنا ہے۔
+                        </p>
+                        <p class="text-slate-300 text-base sm:text-lg font-urdu leading-[2.3]" dir="rtl">
+                            یہ پلیٹ فارم روایتی خاندانی ریکارڈز، شجرہ جات، اور سلسلوں کو جدید ترین سائنس و ٹیکنالوجی کے ساتھ ہم آہنگ کرتا ہے۔ اس میں تمام رشتوں—بشمول مرد و خواتین کی اولاد، متعدد ازواج، مطلقہ، اور سوتیلے رشتوں—کی کامل اور شفاف عکاسی کی گئی ہے تاکہ نسلِ نو اپنے آباؤ اجداد کی تاریخ کو بخوبی سمجھ سکے۔
+                        </p>
+                        <div class="p-5 rounded-2xl bg-emerald-950/80 border border-gold-500/30 text-gold-300 text-lg font-urdu leading-[2.3]" dir="rtl">
+                            "احفظوا من أنسابكم ما تصلون به أرحامكم" — اپنے نسب کو محفوظ رکھو جس کے ذریعے تم صلہ رحمی کر سکو۔
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RECORD UPDATES SECTION -->
+                <div class="bg-gradient-to-r from-emerald-900/60 to-emerald-950/90 border border-gold-500/30 rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl">
+                    <div class="flex items-start space-x-4">
+                        <div class="w-12 h-12 rounded-2xl bg-gold-500/20 border border-gold-500/40 flex items-center justify-center text-gold-400 text-xl shrink-0">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </div>
+                        <div class="space-y-2">
+                            <h3 class="text-xl font-bold text-white">Record Updates & Verification</h3>
+                            <p class="text-slate-300 text-sm leading-relaxed">
+                                If you would like to add a new record, correct an existing record, provide additional information, or submit genealogical documentation, please contact our team via Email or WhatsApp.
+                            </p>
+                            <div class="pt-2 flex flex-wrap items-center gap-4">
+                                <a href="mailto:digital.creator380@gmail.com" class="inline-flex items-center space-x-2 px-4 py-2.5 rounded-xl bg-gold-500 hover:bg-gold-400 text-emerald-950 font-bold text-xs tracking-wider uppercase shadow-md transition-all">
+                                    <i class="fa-solid fa-envelope"></i>
+                                    <span>digital.creator380@gmail.com</span>
+                                </a>
+                                <a href="https://wa.me/923408100868" target="_blank" class="inline-flex items-center space-x-2 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs tracking-wider uppercase shadow-md transition-all">
+                                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                                    <span>+92 340 8100868</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- OFFICIAL CHANNELS & DEVELOPER CREDITS -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    
+                    <!-- WHATSAPP BROADCAST CHANNEL & DIRECT CHAT -->
+                    <div class="p-6 rounded-2xl bg-emerald-900/50 border border-emerald-800/60 space-y-4 hover:border-emerald-500/50 transition-all">
+                        <div class="flex items-center space-x-3 text-emerald-400">
+                            <i class="fa-brands fa-whatsapp text-3xl"></i>
+                            <div>
+                                <h4 class="font-bold text-white text-base">WhatsApp Support & Channel</h4>
+                                <p class="text-xs text-slate-400">Direct Chat: +92 340 8100868</p>
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            Connect with us directly on WhatsApp or join the official NASSAB WhatsApp Channel to receive announcements, project updates, and new record releases.
+                        </p>
+                        <div class="flex items-center space-x-4 pt-1">
+                            <a href="https://wa.me/923408100868" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-1.5 text-xs font-bold text-gold-400 hover:text-gold-300">
+                                <span>Chat Direct (+92 340 8100868)</span>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>
+                            <a href="https://whatsapp.com/channel/0029Vb8MiX06GcGAB6sBsw31?utm_source=chatgpt.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-1.5 text-xs font-bold text-emerald-400 hover:text-emerald-300">
+                                <span>Join Channel</span>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- DEVELOPER & SOCIAL CREDITS -->
+                    <div class="p-6 rounded-2xl bg-emerald-900/50 border border-emerald-800/60 space-y-4 hover:border-emerald-500/50 transition-all">
+                        <div class="flex items-center space-x-3 text-gold-400">
+                            <i class="fa-solid fa-code text-2xl"></i>
+                            <div>
+                                <h4 class="font-bold text-white text-base">Developed by CyberFantics</h4>
+                                <p class="text-xs text-slate-400">Technology for Genealogical Preservation</p>
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            NASSAB is a project focused on using technology to preserve and make genealogical information accessible for present and future generations.
+                        </p>
+                        <div class="flex items-center space-x-4 pt-1">
+                            <a href="https://facebook.com/cyberfantics?utm_source=chatgpt.com" target="_blank" rel="noopener noreferrer" class="text-slate-300 hover:text-gold-400 text-sm flex items-center space-x-1.5">
+                                <i class="fa-brands fa-facebook"></i>
+                                <span class="text-xs">Facebook</span>
+                            </a>
+                            <a href="https://instagram.com/cyberfantics?utm_source=chatgpt.com" target="_blank" rel="noopener noreferrer" class="text-slate-300 hover:text-gold-400 text-sm flex items-center space-x-1.5">
+                                <i class="fa-brands fa-instagram"></i>
+                                <span class="text-xs">Instagram</span>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==================== APP FEATURES SECTION ==================== -->
+        <section id="page-features" class="page-section hidden py-16 lg:py-24">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+                <div class="text-center space-y-4 max-w-3xl mx-auto">
+                    <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs font-semibold uppercase tracking-wider">
+                        <i class="fa-solid fa-layer-group"></i>
+                        <span>Platform Capabilities</span>
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Advanced Genealogical Features</h2>
+                    <p class="text-slate-300 text-base sm:text-lg">
+                        Traditional family trees fail with complex family structures. NASSAB uses a relational graph architecture to handle real-world historical records accurately.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <!-- Feature Card 1 -->
+                    <div class="p-8 rounded-3xl bg-emerald-900/40 border border-emerald-800/60 hover:border-gold-500/40 transition-all space-y-4 hover:-translate-y-1">
+                        <div class="w-12 h-12 rounded-2xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-400 text-xl">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white">Equal Female & Male Representation</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            Unlike traditional records that obscure female branches, NASSAB maps all daughters, mothers, and female ancestors with complete historical context.
+                        </p>
+                    </div>
+
+                    <!-- Feature Card 2 -->
+                    <div class="p-8 rounded-3xl bg-emerald-900/40 border border-emerald-800/60 hover:border-gold-500/40 transition-all space-y-4 hover:-translate-y-1">
+                        <div class="w-12 h-12 rounded-2xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-400 text-xl">
+                            <i class="fa-solid fa-code-merge"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white">Remarriages & Step-Siblings</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            Accurately represents divorces, multiple marriages, half-siblings, and step-children without creating duplicate person records.
+                        </p>
+                    </div>
+
+                    <!-- Feature Card 3 -->
+                    <div class="p-8 rounded-3xl bg-emerald-900/40 border border-emerald-800/60 hover:border-gold-500/40 transition-all space-y-4 hover:-translate-y-1">
+                        <div class="w-12 h-12 rounded-2xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-400 text-xl">
+                            <i class="fa-solid fa-scroll"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white">Bukhari Syed & Silsila Tracing</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            Dedicated engine for preserving patrilineal lineage claims (Silsila), verifying ancestral chains with historic documentation.
+                        </p>
+                    </div>
+
+                    <!-- Feature Card 4 -->
+                    <div class="p-8 rounded-3xl bg-emerald-900/40 border border-emerald-800/60 hover:border-gold-500/40 transition-all space-y-4 hover:-translate-y-1">
+                        <div class="w-12 h-12 rounded-2xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-400 text-xl">
+                            <i class="fa-solid fa-magnifying-glass-chart"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white">Relationship Calculator</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            Calculates nearest shared ancestors (LCA algorithm) to generate clear human-readable explanations between any two family members.
+                        </p>
+                    </div>
+
+                    <!-- Feature Card 5 -->
+                    <div class="p-8 rounded-3xl bg-emerald-900/40 border border-emerald-800/60 hover:border-gold-500/40 transition-all space-y-4 hover:-translate-y-1">
+                        <div class="w-12 h-12 rounded-2xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-400 text-xl">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white">Evidence & Dispute Tracking</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            Every relationship can be backed by birth certificates, family manuscripts, or oral testimony with confidence scores.
+                        </p>
+                    </div>
+
+                    <!-- Feature Card 6 -->
+                    <div class="p-8 rounded-3xl bg-emerald-900/40 border border-emerald-800/60 hover:border-gold-500/40 transition-all space-y-4 hover:-translate-y-1">
+                        <div class="w-12 h-12 rounded-2xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-400 text-xl">
+                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white">Secure Digital Archiving</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            Cloud-synced database structure ensures historical family records remain preserved safely for future generations.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== UPGRADED INTERACTIVE RECORD UPDATES PAGE ==================== -->
+        <section id="page-contact" class="page-section hidden py-16 lg:py-24">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+                
+                <div class="text-center space-y-4 max-w-3xl mx-auto">
+                    <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs font-semibold uppercase tracking-wider">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        <span>Interactive Submission Portal</span>
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white">Submit a Record Update</h2>
+                    <p class="text-slate-300 text-base sm:text-lg">
+                        Submit new family members, corrections, birth records, or lineage documentation. Our verification team will review your ticket.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    
+                    <!-- LEFT COLUMN: INTERACTIVE FORM -->
+                    <div class="lg:col-span-7 bg-emerald-900/40 border border-emerald-800/60 rounded-3xl p-6 sm:p-8 backdrop-blur-lg shadow-2xl space-y-6">
+                        <div class="flex items-center justify-between border-b border-emerald-800/60 pb-4">
+                            <h3 class="text-lg font-bold text-white flex items-center space-x-2">
+                                <i class="fa-solid fa-pen-to-square text-gold-400"></i>
+                                <span>Record Submission Form</span>
+                            </h3>
+                            <span class="text-xs px-2.5 py-1 rounded-full bg-emerald-950 text-gold-400 font-mono">Step 1 of 2</span>
+                        </div>
+
+                        <form id="record-form" onsubmit="handleFormSubmit(event)" class="space-y-5">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                <div class="space-y-2">
+                                    <label class="block text-xs font-bold text-gold-400 uppercase tracking-wider">Your Full Name *</label>
+                                    <input type="text" id="form-name" required placeholder="e.g. Ali Ahmed Bukhari" class="w-full px-4 py-3 rounded-xl bg-emerald-950/90 border border-emerald-800 text-white placeholder-slate-500 focus:outline-none focus:border-gold-500 transition-colors text-sm">
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="block text-xs font-bold text-gold-400 uppercase tracking-wider">Your Email *</label>
+                                    <input type="email" id="form-email" required placeholder="name@domain.com" class="w-full px-4 py-3 rounded-xl bg-emerald-950/90 border border-emerald-800 text-white placeholder-slate-500 focus:outline-none focus:border-gold-500 transition-colors text-sm">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                <div class="space-y-2">
+                                    <label class="block text-xs font-bold text-gold-400 uppercase tracking-wider">WhatsApp / Phone Number</label>
+                                    <input type="text" id="form-phone" placeholder="e.g. 03408100868" class="w-full px-4 py-3 rounded-xl bg-emerald-950/90 border border-emerald-800 text-white placeholder-slate-500 focus:outline-none focus:border-gold-500 transition-colors text-sm">
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="block text-xs font-bold text-gold-400 uppercase tracking-wider">Family Branch / Lineage Name</label>
+                                    <input type="text" id="form-branch" placeholder="e.g. Bukhari Syed Branch #4" class="w-full px-4 py-3 rounded-xl bg-emerald-950/90 border border-emerald-800 text-white placeholder-slate-500 focus:outline-none focus:border-gold-500 transition-colors text-sm">
+                                </div>
+                            </div>
+
+                            <div class="space-y-2">
+                                <label class="block text-xs font-bold text-gold-400 uppercase tracking-wider">Update Category *</label>
+                                <select id="form-type" class="w-full px-4 py-3 rounded-xl bg-emerald-950/90 border border-emerald-800 text-white focus:outline-none focus:border-gold-500 transition-colors text-sm">
+                                    <option value="New Record Addition">✨ New Record Addition (Add a family member)</option>
+                                    <option value="Correction of Existing Record">✏️ Correction of Existing Record</option>
+                                    <option value="Lineage Document Submission">📜 Lineage Document / Shajra Submission</option>
+                                    <option value="Disputed Claim Review">⚖️ Disputed Claim Review</option>
+                                    <option value="General Inquiry">💬 General Inquiry</option>
+                                </select>
+                            </div>
+
+                            <div class="space-y-2">
+                                <label class="block text-xs font-bold text-gold-400 uppercase tracking-wider">Record Details & Family Tree Names *</label>
+                                <textarea id="form-details" rows="5" required placeholder="Describe the individual's full name, father's name, mother's name, children, birth/death year, or specific corrections needed..." class="w-full px-4 py-3 rounded-xl bg-emerald-950/90 border border-emerald-800 text-white placeholder-slate-500 focus:outline-none focus:border-gold-500 transition-colors text-sm leading-relaxed"></textarea>
+                            </div>
+
+                            <!-- FILE ATTACHMENT SIMULATOR -->
+                            <div class="space-y-2">
+                                <label class="block text-xs font-bold text-gold-400 uppercase tracking-wider">Attach Document / Shajra Proof (Optional)</label>
+                                <div class="border-2 border-dashed border-emerald-800 hover:border-gold-500/50 rounded-2xl p-4 text-center cursor-pointer transition-colors bg-emerald-950/50 relative">
+                                    <input type="file" id="form-file" onchange="handleFileSelect(event)" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                                    <i class="fa-solid fa-cloud-arrow-up text-gold-400 text-2xl mb-1"></i>
+                                    <p class="text-xs text-slate-300 font-medium">Click or Drag & Drop Birth Certificates, Old Shajra Scans, or Documents</p>
+                                    <p class="text-[10px] text-slate-500 mt-0.5">Supports PDF, JPG, PNG up to 10MB</p>
+                                    <div id="file-status" class="hidden mt-2 text-xs text-gold-300 font-medium bg-emerald-900/80 py-1.5 px-3 rounded-xl inline-block border border-gold-500/30"></div>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-gold-500 via-amber-500 to-amber-600 hover:from-gold-400 hover:to-amber-500 text-emerald-950 font-extrabold text-base shadow-xl shadow-gold-500/20 flex items-center justify-center space-x-2 transition-all hover:scale-[1.01]">
+                                <i class="fa-solid fa-paper-plane text-lg"></i>
+                                <span>Generate Ticket & Submit Update</span>
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- RIGHT COLUMN: LIVE REAL-TIME PREVIEW & DIRECT WHATSAPP -->
+                    <div class="lg:col-span-5 space-y-6">
+                        
+                        <div class="rounded-3xl p-6 bg-gradient-to-b from-emerald-900/80 to-emerald-950/90 border border-gold-500/30 shadow-2xl backdrop-blur-xl space-y-5">
+                            <div class="flex items-center justify-between border-b border-emerald-800/60 pb-3">
+                                <div class="flex items-center space-x-2.5">
+                                    <div class="w-8 h-8 rounded-lg bg-gold-500/20 border border-gold-500/40 flex items-center justify-center text-gold-400 text-sm">
+                                        <i class="fa-solid fa-ticket"></i>
+                                    </div>
+                                    <h4 class="font-bold text-white text-sm">Live Ticket Preview</h4>
+                                </div>
+                                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-gold-500/20 text-gold-300 border border-gold-500/30">
+                                    Realtime
+                                </span>
+                            </div>
+
+                            <!-- PREVIEW DETAILS CARD -->
+                            <div class="space-y-4 text-xs font-sans">
+                                <div>
+                                    <div class="text-[10px] uppercase font-bold text-slate-400">Submitter</div>
+                                    <div id="prev-name" class="text-sm font-bold text-white">Your Name</div>
+                                    <div id="prev-email" class="text-slate-400 font-mono">your.email@domain.com</div>
+                                </div>
+
+                                <div class="grid grid-cols-2 gap-3 pt-2 border-t border-emerald-800/40">
+                                    <div>
+                                        <div class="text-[10px] uppercase font-bold text-slate-400">Category</div>
+                                        <div id="prev-type" class="text-gold-400 font-medium">New Record Addition</div>
+                                    </div>
+                                    <div>
+                                        <div class="text-[10px] uppercase font-bold text-slate-400">Branch</div>
+                                        <div id="prev-branch" class="text-slate-300 font-medium">General Lineage</div>
+                                    </div>
+                                </div>
+
+                                <div class="pt-2 border-t border-emerald-800/40">
+                                    <div class="text-[10px] uppercase font-bold text-slate-400">Phone / WhatsApp</div>
+                                    <div id="prev-phone" class="text-slate-300">Not provided</div>
+                                </div>
+
+                                <div class="pt-2 border-t border-emerald-800/40">
+                                    <div class="text-[10px] uppercase font-bold text-slate-400">Update Payload</div>
+                                    <div id="prev-details" class="p-3 rounded-xl bg-emerald-950/80 border border-emerald-800 text-slate-300 italic leading-relaxed min-h-[80px]">
+                                        Your update details will appear here as you type...
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="pt-3 border-t border-emerald-800/60 flex items-center justify-between text-[11px] text-slate-400">
+                                <span><i class="fa-solid fa-lock text-gold-400 mr-1"></i> Privacy Masked</span>
+                                <span><i class="fa-solid fa-envelope-circle-check text-gold-400 mr-1"></i> Review Queue</span>
+                            </div>
+                        </div>
+
+                        <!-- DIRECT CONTACT QUICK BOX WITH WHATSAPP 03408100868 -->
+                        <div class="p-6 rounded-3xl bg-emerald-900/40 border border-emerald-800/60 space-y-4">
+                            <h4 class="font-bold text-white text-sm flex items-center space-x-2">
+                                <i class="fa-brands fa-whatsapp text-emerald-400 text-lg"></i>
+                                <span>Direct WhatsApp Contact</span>
+                            </h4>
+                            <div class="flex items-center justify-between p-3.5 rounded-xl bg-emerald-950/90 border border-emerald-800 text-white font-mono text-xs">
+                                <div class="flex items-center space-x-2">
+                                    <i class="fa-solid fa-phone text-gold-400"></i>
+                                    <span>+92 340 8100868</span>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <button onclick="copyToClipboard('03408100868')" class="p-1.5 text-slate-400 hover:text-white" title="Copy Number">
+                                        <i class="fa-regular fa-copy"></i>
+                                    </button>
+                                    <a href="https://wa.me/923408100868" target="_blank" class="px-3 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-[11px] font-sans font-bold flex items-center space-x-1">
+                                        <span>Chat</span>
+                                        <i class="fa-solid fa-paper-plane text-[9px]"></i>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-between p-3.5 rounded-xl bg-emerald-950/90 border border-emerald-800 text-gold-300 font-mono text-xs">
+                                <div class="flex items-center space-x-2">
+                                    <i class="fa-solid fa-envelope text-gold-400"></i>
+                                    <span class="truncate max-w-[170px]">digital.creator380@gmail.com</span>
+                                </div>
+                                <button onclick="copyToClipboard('digital.creator380@gmail.com')" class="p-1.5 text-slate-400 hover:text-white" title="Copy Email">
+                                    <i class="fa-regular fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- SUBMITTED TICKETS HISTORY SECTION -->
+                <div class="pt-8 border-t border-emerald-800/60 space-y-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-xl font-bold text-white flex items-center space-x-2">
+                                <i class="fa-solid fa-clock-rotate-left text-gold-400"></i>
+                                <span>Your Submitted Requests History</span>
+                            </h3>
+                            <p class="text-xs text-slate-400">Records of update tickets created in this session</p>
+                        </div>
+                        <button onclick="clearSubmissionHistory()" class="text-xs text-slate-400 hover:text-rose-400 font-medium">Clear History</button>
+                    </div>
+
+                    <div id="submissions-history-list" class="space-y-3">
+                        <!-- Rendered dynamically via JavaScript -->
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==================== PRIVACY POLICY PAGE ==================== -->
+        <section id="page-privacy" class="page-section hidden py-16 lg:py-24">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+                <div class="border-b border-emerald-800/60 pb-6">
+                    <h2 class="text-3xl font-extrabold text-white">Privacy Policy</h2>
+                    <p class="text-xs text-gold-400 mt-1">Last Updated: September 2026 — NASSAB Platform</p>
+                </div>
+
+                <div class="prose prose-invert max-w-none text-slate-300 space-y-6 text-sm leading-relaxed">
+                    <p>
+                        NASSAB ("we", "our", or "platform") respects the sensitivity of personal and genealogical records. This Privacy Policy outlines how information is handled within our digital genealogy ecosystem.
+                    </p>
+
+                    <h3 class="text-lg font-bold text-white">1. Protection of Living Individuals</h3>
+                    <p>
+                        To safeguard privacy, exact birthdates, contact information, and personal details of living individuals are restricted and masked from public indexing unless explicit permission is provided by the record owner.
+                    </p>
+
+                    <h3 class="text-lg font-bold text-white">2. Genealogical Information & Public Records</h3>
+                    <p>
+                        NASSAB compiles family relationships, historical lineage connections, and ancestor data. Historical records for deceased individuals form part of the digital heritage archive for future generations.
+                    </p>
+
+                    <h3 class="text-lg font-bold text-white">3. Information Submitted via Contact Forms</h3>
+                    <p>
+                        When you submit record updates, documents, or inquiries to <strong class="text-gold-400">digital.creator380@gmail.com</strong> or WhatsApp (<strong class="text-gold-400">+92 340 8100868</strong>), your contact details are strictly used for verification and correspondence regarding your request.
+                    </p>
+
+                    <h3 class="text-lg font-bold text-white">4. Data Correction & Deletion Rights</h3>
+                    <p>
+                        If you are a living member represented within NASSAB and wish to correct, update, or request the redaction of your personal record, please contact us at <strong class="text-gold-400">digital.creator380@gmail.com</strong> or via WhatsApp.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== TERMS OF SERVICE PAGE ==================== -->
+        <section id="page-terms" class="page-section hidden py-16 lg:py-24">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+                <div class="border-b border-emerald-800/60 pb-6">
+                    <h2 class="text-3xl font-extrabold text-white">Terms of Service</h2>
+                    <p class="text-xs text-gold-400 mt-1">Effective Date: September 2026 — NASSAB Platform</p>
+                </div>
+
+                <div class="prose prose-invert max-w-none text-slate-300 space-y-6 text-sm leading-relaxed">
+                    <p>
+                        By accessing NASSAB or submitting genealogical information, you agree to comply with these Terms of Service.
+                    </p>
+
+                    <h3 class="text-lg font-bold text-white">1. Information Accuracy & Verification</h3>
+                    <p>
+                        NASSAB aims to preserve family history accurately. However, genealogical records often rely on historical documents, oral traditions, and user submissions. Disputed lineage claims are marked transparently within the platform.
+                    </p>
+
+                    <h3 class="text-lg font-bold text-white">2. User Submissions & Conduct</h3>
+                    <p>
+                        Users submitting updates or documents confirm that the information provided is accurate to the best of their knowledge and does not violate third-party copyrights or privacy rights.
+                    </p>
+
+                    <h3 class="text-lg font-bold text-white">3. Platform Intellectual Property</h3>
+                    <p>
+                        NASSAB application software, graph resolution algorithms, and visual branding are developed by <strong>CyberFantics</strong>. Public domain genealogical facts remain part of open family heritage.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-emerald-950 border-t border-emerald-800/60 py-12 text-xs text-slate-400">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <!-- LOGO & TAGLINE WITH LOGO.PNG -->
+                <div class="flex items-center space-x-3">
+                    <img src="logo.png" alt="NASSAB Logo" class="h-10 w-auto object-contain rounded-lg">
+                    <div>
+                        <div class="text-white font-bold text-lg tracking-wider">NASSAB</div>
+                        <div class="text-[12px] text-gold-400 font-urdu leading-normal">دیجیٹل شجرۂ نسب و تاریخ</div>
+                    </div>
+                </div>
+
+                <!-- FOOTER NAVIGATION -->
+                <div class="flex flex-wrap items-center justify-center gap-6 text-slate-300 font-medium">
+                    <button onclick="navTo('home')" class="hover:text-gold-400 transition-colors">Home</button>
+                    <button onclick="navTo('about')" class="hover:text-gold-400 transition-colors">About Us</button>
+                    <button onclick="navTo('features')" class="hover:text-gold-400 transition-colors">Features</button>
+                    <button onclick="navTo('contact')" class="hover:text-gold-400 transition-colors">Record Updates</button>
+                    <button onclick="navTo('privacy')" class="hover:text-gold-400 transition-colors">Privacy Policy</button>
+                    <button onclick="navTo('terms')" class="hover:text-gold-400 transition-colors">Terms of Service</button>
+                </div>
+
+                <!-- SOCIAL LINKS & DIRECT WHATSAPP -->
+                <div class="flex items-center space-x-4">
+                    <a href="https://wa.me/923408100868" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-full bg-emerald-900/80 border border-emerald-800 flex items-center justify-center text-emerald-400 hover:text-white hover:bg-emerald-800 transition-all" title="WhatsApp Direct Chat: 03408100868">
+                        <i class="fa-brands fa-whatsapp text-lg"></i>
+                    </a>
+                    <a href="https://facebook.com/cyberfantics?utm_source=chatgpt.com" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-full bg-emerald-900/80 border border-emerald-800 flex items-center justify-center text-slate-300 hover:text-gold-400 hover:bg-emerald-800 transition-all" title="Facebook">
+                        <i class="fa-brands fa-facebook-f text-base"></i>
+                    </a>
+                    <a href="https://instagram.com/cyberfantics?utm_source=chatgpt.com" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-full bg-emerald-900/80 border border-emerald-800 flex items-center justify-center text-slate-300 hover:text-gold-400 hover:bg-emerald-800 transition-all" title="Instagram">
+                        <i class="fa-brands fa-instagram text-base"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="pt-6 border-t border-emerald-900/80 flex flex-col sm:flex-row items-center justify-between text-slate-500 gap-4">
+                <p>© 2026 NASSAB. All rights reserved. Developed by <strong class="text-gold-400/80">CyberFantics</strong>.</p>
+                <p>WhatsApp: <strong class="text-emerald-400/80">+92 340 8100868</strong></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SUBMISSION CONFIRMATION MODAL OVERLAY -->
+    <div id="submission-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-emerald-950/80 backdrop-blur-md">
+        <div class="modal-enter relative w-full max-w-lg rounded-3xl bg-gradient-to-b from-emerald-900 to-emerald-950 border border-gold-500/40 p-6 sm:p-8 shadow-2xl space-y-6">
+            
+            <!-- CLOSE BUTTON -->
+            <button onclick="closeModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white p-2">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+
+            <!-- GLOWING SUCCESS ICON -->
+            <div class="text-center space-y-3">
+                <div class="w-16 h-16 rounded-full bg-gold-500/20 border border-gold-500/50 text-gold-400 text-3xl flex items-center justify-center mx-auto shadow-lg shadow-gold-500/20 animate-pulse">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <h3 class="text-2xl font-extrabold text-white">Ticket Created Successfully!</h3>
+                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-950 border border-gold-500/30 text-gold-400 font-mono text-xs">
+                    <span>Ticket Ref:</span>
+                    <strong id="modal-ticket-id">#NAS-2026-8392</strong>
+                </div>
+            </div>
+
+            <!-- TICKET SUMMARY BOX -->
+            <div class="p-4 rounded-2xl bg-emerald-950/80 border border-emerald-800 text-xs space-y-2">
+                <div class="flex justify-between border-b border-emerald-900 pb-2">
+                    <span class="text-slate-400">Submitter:</span>
+                    <strong id="modal-name" class="text-white">Ali Ahmed</strong>
+                </div>
+                <div class="flex justify-between border-b border-emerald-900 pb-2">
+                    <span class="text-slate-400">Email:</span>
+                    <span id="modal-email" class="text-gold-300 font-mono">ali@domain.com</span>
+                </div>
+                <div class="flex justify-between border-b border-emerald-900 pb-2">
+                    <span class="text-slate-400">Category:</span>
+                    <span id="modal-type" class="text-slate-200">New Record Addition</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-slate-400">Timestamp:</span>
+                    <span id="modal-timestamp" class="text-slate-400">Sep 23, 2026</span>
+                </div>
+            </div>
+
+            <p class="text-xs text-slate-300 text-center leading-relaxed">
+                Choose your preferred channel below to send this update directly to our verification team:
+            </p>
+
+            <!-- DUAL ACTION BUTTONS -->
+            <div class="space-y-3">
+                <button onclick="sendViaWhatsApp()" class="w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs tracking-wider uppercase shadow-lg flex items-center justify-center space-x-2 transition-all hover:scale-[1.01]">
+                    <i class="fa-brands fa-whatsapp text-xl"></i>
+                    <span>Send via WhatsApp (+92 340 8100868)</span>
+                </button>
+                <button onclick="sendViaEmail()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-gold-500 to-amber-600 hover:from-gold-400 hover:to-amber-500 text-emerald-950 font-bold text-xs tracking-wider uppercase shadow-md flex items-center justify-center space-x-2 transition-all hover:scale-[1.01]">
+                    <i class="fa-solid fa-envelope text-base"></i>
+                    <span>Send via Email (digital.creator380@gmail.com)</span>
+                </button>
+                <button onclick="copySubmissionPayload()" class="w-full py-2.5 rounded-xl bg-emerald-950 hover:bg-emerald-900 border border-emerald-800 text-slate-300 font-semibold text-xs flex items-center justify-center space-x-2 transition-all">
+                    <i class="fa-regular fa-copy"></i>
+                    <span>Copy Ticket Summary to Clipboard</span>
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+        <div class="px-5 py-3 rounded-2xl bg-gold-500 text-emerald-950 font-bold text-xs shadow-2xl flex items-center space-x-2">
+            <i class="fa-solid fa-circle-check text-base"></i>
+            <span id="toast-msg">Action completed successfully</span>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
