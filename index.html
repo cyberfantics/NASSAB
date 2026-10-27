@@ -1,354 +1,75 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NASSAB (نَسَب) — Digital Family Tree &amp; Heritage Preservation</title>
-<meta name="description" content="NASSAB — Family tree & heritage, done right. A Flutter and Firebase genealogy app in closed testing, with Rada'at kinship, Mahram guidance, privacy by design, and SHA-256 verified lineage certificates.">
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Home | NASSAB</title><meta name="description" content="NASSAB helps families record, organise and understand their lineage, with privacy built in. Currently in closed testing on Google Play.">
+<meta property="og:title" content="Home | NASSAB"><meta property="og:description" content="NASSAB helps families record, organise and understand their lineage, with privacy built in. Currently in closed testing on Google Play."><meta property="og:type" content="website">
+<link rel="canonical" href="https://nassab-nine.vercel.app/index.html">
 <link rel="icon" href="logo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
-</head>
-<body>
-<header class="site-header">
-  <div class="container header-inner">
-    <a href="#home" onclick="navTo('home')" class="brand">
-      <img src="logo.png" alt="NASSAB logo">
-      <span><span class="brand-name">NASSAB</span><br><span class="brand-sub">Family tree &amp; heritage, done right</span></span>
-    </a>
-    <nav class="main-nav" aria-label="Main navigation">
-      <button onclick="navTo('home')" id="nav-home" class="nav-btn">Home</button>
-      <button onclick="navTo('features')" id="nav-features" class="nav-btn">Features</button>
-      <button onclick="navTo('records')" id="nav-records" class="nav-btn">Records</button>
-      <button onclick="navTo('about')" id="nav-about" class="nav-btn">About</button>
-      <button onclick="navTo('privacy')" id="nav-privacy" class="nav-btn">Privacy</button>
-      <button onclick="navTo('contact')" id="nav-contact" class="nav-btn">Contact</button>
-      <a class="btn btn-primary btn-small" href="https://play.google.com/apps/testing/com.cyberfantics.nassab" target="_blank" rel="noopener noreferrer">Join closed testing</a>
-    </nav>
-    <button class="menu-toggle" id="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Open menu"><span id="menu-icon">☰</span></button>
-  </div>
-  <div id="mobile-menu" class="mobile-menu">
-    <button onclick="navTo('home'); toggleMobileMenu()">Home</button>
-    <button onclick="navTo('features'); toggleMobileMenu()">Features</button>
-    <button onclick="navTo('records'); toggleMobileMenu()">Records</button>
-    <button onclick="navTo('about'); toggleMobileMenu()">About</button>
-    <button onclick="navTo('privacy'); toggleMobileMenu()">Privacy</button>
-    <button onclick="navTo('contact'); toggleMobileMenu()">Contact</button>
-    <a class="btn btn-primary btn-small" href="https://play.google.com/apps/testing/com.cyberfantics.nassab" target="_blank" rel="noopener noreferrer">Join closed testing</a>
-  </div>
-</header>
-
-<main>
-<!-- HOME -->
-<section id="page-home" class="page-section">
-  <div class="container hero">
-    <div class="hero-grid">
-      <div>
-        <span class="eyebrow">Genealogy &amp; heritage preservation</span>
-        <h1>Your family history, beautifully preserved.</h1>
-        <p class="lede">A thoughtful home for your family tree. NASSAB helps families record, organise, and understand their lineage — including complex relationships that ordinary family trees leave out — with privacy built in from the start.</p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="https://play.google.com/apps/testing/com.cyberfantics.nassab" target="_blank" rel="noopener noreferrer">Join closed testing</a>
-          <button class="btn btn-outline" onclick="navTo('features')">Explore features</button>
-          <button class="btn btn-outline" onclick="scrollToShowcase()">View app screenshots</button>
-        </div>
-        <p class="small muted">Closed testing only. The testing link works for people on the tester list; if you are not on the list, request access at <a href="mailto:digital.creator380@gmail.com">digital.creator380@gmail.com</a>. The app is not publicly listed yet.</p>
-        <div class="rule"></div>
-        <p class="small muted">Founded and led by Syed Mansoor ul Hassan Bukhari, Founder &amp; Lead Developer, August 2026 to present, Rawalpindi, Pakistan. Developed by CyberFantics.</p>
-      </div>
-      <div class="diagram" aria-label="How Nassab models a family">
-        <h3>How a family is modelled</h3>
-        <div class="diagram-node"><strong>Ancestor</strong><span>The starting point of a recorded lineage.</span></div>
-        <div class="diagram-branch">
-          <div class="diagram-node"><strong>Descendant line</strong><span>Children and later generations, without duplicate records.</span></div>
-          <div class="diagram-node"><strong>Rada'at branch</strong><span>Milk-kinship, recorded as its own relationship type.</span></div>
-          <div class="diagram-node"><strong>Marriage history</strong><span>Current and former marriages kept distinct, with history preserved.</span></div>
-        </div>
-        <p class="diagram-note">Diagram is illustrative only. It shows relationship types, not a real family, and contains no personal names, dates, or records.</p>
-      </div>
-    </div>
-    <div class="trust-strip">
-      <div><strong>Closed testing on Google Play</strong><span>Flutter &amp; Firebase mobile app, Alpha track.</span></div>
-      <div><strong>30 testers</strong><span>On the tester list for closed testing.</span></div>
-      <div><strong>SHA-256 integrity</strong><span>Lineage certificates carry a SHA-256 hash for document-integrity checking.</span></div>
-    </div>
-  </div>
-
-  <div class="container section">
-    <span class="eyebrow">What makes Nassab different</span>
-    <h2>Built for real families, not simple trees.</h2>
-    <p class="lede">Traditional records often hide female branches, flatten remarriages, and ignore milk-kinship. Nassab records those relationships properly, and keeps private information protected.</p>
-    <div class="grid-3">
-      <div class="card"><div class="icon-line">—</div><h3>Rada'at, as its own relationship</h3><p>Milk-kinship is handled distinctly from blood and marriage relationships, rather than folded into a generic tree.</p></div>
-      <div class="card"><div class="icon-line">—</div><h3>Mahram &amp; marriage eligibility</h3><p>Mahram relationships and marriage eligibility are interpreted from the recorded kinship structure. Where evidence is missing, the answer stays undetermined — never guessed.</p></div>
-      <div class="card"><div class="icon-line">—</div><h3>Privacy by design</h3><p>Protected female names are masked, and a guest mode is available, so family information is not exposed by default.</p></div>
-    </div>
-    <p style="margin-top:24px"><button class="btn btn-outline" onclick="navTo('features')">See all features</button></p>
-  </div>
-
-  <div class="container section">
-    <span class="eyebrow">How it works</span>
-    <h2>Three steps, clearly separated.</h2>
-    <div class="grid-3">
-      <div class="card"><h3>1. Record</h3><p>Add family members and relationships, or submit a record update for review through the Records page.</p></div>
-      <div class="card"><h3>2. Review</h3><p>Updates are checked before they change a record. Disputed claims are marked transparently, not silently overwritten.</p></div>
-      <div class="card"><h3>3. Preserve</h3><p>Records are kept as a connected lineage, and lineage certificates can be issued with a SHA-256 integrity hash.</p></div>
-    </div>
-  </div>
-
-  <div class="container section">
-    <span class="eyebrow">Privacy &amp; certificates</span>
-    <h2>Private by design. Verifiable, in a precise sense.</h2>
-    <p class="lede">Exact birthdates, contact details, and personal details of living individuals are restricted and masked from public indexing unless the record owner gives explicit permission.</p>
-    <div class="callout" style="margin-top:28px">
-      <p><strong>About certificates, stated plainly:</strong> a lineage certificate carries a SHA-256 hash so the document itself can be integrity-checked. Nassab is not blockchain-verified, and its certificates are not legally certified ancestry. That distinction matters, and it is kept in all Nassab wording.</p>
-    </div>
-  </div>
-
-  <div class="container section">
-    <span class="eyebrow">App status</span>
-    <h2>Currently in closed testing.</h2>
-    <p class="lede">The Nassab mobile app (Flutter &amp; Firebase, package com.cyberfantics.nassab) is in closed Play testing. It is not publicly listed yet. A public rollout will be announced when testing is complete; until then, access is through the tester list only.</p>
-    <div class="hero-actions">
-      <a class="btn btn-primary" href="https://play.google.com/apps/testing/com.cyberfantics.nassab" target="_blank" rel="noopener noreferrer">Join closed testing</a>
-      <a class="btn btn-outline" href="mailto:digital.creator380@gmail.com">Request access by email</a>
-    </div>
-  </div>
-
-  <div class="container section" id="showcase">
-    <span class="eyebrow">App showcase</span>
-    <h2>See the app, as it looks today.</h2>
-    <p class="lede">Real screens from the Nassab app in closed testing. Tap any image to view it larger. Screenshots are added to this site only after they are uploaded to the <code>images/</code> folder; any image not yet uploaded is hidden automatically, so no broken image is shown.</p>
-    <div class="gallery" id="gallery">
-      <figure class="gallery-item" data-index="0">
-        <button type="button" class="gallery-btn" onclick="openLightbox(0)" aria-label="Enlarge Welcome screenshot"><img src="images/app-welcome.jpg" alt="Nassab welcome screen" loading="lazy" onerror="hideGalleryItem(this)"></button>
-        <figcaption>Welcome</figcaption>
-      </figure>
-      <figure class="gallery-item" data-index="1">
-        <button type="button" class="gallery-btn" onclick="openLightbox(1)" aria-label="Enlarge Explore screenshot"><img src="images/app-explore.jpg" alt="Explore historical people screen" loading="lazy" onerror="hideGalleryItem(this)"></button>
-        <figcaption>Explore historical people</figcaption>
-      </figure>
-      <figure class="gallery-item" data-index="2">
-        <button type="button" class="gallery-btn" onclick="openLightbox(2)" aria-label="Enlarge Family tree screenshot"><img src="images/app-tree.jpg" alt="Family tree screen" loading="lazy" onerror="hideGalleryItem(this)"></button>
-        <figcaption>Family tree</figcaption>
-      </figure>
-      <figure class="gallery-item" data-index="3">
-        <button type="button" class="gallery-btn" onclick="openLightbox(3)" aria-label="Enlarge Person detail screenshot"><img src="images/app-person.jpg" alt="Person detail screen" loading="lazy" onerror="hideGalleryItem(this)"></button>
-        <figcaption>Person detail</figcaption>
-      </figure>
-      <figure class="gallery-item" data-index="4">
-        <button type="button" class="gallery-btn" onclick="openLightbox(4)" aria-label="Enlarge Fan chart screenshot"><img src="images/app-fan.jpg" alt="Fan chart screen" loading="lazy" onerror="hideGalleryItem(this)"></button>
-        <figcaption>Fan chart</figcaption>
-      </figure>
-      <figure class="gallery-item" data-index="5">
-        <button type="button" class="gallery-btn" onclick="openLightbox(5)" aria-label="Enlarge Verify certificate screenshot"><img src="images/app-verify.jpg" alt="Verify certificate screen" loading="lazy" onerror="hideGalleryItem(this)"></button>
-        <figcaption>Verify certificate</figcaption>
-      </figure>
-    </div>
-    <div class="showcase-note" id="gallery-note">
-      <p style="margin:0"><strong>App screenshots are being added.</strong> If a screen above is not visible yet, its image has not been uploaded to <code>images/</code> yet. The six files are: <code>images/app-welcome.jpg</code>, <code>images/app-explore.jpg</code>, <code>images/app-tree.jpg</code>, <code>images/app-person.jpg</code>, <code>images/app-fan.jpg</code>, and <code>images/app-verify.jpg</code>. No placeholder images are used, and no personal names appear in the captions.</p>
-    </div>
-  </div>
-
-  <div class="container section">
-    <span class="eyebrow">About</span>
-    <h2>Preserving heritage, with care for accuracy.</h2>
-    <p class="lede">NASSAB combines traditional genealogical records with modern software, so family history can be preserved digitally for future generations — without overstating what a record can prove.</p>
-    <p><button class="btn btn-outline" onclick="navTo('about')">Read about Nassab</button></p>
-  </div>
-</section>
-
-<!-- FEATURES -->
-<section id="page-features" class="page-section hidden">
-  <div class="container section">
-    <span class="eyebrow">Features</span>
-    <h2>Features, in plain terms.</h2>
-    <p class="lede">A genealogy platform for complete family relationships, including male and female descendants, marriages, divorces, remarriages, children from different marriages, and other complex connections — without duplicate records.</p>
-    <div class="grid-3">
-      <div class="card"><h3>Rada'at kinship</h3><p>Milk-kinship is recorded as its own relationship type, distinct from blood and marriage relationships.</p></div>
-      <div class="card"><h3>Mahram &amp; marriage eligibility</h3><p>Interpreted from the recorded kinship structure. Where evidence is missing, the result stays undetermined, never guessed.</p></div>
-      <div class="card"><h3>Privacy by design</h3><p>Protected female names are masked, and guest mode is available. Family-aware permissions are enforced, not just hidden on screen.</p></div>
-      <div class="card"><h3>Lineage certificates</h3><p>Certificates carry a SHA-256 hash for document-integrity checking. Not blockchain-verified, not legally certified ancestry.</p></div>
-      <div class="card"><h3>Equal female &amp; male representation</h3><p>Daughters, mothers, and female ancestors are mapped with complete historical context, not obscured.</p></div>
-      <div class="card"><h3>Remarriages &amp; step-relations</h3><p>Divorces, multiple marriages, half-siblings, and step-children are represented accurately, without creating duplicate person records.</p></div>
-      <div class="card"><h3>Relationship explanation</h3><p>The nearest shared ancestor between two people is used to generate a clear, human-readable explanation of how they are related.</p></div>
-      <div class="card"><h3>Evidence &amp; dispute tracking</h3><p>Relationships can be backed by birth certificates, family manuscripts, or oral testimony, with confidence noted. Disputed claims are marked transparently.</p></div>
-      <div class="card"><h3>Secure digital archiving</h3><p>Records are kept in a cloud-synced structure so family history remains preserved for future generations.</p></div>
-      <div class="card"><h3>Record updates &amp; verification</h3><p>New records, corrections, and lineage documents can be submitted for review through the Records page, with a ticket reference.</p></div>
-      <div class="card"><h3>Explore historical people</h3><p>Browse recorded historical people, search by name, and filter the list, with each person shown as a read-only historical record where applicable.</p></div>
-      <div class="card"><h3>Family tree, horizontal and fan views</h3><p>View a lineage as a horizontal tree, or as a fan chart, and move the focus between generations without losing the recorded structure.</p></div>
-      <div class="card"><h3>Person detail, marriage history &amp; children</h3><p>Open a person to see spouses, marriage history, and children, kept distinct by marriage, with the recorded status shown plainly.</p></div>
-      <div class="card"><h3>Verify Chronicle</h3><p>Verify a lineage certificate by PDF file for anti-tamper integrity, or by Serial ID. Certificates use SHA-256 document-integrity checking. Not blockchain-verified, not legally certified ancestry.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- RECORDS -->
-<section id="page-records" class="page-section hidden">
-  <div class="container section">
-    <span class="eyebrow">Record updates</span>
-    <h2>Submit a record update.</h2>
-    <p class="lede">Submit new family members, corrections, birth records, or lineage documentation. A verification team will review your ticket. This form creates a local ticket in your browser; sending it by email or WhatsApp is a separate step from the confirmation window.</p>
-    <div class="form-grid">
-      <div>
-        <form id="record-form" onsubmit="handleFormSubmit(event)">
-          <div class="field"><label for="form-name">Your name</label><input type="text" id="form-name" required placeholder="Your full name"></div>
-          <div class="field"><label for="form-email">Email</label><input type="email" id="form-email" required placeholder="name@domain.com"></div>
-          <div class="field"><label for="form-phone">Phone / WhatsApp (optional)</label><input type="text" id="form-phone" placeholder="Phone or WhatsApp number"></div>
-          <div class="field"><label for="form-branch">Family branch (optional)</label><input type="text" id="form-branch" placeholder="General Lineage"></div>
-          <div class="field"><label for="form-type">Category</label>
-            <select id="form-type">
-              <option>New Record Addition</option>
-              <option>Correction of Existing Record</option>
-              <option>Lineage Document / Shajra Submission</option>
-              <option>Disputed Claim Review</option>
-              <option>General Inquiry</option>
-            </select>
-          </div>
-          <div class="field"><label for="form-details">Update details</label><textarea id="form-details" rows="5" required placeholder="Describe the person, relationship, or correction, with the details needed to check it."></textarea></div>
-          <div class="field"><label>Supporting document (optional)</label>
-            <div class="file-box"><input type="file" id="form-file" onchange="handleFileSelect(event)"><span>Choose a file, or drop it here</span><div id="file-status" class="hidden small" style="margin-top:8px"></div></div>
-          </div>
-          <button type="submit" class="btn btn-primary">Create update ticket</button>
-        </form>
-      </div>
-      <div>
-        <div class="preview-card">
-          <h3>Live preview</h3>
-          <p><strong id="prev-name">Your Name</strong></p>
-          <p class="small muted" id="prev-email">your.email@domain.com</p>
-          <p class="small"><span id="prev-type">New Record Addition</span> — <span id="prev-branch">General Lineage</span></p>
-          <p class="small">Phone: <span id="prev-phone">Not provided</span></p>
-          <p id="prev-details" style="font-style:italic">Your update details will appear here as you type...</p>
-        </div>
-        <div style="margin-top:24px">
-          <h3>Your submitted requests</h3>
-          <p class="small muted">Records of update tickets created in this session, stored in this browser only.</p>
-          <button class="btn btn-outline btn-small" onclick="clearSubmissionHistory()">Clear history</button>
-          <div id="submissions-history-list" style="margin-top:16px"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section id="page-about" class="page-section hidden">
-  <div class="container section">
-    <span class="eyebrow">About Nassab</span>
-    <h2>About Nassab.</h2>
-    <div class="toggle-group" style="margin-bottom:28px">
-      <button id="toggle-modern" onclick="switchAboutStyle('modern')" class="toggle-active">Modern overview</button>
-      <button id="toggle-traditional" onclick="switchAboutStyle('traditional')">Traditional perspective</button>
-    </div>
-    <div id="about-content-modern">
-      <p class="lede">NASSAB is a digital genealogy project dedicated to preserving, organising, and exploring family records and Shajra. It is designed to represent complete family relationships, including male and female descendants, marriages, divorces, remarriages, children from different marriages, and other complex connections.</p>
-      <p>Users can explore individuals within a genealogy, discover ancestors and descendants, and understand how they are related to other people in the recorded family tree. The aim is to combine traditional genealogical records with modern technology so family history can be preserved digitally for future generations.</p>
-      <p><strong>Founder &amp; Lead Developer:</strong> Syed Mansoor ul Hassan Bukhari, August 2026 to present, Rawalpindi, Pakistan. Developed by CyberFantics. Mobile app: Flutter &amp; Firebase, in closed Play testing, package com.cyberfantics.nassab, not publicly listed yet.</p>
-      <div class="callout" style="margin-top:28px"><p><strong>Contact:</strong> <a href="mailto:digital.creator380@gmail.com">digital.creator380@gmail.com</a> · <a href="https://www.instagram.com/nassabapp/" target="_blank" rel="noopener noreferrer">Instagram @nassabapp</a> · <a href="https://facebook.com/NassabApp" target="_blank" rel="noopener noreferrer">Facebook — Nassab</a></p></div>
-    </div>
-    <div id="about-content-traditional" class="hidden">
-      <h3 class="font-urdu">محافظتِ نسب و شجرۂ طیبہ</h3>
-      <p class="font-urdu" dir="rtl">نَسب (Nassab) ایک جدید الرقمي منصوبہ ہے جس کا مقصد اسلاف (Ancestors) کی تاریخ، شجرۂ نسب، اور خلف (Descendants) کے تمام سلسلہ کو محفوظ و منظم کرنا ہے۔ یہ پلیٹ فارم روایتی خاندانی ریکارڈز، شجرہ جات، اور سلسلوں کو جدید ترین سائنس و ٹیکنالوجی کے ساتھ ہم آہنگ کرتا ہے۔ اس میں تمام رشتوں — بشمول مرد و خواتین کی اولاد، متعدد ازواج، مطلقہ، اور سوتیلے رشتوں — کی کامل اور شفاف عکاسی کی گئی ہے تاکہ نسلِ نو اپنے آباؤ اجداد کی تاریخ کو بخوبی سمجھ سکے۔</p>
-      <p>“احفظوا من أنسابكم ما تصلون به أرحامكم” — Preserve your lineage, through which you maintain family ties.</p>
-    </div>
-  </div>
-</section>
-
-<!-- PRIVACY -->
-<section id="page-privacy" class="page-section hidden">
-  <div class="container section">
-    <span class="eyebrow">Privacy policy</span>
-    <h2>Privacy Policy</h2>
-    <p class="muted">Last updated: October 2026 — NASSAB Platform</p>
-    <h3>1. Protection of living individuals</h3>
-    <p>To safeguard privacy, exact birthdates, contact information, and personal details of living individuals are restricted and masked from public indexing unless explicit permission is provided by the record owner.</p>
-    <h3>2. Genealogical information &amp; public records</h3>
-    <p>NASSAB compiles family relationships, historical lineage connections, and ancestor data. Historical records for deceased individuals form part of the digital heritage archive for future generations.</p>
-    <h3>3. Information submitted via contact forms</h3>
-    <p>When you submit record updates, documents, or inquiries to <a href="mailto:digital.creator380@gmail.com">digital.creator380@gmail.com</a> or WhatsApp, your contact details are used strictly for verification and correspondence regarding your request.</p>
-    <h3>4. Data correction &amp; deletion rights</h3>
-    <p>If you are a living member represented within NASSAB and wish to correct, update, or request the redaction of your personal record, please contact us at <a href="mailto:digital.creator380@gmail.com">digital.creator380@gmail.com</a>.</p>
-  </div>
-</section>
-
-<!-- TERMS -->
-<section id="page-terms" class="page-section hidden">
-  <div class="container section">
-    <span class="eyebrow">Terms of service</span>
-    <h2>Terms of Service</h2>
-    <p class="muted">Effective date: October 2026 — NASSAB Platform</p>
-    <h3>1. Information accuracy &amp; verification</h3>
-    <p>NASSAB aims to preserve family history accurately. However, genealogical records often rely on historical documents, oral traditions, and user submissions. Disputed lineage claims are marked transparently within the platform.</p>
-    <h3>2. User submissions &amp; conduct</h3>
-    <p>Users submitting updates or documents confirm that the information provided is accurate to the best of their knowledge and does not violate third-party copyrights or privacy rights.</p>
-    <h3>3. Platform intellectual property</h3>
-    <p>NASSAB application software, graph resolution algorithms, and visual branding are developed by CyberFantics. Public domain genealogical facts remain part of open family heritage.</p>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="page-contact" class="page-section hidden">
-  <div class="container section">
-    <span class="eyebrow">Contact</span>
-    <h2>Contact Nassab.</h2>
-    <p class="lede">For record updates, use the Records page. For general contact, use the options below.</p>
-    <div class="grid-2">
-      <div class="card"><h3>Email</h3><p><a href="mailto:digital.creator380@gmail.com">digital.creator380@gmail.com</a></p><p class="small muted">For record updates, testing access requests, and corrections.</p></div>
-      <div class="card"><h3>Social</h3><p><a href="https://www.instagram.com/nassabapp/" target="_blank" rel="noopener noreferrer">Instagram — @nassabapp</a><br><a href="https://facebook.com/NassabApp" target="_blank" rel="noopener noreferrer">Facebook — Nassab</a></p><p class="small muted">Follow for testing updates and announcements.</p></div>
-      <div class="card"><h3>Closed testing</h3><p><a href="https://play.google.com/apps/testing/com.cyberfantics.nassab" target="_blank" rel="noopener noreferrer">Join closed testing</a></p><p class="small muted">Tester-list only. The app is not publicly listed yet.</p></div>
-      <div class="card"><h3>Record updates</h3><p><button class="btn btn-outline btn-small" onclick="navTo('records')">Go to the Records page</button></p><p class="small muted">Submit a new record, a correction, or a lineage document for review.</p></div>
-    </div>
-  </div>
-</section>
-</main>
-
-<footer class="site-footer">
-  <div class="container footer-grid">
-    <div>
-      <p><strong style="font-family:Fraunces,Georgia,serif;font-size:1.3rem">NASSAB</strong><br><span class="muted small">Family tree &amp; heritage, done right. Developed by CyberFantics.</span></p>
-      <p class="small muted">Founder &amp; Lead Developer: Syed Mansoor ul Hassan Bukhari, August 2026 to present, Rawalpindi, Pakistan.</p>
-    </div>
-    <div>
-      <p><strong>Site</strong></p>
-      <p><button onclick="navTo('home')">Home</button><br><button onclick="navTo('features')">Features</button><br><button onclick="navTo('records')">Records</button><br><button onclick="navTo('about')">About</button></p>
-    </div>
-    <div>
-      <p><strong>Legal &amp; contact</strong></p>
-      <p><button onclick="navTo('privacy')">Privacy Policy</button><br><button onclick="navTo('terms')">Terms of Service</button><br><a href="mailto:digital.creator380@gmail.com">digital.creator380@gmail.com</a><br><a href="https://www.instagram.com/nassabapp/" target="_blank" rel="noopener noreferrer">Instagram @nassabapp</a></p>
-    </div>
-  </div>
-  <div class="container"><p class="small muted" style="border-top:1px solid #e5e0d5;padding-top:20px">© 2026 NASSAB / CyberFantics. Lineage certificates use SHA-256 document-integrity checking; they are not blockchain-verified and not legally certified ancestry.</p></div>
-</footer>
-
-<div id="submission-modal" class="modal-backdrop">
-  <div class="modal">
-    <button class="modal-close" onclick="closeModal()" aria-label="Close">✕</button>
-    <h2>Ticket created</h2>
-    <p>Ticket: <strong id="modal-ticket-id"></strong></p>
-    <p>Name: <strong id="modal-name"></strong><br>Email: <span id="modal-email"></span><br>Type: <span id="modal-type"></span><br>Submitted: <span id="modal-timestamp"></span></p>
-    <p class="small muted">Send this ticket by email or WhatsApp to complete your submission, or copy the summary.</p>
-    <div style="display:grid;gap:10px">
-      <button class="btn btn-primary" onclick="sendViaWhatsApp()">Send via WhatsApp</button>
-      <button class="btn btn-outline" onclick="sendViaEmail()">Send via email</button>
-      <button class="btn btn-outline" onclick="copySubmissionPayload()">Copy ticket summary</button>
-    </div>
-  </div>
-</div>
-
-<div id="toast" class="toast"><span id="toast-msg">Action completed successfully</span></div>
-
-
-<div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Screenshot viewer">
-  <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close">✕</button>
-  <button class="lightbox-nav lightbox-prev" onclick="lightboxPrev()" aria-label="Previous screenshot">‹</button>
-  <img id="lightbox-img" src="logo.png" alt="">
-  <p id="lightbox-caption"></p>
-  <button class="lightbox-nav lightbox-next" onclick="lightboxNext()" aria-label="Next screenshot">›</button>
-</div>
-
-<script src="script.js"></script>
-</body>
-</html>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css"></head>
+<body><a class="skip" href="#main">Skip to main content</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><clipPath id="nassab-octa" clipPathUnits="objectBoundingBox"><path d="M0.29,0 L0.71,0 Q0.76,0 0.79,0.03 L0.97,0.21 Q1,0.24 1,0.29 L1,0.71 Q1,0.76 0.97,0.79 L0.79,0.97 Q0.76,1 0.71,1 L0.29,1 Q0.24,1 0.21,0.97 L0.03,0.79 Q0,0.76 0,0.71 L0,0.29 Q0,0.24 0.03,0.21 L0.21,0.03 Q0.24,0 0.29,0 Z"/></clipPath></defs></svg>
+<header class="site-header"><div class="wrap header-inner">
+<a class="brand" href="index.html"><img src="logo.png" alt="NASSAB logo" width="48" height="48"><span><span class="brand-name">NASSAB</span><br><span class="brand-tag">Family tree &amp; heritage, done right.</span></span></a>
+<nav class="main-nav" aria-label="Main navigation"><a href="index.html" aria-current="page">Home</a><a href="features.html">Features</a><a href="gallery.html">App Gallery</a><a href="records.html">Records</a><a href="about.html">About</a><a href="privacy.html">Privacy</a><a href="contact.html">Contact</a><a class="btn btn-primary" href="https://play.google.com/apps/testing/com.cyberfantics.nassab" target="_blank" rel="noopener noreferrer">Join closed testing</a></nav>
+<button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="mobile-menu" onclick="toggleMobileMenu()">☰ Menu</button>
+</div><nav class="wrap mobile-nav" id="mobile-menu" aria-label="Mobile navigation"><a href="index.html">Home</a><a href="features.html">Features</a><a href="gallery.html">App Gallery</a><a href="records.html">Records</a><a href="about.html">About</a><a href="privacy.html">Privacy</a><a href="contact.html">Contact</a><a href="https://play.google.com/apps/testing/com.cyberfantics.nassab" target="_blank" rel="noopener noreferrer">Join closed testing</a></nav></header>
+<main id="main"><section class="section"><div class="wrap hero"><div>
+<p class="eyebrow">Genealogy &amp; heritage preservation</p><div class="gold-rule"></div>
+<h1>Your family history,<br>beautifully preserved.</h1>
+<p class="lede">A thoughtful home for your family tree.</p>
+<p>NASSAB helps families record, organise, and understand their lineage, including complex relationships that ordinary family trees leave out, with privacy built in from the start.</p>
+<div class="hero-actions"><a class="btn btn-primary" href="https://play.google.com/apps/testing/com.cyberfantics.nassab" target="_blank" rel="noopener noreferrer">Join closed testing</a><a class="btn btn-secondary" href="features.html">Explore features</a><a class="btn btn-text" href="gallery.html">View app screenshots →</a></div>
+<p class="small"><strong>Currently in closed testing on Google Play.</strong></p>
+<p class="note small">Closed testing only. The testing link works for people on the approved tester list. If you are not on the list, request access at <a href="mailto:digital.creator380@gmail.com">digital.creator380@gmail.com</a>. The app is not publicly listed yet.</p>
+</div><div class="phones" aria-label="NASSAB app screenshots">
+<div class="phone phone-main"><img src="images/app-welcome.jpg" data-img-fallback="images/Screenshot_20261027-112655.jpg.jpeg" alt="NASSAB welcome screen: Your family history, beautifully preserved" fetchpriority="high"></div>
+<div class="phone phone-sub"><img src="images/app-tree.jpg" data-img-fallback="images/Screenshot_20261027-112749.jpg.jpeg" alt="NASSAB family tree screen" loading="lazy"></div>
+</div></div></section>
+<section class="section"><div class="wrap"><p class="eyebrow">Interactive app experience</p><h2>Explore NASSAB</h2><p class="lede">A closer look at the tools that help preserve and understand your lineage.</p>
+<div class="showcase"><div class="showcase-phone"><img id="showcase-img" src="images/app-tree.jpg" data-img-fallback="images/Screenshot_20261027-112749.jpg.jpeg" alt="Family Tree screen from the NASSAB app"></div>
+<div><div class="showcase-nav" role="group" aria-label="App features">
+<button class="active" onclick="selectShowcase(0)"><strong>Family Tree</strong><br><span class="muted">Horizontal tree, focus and marriage structure.</span></button>
+<button onclick="selectShowcase(1)"><strong>Historical People</strong><br><span class="muted">Browse recorded historical people.</span></button>
+<button onclick="selectShowcase(2)"><strong>Person Profiles</strong><br><span class="muted">Spouses, marriage history and children.</span></button>
+<button onclick="selectShowcase(3)"><strong>Fan Chart</strong><br><span class="muted">Generations as a fan, paternal and maternal routes.</span></button>
+<button onclick="selectShowcase(4)"><strong>Chronicle Verification</strong><br><span class="muted">PDF or Serial ID, SHA-256 integrity checking.</span></button>
+</div><h3 id="showcase-title">Family Tree</h3><p id="showcase-desc">View a lineage as a horizontal tree, move the focus between generations, and keep marriages and children distinct.</p></div></div></div></section>
+<section class="section"><div class="wrap"><p class="eyebrow">What makes NASSAB different</p><h2>More than a family tree.</h2><p class="lede">Family history is rarely a simple chain of names. NASSAB is designed to preserve the relationships and context that matter.</p>
+<div class="grid3"><div class="panel"><p class="icon">◇</p><h3>Rada'at relationships</h3><p>Milk-kinship relationships can be represented separately from biological relationships, rather than folded into a generic tree.</p></div>
+<div class="panel"><p class="icon">◇</p><h3>Mahram and marriage eligibility</h3><p>NASSAB supports relationship-based analysis and information on relevant kinship considerations. It is not presented as a final religious or legal authority.</p></div>
+<div class="panel"><p class="icon">◇</p><h3>Privacy by design</h3><p>Sensitive information about living individuals is restricted according to access permissions, with protected names masked and a guest mode available.</p></div></div>
+<p><a class="btn btn-secondary" href="features.html">Explore all features</a></p></div></section>
+<section class="section"><div class="wrap"><p class="eyebrow">Relationship diagram</p><h2>Every connection has a story.</h2><p class="lede">An abstract diagram of relationship types. Select a concept to see what it means.</p>
+<div class="diagram" role="group" aria-label="Relationship concepts">
+<button class="active" onclick="selectDiagram('ancestor',this)">Ancestor</button><button onclick="selectDiagram('descendant',this)">Descendant line</button><button onclick="selectDiagram('radaat',this)">Rada'at branch</button><button onclick="selectDiagram('marriage',this)">Marriage history</button>
+</div><div class="diagram-detail" id="diagram-detail">Ancestor — the starting point of a recorded lineage. Other relationships are described from this point, without inventing dates or records.</div>
+<p class="small muted">Diagram is illustrative only. It shows relationship types, not a real family, and contains no personal names, dates, or records.</p></div></section>
+<section class="section"><div class="wrap"><p class="eyebrow">App gallery preview</p><h2>Crafted to preserve generations.</h2><p class="lede">Explore real screens from the NASSAB application.</p>
+<div class="gallery-grid">
+<article class="gallery-item"><div class="octa-wrap"><div class="octa"><img src="images/app-welcome.jpg" data-img-fallback="images/Screenshot_20261027-112655.jpg.jpeg" alt="NASSAB welcome screen" loading="lazy" onclick="openLightbox(0)" style="cursor:pointer"></div></div><h3>1. Welcome</h3><p class="muted">The opening screen of NASSAB.</p></article>
+<article class="gallery-item"><div class="octa-wrap"><div class="octa"><img src="images/app-tree.jpg" data-img-fallback="images/Screenshot_20261027-112749.jpg.jpeg" alt="NASSAB family tree screen" loading="lazy" onclick="openLightbox(2)" style="cursor:pointer"></div></div><h3>3. Family tree</h3><p class="muted">A horizontal view of a recorded lineage.</p></article>
+<article class="gallery-item"><div class="octa-wrap"><div class="octa"><img src="images/app-fan.jpg" data-img-fallback="images/Screenshot_20261027-112900.jpg.jpeg" alt="NASSAB fan chart screen" loading="lazy" onclick="openLightbox(4)" style="cursor:pointer"></div></div><h3>5. Fan chart</h3><p class="muted">Generations shown as a fan, with a movable focus.</p></article>
+</div><p><a class="btn btn-primary" href="gallery.html">View complete gallery</a></p></div></section>
+<section class="section"><div class="wrap"><p class="eyebrow">Privacy and certificates</p><h2>Preserved with care. Verified with clarity.</h2><div class="grid2">
+<div><h3>Privacy</h3><p>Exact birthdates and contact details of living individuals are restricted and masked according to applicable privacy rules. Protected female names are masked, and guest exploration is read-only where applicable.</p></div>
+<div><h3>Certificates</h3><p>NASSAB lineage certificates carry a SHA-256 hash to support document-integrity checking. SHA-256 helps detect changes to document content when the hash is compared with a trusted reference. A hash alone does not establish who issued the document. NASSAB is not blockchain verified. Certificates are not legally certified proof of ancestry. Document integrity does not establish the historical accuracy of recorded lineage.</p></div>
+</div></div></section>
+<section class="section"><div class="wrap"><p class="eyebrow">How it works</p><h2>From a name to a lasting record.</h2><div class="timeline">
+<div><p class="step-num">01</p><h3>Record</h3><p>Capture family members, relationships, and known details, or submit a record update for review.</p></div>
+<div><p class="step-num">02</p><h3>Review</h3><p>Examine connections, correct details, and organise evidence. Disputed claims are marked transparently.</p></div>
+<div><p class="step-num">03</p><h3>Preserve</h3><p>Maintain accessible family records and generate supported lineage documents with SHA-256 integrity checking.</p></div>
+</div></div></section>
+<section class="section"><div class="wrap"><p class="eyebrow">Closed testing</p><h2>Help shape the future of NASSAB.</h2><p class="lede">The NASSAB mobile app is a Flutter and Firebase application, Android package <code>com.cyberfantics.nassab</code>, in Google Play closed testing on the Alpha track, with 30 testers on the tester list. That number is the tester list size, not downloads or active users. The app is not publicly listed yet, and no release date is promised here.</p>
+<div class="hero-actions"><a class="btn btn-primary" href="https://play.google.com/apps/testing/com.cyberfantics.nassab" target="_blank" rel="noopener noreferrer">Join closed testing</a><a class="btn btn-secondary" href="mailto:digital.creator380@gmail.com">Request access by email</a></div></div></section></main>
+<footer class="site-footer"><div class="wrap"><div class="footer-grid">
+<div><p><strong>NASSAB</strong><br>Family tree &amp; heritage, done right.<br><span class="muted">A digital genealogy and family heritage platform, preserving lineage with care for accuracy and privacy.</span></p><p>Developed by <strong>CyberFantics</strong></p></div>
+<div><p><strong>Navigate</strong><br><a href="index.html">Home</a><br><a href="features.html">Features</a><br><a href="gallery.html">App Gallery</a><br><a href="records.html">Records</a></p></div>
+<div><p><strong>More</strong><br><a href="about.html">About</a><br><a href="privacy.html">Privacy</a><br><a href="terms.html">Terms</a><br><a href="contact.html">Contact</a></p></div>
+</div><div class="divider"></div>
+<p><a href="https://www.instagram.com/nassabapp/" target="_blank" rel="noopener noreferrer">Instagram @nassabapp</a> · <a href="https://facebook.com/NassabApp" target="_blank" rel="noopener noreferrer">Facebook Nassab</a> · <a href="mailto:digital.creator380@gmail.com">digital.creator380@gmail.com</a> · <a class="btn btn-primary" href="https://play.google.com/apps/testing/com.cyberfantics.nassab" target="_blank" rel="noopener noreferrer">Join closed testing</a></p>
+<p class="small muted">The NASSAB app is in closed Google Play testing and is not publicly listed yet.</p>
+</div></footer>
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Screenshot viewer"><div><img id="lightbox-img" src="" alt=""><figcaption id="lightbox-caption"></figcaption><p style="text-align:center"><span id="lightbox-count"></span><br><button id="lightbox-close" onclick="closeLightbox()" aria-label="Close viewer">✕</button> <button onclick="lightboxPrev()" aria-label="Previous screenshot">‹</button> <button onclick="lightboxNext()" aria-label="Next screenshot">›</button></p></div></div>
+<div class="toast" id="toast"><span id="toast-msg"></span></div>
+<script src="script.js"></script></body></html>

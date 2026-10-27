@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Records | NASSAB</title><meta name="description" content="Submit a record update to NASSAB: additions, corrections, documents or review requests, stored locally in your browser.">
+<meta property="og:title" content="Records | NASSAB"><meta property="og:description" content="Submit a record update to NASSAB: additions, corrections, documents or review requests, stored locally in your browser."><meta property="og:type" content="website">
+<link rel="canonical" href="https://nassab-nine.vercel.app/records.html">
+<link rel="icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css"></head>
+<body><a class="skip" href="#main">Skip to main content</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><clipPath id="nassab-octa" clipPathUnits="objectBoundingBox"><path d="M0.29,0 L0.71,0 Q0.76,0 0.79,0.03 L0.97,0.21 Q1,0.24 1,0.29 L1,0.71 Q1,0.76 0.97,0.79 L0.79,0.97 Q0.76,1 0.71,1 L0.29,1 Q0.24,1 0.21,0.97 L0.03,0.79 Q0,0.76 0,0.71 L0,0.29 Q0,0.24 0.03,0.21 L0.21,0.03 Q0.24,0 0.29,0 Z"/></clipPath></defs></svg>
+<header class="site-header"><div class="wrap header-inner">
+<a class="brand" href="index.html"><img src="logo.png" alt="NASSAB logo" width="48" height="48"><span><span class="brand-name">NASSAB</span><br><span class="brand-tag">Family tree &amp; heritage, done right.</span></span></a>
+<nav class="main-nav" aria-label="Main navigation"><a href="index.html">Home</a><a href="features.html">Features</a><a href="gallery.html">App Gallery</a><a href="records.html" aria-current="page">Records</a><a href="about.html">About</a><a href="privacy.html">Privacy</a><a href="contact.html">Contact</a><a class="btn btn-primary" href="https://play.google.com/apps/testing/com.cyberfantics.nassab" target="_blank" rel="noopener noreferrer">Join closed testing</a></nav>
+<button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="mobile-menu" onclick="toggleMobileMenu()">☰ Menu</button>
+</div><nav class="wrap mobile-nav" id="mobile-menu" aria-label="Mobile navigation"><a href="index.html">Home</a><a href="features.html">Features</a><a href="gallery.html">App Gallery</a><a href="records.html">Records</a><a href="about.html">About</a><a href="privacy.html">Privacy</a><a href="contact.html">Contact</a><a href="https://play.google.com/apps/testing/com.cyberfantics.nassab" target="_blank" rel="noopener noreferrer">Join closed testing</a></nav></header>
+<main id="main"><section class="section"><div class="wrap"><p class="eyebrow">Records</p><h1>Submit a record update</h1><p class="lede">Help maintain accurate records by submitting additions, corrections, documents, or review requests.</p>
+<p class="note">This form creates a ticket stored in your browser only. It is not automatically submitted to the NASSAB team. After creating a ticket, use the email or WhatsApp step in the confirmation window to send it. Clearing browser storage or changing devices may remove locally stored tickets.</p>
+<div class="grid2"><div>
+<form id="record-form" onsubmit="return handleFormSubmit(event)" novalidate>
+<div class="field"><label for="form-name">Your name *</label><input id="form-name" required autocomplete="name"><p class="err">Please enter your name.</p></div>
+<div class="field"><label for="form-email">Email address *</label><input id="form-email" type="email" required autocomplete="email"><p class="err">Please enter a valid email address.</p></div>
+<div class="field"><label for="form-phone">Phone / WhatsApp (optional)</label><input id="form-phone" autocomplete="tel"><p class="hint">Optional, for follow-up about your ticket.</p></div>
+<div class="field"><label for="form-branch">Family branch (optional)</label><input id="form-branch" placeholder="General Lineage"></div>
+<div class="field"><label for="form-type">Category *</label><select id="form-type" required>
+<option>New Record Addition</option><option>Correction of Existing Record</option><option>Lineage Document / Shajra Submission</option><option>Disputed Claim Review</option><option>General Inquiry</option>
+</select><p class="hint">The existing categories are preserved. “Correction” in the brief maps to “Correction of Existing Record”, and “Lineage Document” maps to “Lineage Document / Shajra Submission”.</p></div>
+<div class="field"><label for="form-details">Update details *</label><textarea id="form-details" rows="6" required></textarea><p class="err">Please enter update details.</p></div>
+<div class="field"><label for="form-file">Supporting document (optional)</label><input id="form-file" type="file" onchange="handleFileSelect()"><p class="hint" id="file-label">Choose a file, or drop it here. Files are not uploaded to a server by this form; they are noted on your local ticket only.</p></div>
+<button class="btn btn-primary" type="submit">Create update ticket</button>
+</form></div><div>
+<div class="panel"><h3>Live preview</h3><p><strong id="preview-name">Your Name</strong><br><span id="preview-email">your.email@domain.com</span><br><span id="preview-type">New Record Addition — General Lineage</span><br><span id="preview-phone">Phone: Not provided</span></p><p id="preview-details">Your update details will appear here as you type...</p></div>
+<div class="panel" style="margin-top:20px"><h3>Your submitted requests</h3><p class="small muted">Records of update tickets created in this session, stored in this browser only.</p><div id="submissions-list"></div><button class="btn btn-text" onclick="clearSubmissionHistory()">Clear local history</button></div>
+</div></div></div></section>
+<div class="modal" id="submission-modal" role="dialog" aria-modal="true" aria-label="Ticket created"><div class="modal-box"><h2>Ticket created</h2><p>Ticket: <strong id="modal-ticket-id"></strong><br>Name: <span id="modal-name"></span><br>Type: <span id="modal-type"></span><br>Email: <span id="modal-email"></span><br>Created: <span id="modal-timestamp"></span></p><p class="small">This ticket is stored in your browser only. Send it now by email or WhatsApp to reach the NASSAB team.</p><p><button class="btn btn-primary" onclick="sendViaEmail()">Send by email</button> <button class="btn btn-secondary" onclick="sendViaWhatsApp()">Send by WhatsApp</button> <button class="btn btn-text" onclick="copyToClipboard()">Copy ticket</button> <button class="btn btn-text" onclick="closeModal()">Close</button></p></div></div></main>
+<footer class="site-footer"><div class="wrap"><div class="footer-grid">
+<div><p><strong>NASSAB</strong><br>Family tree &amp; heritage, done right.<br><span class="muted">A digital genealogy and family heritage platform, preserving lineage with care for accuracy and privacy.</span></p><p>Developed by <strong>CyberFantics</strong></p></div>
+<div><p><strong>Navigate</strong><br><a href="index.html">Home</a><br><a href="features.html">Features</a><br><a href="gallery.html">App Gallery</a><br><a href="records.html">Records</a></p></div>
+<div><p><strong>More</strong><br><a href="about.html">About</a><br><a href="privacy.html">Privacy</a><br><a href="terms.html">Terms</a><br><a href="contact.html">Contact</a></p></div>
+</div><div class="divider"></div>
+<p><a href="https://www.instagram.com/nassabapp/" target="_blank" rel="noopener noreferrer">Instagram @nassabapp</a> · <a href="https://facebook.com/NassabApp" target="_blank" rel="noopener noreferrer">Facebook Nassab</a> · <a href="mailto:digital.creator380@gmail.com">digital.creator380@gmail.com</a> · <a class="btn btn-primary" href="https://play.google.com/apps/testing/com.cyberfantics.nassab" target="_blank" rel="noopener noreferrer">Join closed testing</a></p>
+<p class="small muted">The NASSAB app is in closed Google Play testing and is not publicly listed yet.</p>
+</div></footer>
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Screenshot viewer"><div><img id="lightbox-img" src="" alt=""><figcaption id="lightbox-caption"></figcaption><p style="text-align:center"><span id="lightbox-count"></span><br><button id="lightbox-close" onclick="closeLightbox()" aria-label="Close viewer">✕</button> <button onclick="lightboxPrev()" aria-label="Previous screenshot">‹</button> <button onclick="lightboxNext()" aria-label="Next screenshot">›</button></p></div></div>
+<div class="toast" id="toast"><span id="toast-msg"></span></div>
+<script src="script.js"></script></body></html>
