@@ -1,110 +1,122 @@
-# NASSAB (نَسَب) — Digital Family Tree & Heritage Preservation Platform
+<div align="center">
+
+# NASSAB (نَسَب) — Digital Family Tree & Heritage Preservation
+
+### Family tree & heritage, done right
+
+A Flutter and Firebase genealogy and family heritage platform, with a
+web presence built for Vercel.
+
+[![Nassab site](https://img.shields.io/badge/Nassab-Website-14532D?style=for-the-badge)](https://nassab-nine.vercel.app/)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/mansoor-bukhari/)
+[![Email](https://img.shields.io/badge/Email-Contact-EA4335?style=for-the-badge&logo=gmail&logoColor=white)](mailto:digital.creator380@gmail.com)
+
+**Founder & Lead Developer: Syed Mansoor ul Hassan Bukhari (Mansoor Bukhari), Aug 2026 – Present, based in Rawalpindi, Pakistan.**
+
+</div>
+
+---
+
+## What Nassab is
+
+NASSAB is a digital genealogy platform dedicated to preserving,
+organizing, and exploring family records, Shajra, and complex
+historical lineages. It represents complete family relationships,
+including male and female descendants, marriages, divorces,
+remarriages, half-siblings, and step-relations, without data
+duplication.
+
+> "Preserving Heritage. Organizing Lineage. Connecting Generations."
+
+## Key features
+
+- **Rada'at (milk-kinship) as a separate relationship type.**
+  Rada'at kinship is handled distinctly from blood and marriage
+  relationships, rather than folded into a generic family tree.
+- **Mahram and marriage-eligibility interpretation.**
+  The platform interprets Mahram relationships and
+  marriage eligibility from the recorded kinship structure.
+- **Privacy by design.** Protected female names are masked,
+  and a guest mode is available.
+- **Lineage certificates with SHA-256 document-integrity
+  verification.** Certificates carry a SHA-256 hash for
+  document-integrity checking. Nassab is not described here as
+  blockchain-verified or legally certified ancestry.
+- **Inclusive, graph-based family representation.** Mothers,
+  daughters, and female ancestors are mapped with equal status,
+  and complex relationships are modelled as a relational graph
+  rather than a simple parent-child tree.
+- **Record update and verification tickets.** The web experience
+  includes an interactive record-update and verification ticket
+  portal, with a live preview card, ticket references, and
+  proof attachment handling, as described in the original
+  repository documentation.
+
+## Status — stated honestly
+
+- The Nassab app is in **closed Play testing** (package
+  `com.cyberfantics.nassab`, tester-list only).
+- **It is NOT publicly listed yet on 27 Oct 2026.** No public
+  Google Play or App Store link is claimed here, and the
+  closed-testing link is not presented as a public store link.
+- Project site: https://nassab-nine.vercel.app/
+
+## Images / Screenshots
+
+The only image verified in this repository's documentation is the
+project logo, referenced in the original README as `logo.png`.
+No app screenshots (family tree, record, certificate, or other
+in-app screens) were verified in this repository, so none are
+linked here and no placeholder image URLs are used.
 
 ![NASSAB Logo](logo.png)
 
-> **"Preserving Heritage. Organizing Lineage. Connecting Generations."**
+Screenshots will be added here when the app images are supplied.
+The exact files needed are:
 
-NASSAB is a modern digital genealogy platform dedicated to preserving, organizing, and exploring family records, Shajra, and complex historical lineages. Designed to represent complete family relationships, including male and female descendants, marriages, divorces, remarriages, half-siblings, and step-relations without data duplication.
+- `images/nassab-tree-screen.png` — family tree screen
+- `images/nassab-record-screen.png` — family record screen
+- `images/nassab-certificate-screen.png` — lineage certificate screen
+- `images/nassab-app-icon.png` — app icon, if one is to be shown
 
----
+Until those files are supplied and verified in the repository,
+this section contains only the logo above, plus this placeholder
+note. If `logo.png` is not present in the repository root, that
+image line should be removed rather than left as a broken link.
 
-## 🌟 Key Features
-
-### 🌿 1. Inclusive & Graph-Based Family Representation
-- **Full Female & Male Lineage**: Unlike traditional records that obscure female branches, NASSAB maps all mothers, daughters, and female ancestors with equal status.
-- **Complex Relationships**: Accurately handles divorces, multiple marriages, children from different marriages, step-siblings, and adopted members.
-- **No Record Duplication**: Modeled as a relational graph rather than a simple parent-child tree structure.
-
-### 📜 2. Dual-View "About Us" Experience
-- **Modern Overview Mode**: Clean tech-focused explanation of digital archiving, privacy standards, and data accessibility.
-- **Traditional / Islamic View Mode (شجرۂ نسب و سلسلہ)**: Tailored perspective using traditional terminology (*Nasab, Shajra, Silsila, Aslaaf, Akhlaaf*) rendered in **Noto Nastaliq Urdu** typography.
-
-### ✉️ 3. Interactive Record Update & Verification Ticket Portal
-- **Real-Time Live Ticket Preview**: Displays a live preview card of the update request as the user types.
-- **Unique Ticket Reference Generation**: Automatically generates ticket numbers (e.g. `#NAS-2026-8392`).
-- **File & Proof Attachment Simulator**: Supports attaching birth certificates, old Shajra photo scans, or historical documents.
-- **Multi-Channel Dispatch**: Option to send updates directly via **Direct WhatsApp Chat (+92 340 8100868)** or **Email** (`digital.creator380@gmail.com`).
-- **Submission History**: Saves submitted update tickets in browser `localStorage` for user tracking.
-
-### ⚡ 4. Fast & Vercel Native
-- Built with zero-dependency static Web standards for instant loading.
-- Optimized for desktop, tablet, and mobile web browsers.
-- Pre-configured `vercel.json` for 1-click deployment on **Vercel**.
-
----
-
-## 📁 Repository & Project Structure
+## Repository & project structure (web app, as documented)
 
 ```text
-web n/
 ├── index.html        # Main web application structure & responsive sections
-├── styles.css        # Custom luxury dark emerald-gold theme & Noto Nastaliq font rules
-├── script.js        # Tab navigation, ticket generator, modal logic, local storage
-├── logo.png          # Official NASSAB branding logo image
+├── styles.css        # Custom dark emerald-gold theme & Noto Nastaliq font rules
+├── script.js         # Tab navigation, ticket generator, modal logic, local storage
+├── logo.png          # Nassab branding logo image
 ├── vercel.json       # Vercel deployment configuration & security headers
 └── README.md         # Documentation & project guide
 ```
 
----
+## Technology stack (web app, as documented)
 
-## 🛠️ Technology Stack
+- Frontend: HTML5, Tailwind CSS (via CDN), Vanilla JavaScript (ES6+)
+- Typography: Plus Jakarta Sans (English) & Noto Nastaliq Urdu (Urdu/Arabic)
+- Icons: FontAwesome 6 Free
+- Hosting & Deployment: Vercel Static Hosting
+- Mobile app (as described on the founder's profile): Flutter & Firebase
 
-- **Frontend**: HTML5, Tailwind CSS (via CDN), Vanilla JavaScript (ES6+)
-- **Typography**: [Plus Jakarta Sans](https://fonts.google.com/specimen/Plus+Jakarta+Sans) (English) & [Noto Nastaliq Urdu](https://fonts.google.com/specimen/Noto+Nastaliq+Urdu) (Urdu/Arabic)
-- **Icons**: FontAwesome 6 Free
-- **Hosting & Deployment**: Vercel Static Hosting
+## How to run & deploy (web app)
 
----
+No complex build steps or node modules are required for the web app:
 
-## 🚀 How to Run & Deploy
-
-### Local Development
-No complex build steps or node modules required!
-
-1. Simply double-click `index.html` to open in any web browser.
-2. Or serve locally via Python:
+1. Open `index.html` in a web browser, or serve locally:
    ```bash
    python -m http.server 8080
    ```
-   Then open `http://localhost:8080` in your browser.
+   Then open `http://localhost:8080` in a browser.
+2. Deploy via GitHub & Vercel Dashboard, following the original
+   repository's deployment instructions and `vercel.json`.
 
----
+## Connect
 
-### Deployment on Vercel
-
-#### Method 1: Via GitHub & Vercel Dashboard (Recommended)
-1. Push this folder to a GitHub repository:
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial NASSAB web release"
-   git remote add origin https://github.com/your-username/nassab-web.git
-   git push -u origin main
-   ```
-2. Log into [Vercel](https://vercel.com) and click **"Add New Project"**.
-3. Import your `nassab-web` repository.
-4. Click **Deploy**. Vercel will automatically host `index.html` with clean URLs!
-
-#### Method 2: Via Vercel CLI
-```bash
-npm install -g vercel
-vercel
-```
-
----
-
-## 📬 Contact & Official Channels
-
-- **WhatsApp Direct Support**: [+92 340 8100868](https://wa.me/923408100868) (0340-8100868)
-- **WhatsApp Broadcast Channel**: [Join Official NASSAB WhatsApp Channel](https://whatsapp.com/channel/0029Vb8MiX06GcGAB6sBsw31?utm_source=chatgpt.com)
-- **Record Updates Email**: [digital.creator380@gmail.com](mailto:digital.creator380@gmail.com)
-- **Facebook**: [facebook.com/cyberfantics](https://facebook.com/cyberfantics?utm_source=chatgpt.com)
-- **Instagram**: [instagram.com/cyberfantics](https://instagram.com/cyberfantics?utm_source=chatgpt.com)
-
----
-
-## 👨‍💻 Credits & Attribution
-
-Developed with excellence by **CyberFantics**.
-
-*NASSAB is a digital genealogy project focused on using modern web technology to preserve family heritage and lineage records for present and future generations.*
+- Project site: https://nassab-nine.vercel.app/
+- Founder on LinkedIn: https://www.linkedin.com/in/mansoor-bukhari/
+- Contact email: digital.creator380@gmail.com
