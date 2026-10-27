@@ -1,4 +1,6 @@
 /* Custom CSS Rules for NASSAB Web Application */
+/* Nassab redesign v2 — modern, stylish, elegant, Oct 2026.
+   Dark emerald + muted gold identity kept; gold is restrained, not bright yellow. */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;500;600;700&display=swap');
 
 /* Urdu Nastaliq Styling */
@@ -19,7 +21,7 @@
     border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: #f59e0b;
+    background: #b9975b;
 }
 
 /* Page Section Animations */
@@ -54,11 +56,11 @@
     }
 }
 
-/* Active Nav Button Highlighting */
+/* Active Nav Button Highlighting — muted gold, soft */
 .nav-btn-active {
-    color: #fbbf24 !important;
-    background-color: rgba(6, 78, 59, 0.6) !important;
-    border: 1px solid rgba(245, 158, 11, 0.3) !important;
+    color: #d9c07a !important;
+    background-color: rgba(255, 255, 255, 0.06) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
 }
 
 /* Glassmorphism utility */
@@ -66,15 +68,40 @@
     background: rgba(2, 44, 34, 0.7);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(245, 158, 11, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.10);
 }
 
 /* Nassab refresh, Oct 2026 — dark emerald + gold identity kept */
 .gold-gradient-text {
-    background: linear-gradient(90deg, #fde68a, #fbbf24, #f59e0b, #d97706);
+    background: linear-gradient(90deg, #f3e5b8, #d9c07a, #b9975b);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+}
+
+/* Elegant v2 utilities */
+.eyebrow {
+    letter-spacing: 0.14em;
+}
+
+.btn-primary-pill {
+    background: linear-gradient(90deg, #d9c07a, #b9975b);
+    box-shadow: 0 10px 30px rgba(185, 151, 91, 0.25);
+}
+.btn-primary-pill:hover {
+    background: linear-gradient(90deg, #e8d5a0, #c9a95e);
+}
+
+.btn-secondary-outline {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+}
+.btn-secondary-outline:hover {
+    background: rgba(255, 255, 255, 0.10);
+}
+
+.stat-number {
+    color: #d9c07a;
 }
 
 .showcase-card, .feature-card {
@@ -83,8 +110,8 @@
 
 .showcase-card:hover, .feature-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(245, 158, 11, 0.25);
-    border-color: rgba(245, 158, 11, 0.45) !important;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.30), 0 0 0 1px rgba(217, 192, 122, 0.18);
+    border-color: rgba(217, 192, 122, 0.35) !important;
 }
 
 @media (max-width: 640px) {

@@ -50,7 +50,7 @@
 <body class="bg-emerald-950 text-slate-100 font-sans antialiased selection:bg-gold-500 selection:text-emerald-950 min-h-screen flex flex-col justify-between">
 
     <!-- NAVIGATION HEADER -->
-    <header class="sticky top-0 z-50 backdrop-blur-md bg-emerald-950/80 border-b border-emerald-800/40 transition-all duration-300">
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-emerald-950/85 border-b border-white/10 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
                 <!-- LOGO WITH CUSTOM LOGO.PNG INTEGRATION -->
@@ -66,22 +66,22 @@
 
                 <!-- DESKTOP NAV LINKS -->
                 <nav class="hidden md:flex items-center space-x-1 lg:space-x-2">
-                    <button onclick="navTo('home')" id="nav-home" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium transition-all text-gold-400 bg-emerald-900/60 border border-gold-500/30">
+                    <button onclick="navTo('home')" id="nav-home" class="nav-btn px-4 py-2 rounded-full text-sm font-medium transition-all text-[#d9c07a] bg-white/5 border border-white/10">
                         Home
                     </button>
-                    <button onclick="navTo('about')" id="nav-about" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium transition-all text-slate-300 hover:text-white hover:bg-emerald-900/40">
+                    <button onclick="navTo('about')" id="nav-about" class="nav-btn px-4 py-2 rounded-full text-sm font-medium transition-all text-slate-300 hover:text-white hover:bg-white/5">
                         About NASSAB
                     </button>
-                    <button onclick="navTo('features')" id="nav-features" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium transition-all text-slate-300 hover:text-white hover:bg-emerald-900/40">
+                    <button onclick="navTo('features')" id="nav-features" class="nav-btn px-4 py-2 rounded-full text-sm font-medium transition-all text-slate-300 hover:text-white hover:bg-white/5">
                         App Features
                     </button>
-                    <button onclick="navTo('contact')" id="nav-contact" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium transition-all text-slate-300 hover:text-white hover:bg-emerald-900/40">
+                    <button onclick="navTo('contact')" id="nav-contact" class="nav-btn px-4 py-2 rounded-full text-sm font-medium transition-all text-slate-300 hover:text-white hover:bg-white/5">
                         Record Updates
                     </button>
-                    <button onclick="navTo('privacy')" id="nav-privacy" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium transition-all text-slate-300 hover:text-white hover:bg-emerald-900/40">
+                    <button onclick="navTo('privacy')" id="nav-privacy" class="nav-btn px-4 py-2 rounded-full text-sm font-medium transition-all text-slate-300 hover:text-white hover:bg-white/5">
                         Privacy Policy
                     </button>
-                    <button onclick="navTo('terms')" id="nav-terms" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium transition-all text-slate-300 hover:text-white hover:bg-emerald-900/40">
+                    <button onclick="navTo('terms')" id="nav-terms" class="nav-btn px-4 py-2 rounded-full text-sm font-medium transition-all text-slate-300 hover:text-white hover:bg-white/5">
                         Terms
                     </button>
                 </nav>
@@ -89,7 +89,7 @@
                 <!-- EXTERNAL ACTION BUTTONS -->
                 <div class="hidden lg:flex items-center space-x-3">
                     <a href="https://play.google.com/apps/testing/com.cyberfantics.nassab" target="_blank" rel="noopener noreferrer"
-                       class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-gold-500 to-amber-600 hover:from-gold-400 hover:to-amber-500 text-emerald-950 font-bold text-xs tracking-wider uppercase shadow-lg shadow-gold-500/20 flex items-center space-x-2 transition-all hover:scale-[1.02]">
+                       class="btn-primary-pill px-5 py-2.5 rounded-full text-emerald-950 font-semibold text-xs tracking-wide flex items-center space-x-2 transition-all hover:scale-[1.02]">
                         <i class="fa-brands fa-google-play text-base"></i>
                         <span>Join closed testing</span>
                     </a>
@@ -134,38 +134,38 @@
     <main class="flex-grow">
 
         <!-- ==================== HOME PAGE / HERO ==================== -->
-        <section id="page-home" class="page-section relative overflow-hidden py-16 lg:py-24">
+        <section id="page-home" class="page-section relative overflow-hidden py-20 lg:py-28">
             <!-- Background Glow Effects -->
-            <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gold-500/10 rounded-full blur-[140px] pointer-events-none"></div>
-            <div class="absolute top-1/3 left-10 w-[400px] h-[400px] bg-emerald-500/15 rounded-full blur-[120px] pointer-events-none"></div>
+            <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gold-500/[0.06] rounded-full blur-[140px] pointer-events-none"></div>
+            <div class="absolute top-1/3 left-10 w-[400px] h-[400px] bg-emerald-500/10 rounded-full blur-[120px] pointer-events-none"></div>
 
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
                     
                     <!-- LEFT COLUMN: INTRO TEXT -->
                     <div class="lg:col-span-7 space-y-8 text-center lg:text-left">
-                        <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-emerald-900/70 border border-gold-500/30 text-gold-400 text-xs font-semibold uppercase tracking-widest shadow-md">
+                        <div class="eyebrow inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-[#d9c07a] text-xs font-medium tracking-widest">
                             <i class="fa-solid fa-gem text-xs"></i>
                             <span>Closed testing on Google Play &middot; Flutter &amp; Firebase mobile app</span>
                         </div>
 
-                        <h1 class="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.08]">
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.12]">
                             Family tree &amp; heritage,<br/>
-                            <span class="gold-gradient-text">done right.</span><br/>
-                            <span class="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-100">Preserving Heritage. Connecting Lineages.</span>
+                            <span class="gold-gradient-text">done right.</span>
                         </h1>
+                        <p class="text-lg sm:text-xl text-slate-400 font-medium tracking-wide">Preserving heritage. Connecting lineages.</p>
 
-                        <p class="text-lg sm:text-xl text-slate-300 font-normal leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                        <p class="text-base sm:text-lg text-slate-400 font-normal leading-relaxed max-w-xl mx-auto lg:mx-0">
                             NASSAB is a digital genealogy and family heritage platform, built as a Flutter &amp; Firebase mobile app. Build your family tree, explore relationships across generations &mdash; including Rada&apos;at (milk-kinship) as its own relationship type &mdash; and keep private family information protected, with masked protected female names and guest mode. Lineage certificates use SHA-256 document-integrity verification.
                         </p>
 
                         <!-- CALL TO ACTIONS -->
                         <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-                            <a href="https://play.google.com/apps/testing/com.cyberfantics.nassab" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-gold-500 to-amber-600 hover:from-gold-400 hover:to-amber-500 text-emerald-950 font-bold text-base shadow-xl shadow-gold-500/20 flex items-center justify-center space-x-3 transition-all hover:scale-105">
+                            <a href="https://play.google.com/apps/testing/com.cyberfantics.nassab" target="_blank" rel="noopener noreferrer" class="btn-primary-pill w-full sm:w-auto px-7 py-3.5 rounded-full text-emerald-950 font-semibold text-base flex items-center justify-center space-x-3 transition-all hover:scale-[1.02]">
                                 <span>Join closed testing</span>
                                 <i class="fa-brands fa-google-play"></i>
                             </a>
-                            <button onclick="navTo('features')" class="w-full sm:w-auto px-7 py-4 rounded-xl bg-emerald-900/80 hover:bg-emerald-800 border border-emerald-700/60 text-white font-semibold text-base shadow-lg flex items-center justify-center space-x-3 transition-all hover:scale-[1.02]">
+                            <button onclick="navTo('features')" class="btn-secondary-outline w-full sm:w-auto px-7 py-3.5 rounded-full text-white font-medium text-base flex items-center justify-center space-x-3 transition-all">
                                 <span>Explore features</span>
                                 <i class="fa-solid fa-arrow-right"></i>
                             </button>
@@ -180,17 +180,17 @@
                         </p>
 
                         <!-- STATS / HIGHLIGHTS BAR -->
-                        <div class="pt-8 border-t border-emerald-800/40 grid grid-cols-3 gap-4 text-center lg:text-left">
+                        <div class="pt-8 border-t border-white/10 grid grid-cols-3 gap-4 text-center lg:text-left">
                             <div>
-                                <div class="text-2xl lg:text-3xl font-extrabold text-gold-400">Closed</div>
+                                <div class="stat-number text-2xl lg:text-3xl font-bold">Closed</div>
                                 <div class="text-xs text-slate-400 font-medium">Testing on Google Play</div>
                             </div>
                             <div>
-                                <div class="text-2xl lg:text-3xl font-extrabold text-gold-400">30</div>
+                                <div class="stat-number text-2xl lg:text-3xl font-bold">30</div>
                                 <div class="text-xs text-slate-400 font-medium">Testers on the tester list</div>
                             </div>
                             <div>
-                                <div class="text-2xl lg:text-3xl font-extrabold text-gold-400">SHA-256</div>
+                                <div class="stat-number text-2xl lg:text-3xl font-bold">SHA-256</div>
                                 <div class="text-xs text-slate-400 font-medium">Certificate integrity check</div>
                             </div>
                         </div>
@@ -200,7 +200,7 @@
                     <div class="lg:col-span-5 relative">
                         <div class="relative mx-auto max-w-md lg:max-w-none">
                             <!-- Glassmorphism Card Showcase -->
-                            <div class="showcase-card relative z-10 rounded-3xl p-6 lg:p-8 bg-gradient-to-b from-emerald-900/80 to-emerald-950/90 border border-gold-500/30 shadow-2xl shadow-emerald-950/80 backdrop-blur-xl space-y-6">
+                            <div class="showcase-card relative z-10 rounded-3xl p-6 lg:p-8 bg-[#04241c]/90 border border-white/10 shadow-xl shadow-black/30 backdrop-blur-xl space-y-6">
                                 
                                 <div class="flex items-center justify-between border-b border-emerald-800/60 pb-4">
                                     <div class="flex items-center space-x-3">
@@ -210,7 +210,7 @@
                                             <p class="text-xs text-slate-400">Family Relationship Knowledge Graph</p>
                                         </div>
                                     </div>
-                                    <span class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-gold-500/20 text-gold-300 border border-gold-500/30">
+                                    <span class="px-2.5 py-1 rounded-full text-[10px] font-medium uppercase tracking-wider bg-white/5 text-slate-300 border border-white/10">
                                         Closed testing
                                     </span>
                                 </div>
@@ -263,26 +263,26 @@
             </div>
         
                 <!-- ==================== IMAGES / SHOWCASE ==================== -->
-                <div id="showcase" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 lg:mt-20">
+                <div id="showcase" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-20 lg:mt-24">
                     <div class="text-center space-y-3 max-w-3xl mx-auto">
                         <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs font-semibold uppercase tracking-wider">
                             <i class="fa-solid fa-images"></i>
                             <span>Images &amp; Showcase</span>
                         </div>
-                        <h2 class="text-3xl sm:text-4xl font-extrabold text-white">See NASSAB at a glance</h2>
+                        <h2 class="text-2xl sm:text-3xl font-bold text-white">See NASSAB at a glance</h2>
                         <p class="text-slate-300 text-base sm:text-lg">
                             The family tree, kept private by design. Rada&apos;at kinship shown as its own relationship, not as a footnote.
                         </p>
                     </div>
                     <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="showcase-card rounded-3xl p-6 sm:p-8 bg-emerald-900/40 border border-emerald-800/60 space-y-4">
+                        <div class="showcase-card rounded-3xl p-6 sm:p-8 bg-white/[0.03] border border-white/10 space-y-4">
                             <img src="logo.png" alt="NASSAB logo" class="h-20 w-auto object-contain rounded-xl mx-auto">
                             <h3 class="text-xl font-bold text-white text-center">NASSAB &mdash; Family tree &amp; heritage, done right</h3>
                             <p class="text-slate-300 text-sm leading-relaxed text-center">
                                 The NASSAB mark, as used on the app and on Instagram @nassabapp. A tree, a lineage, and a heritage to keep.
                             </p>
                         </div>
-                        <div class="showcase-card rounded-3xl p-6 sm:p-8 bg-emerald-900/40 border border-emerald-800/60 space-y-4">
+                        <div class="showcase-card rounded-3xl p-6 sm:p-8 bg-white/[0.03] border border-white/10 space-y-4">
                             <h3 class="text-xl font-bold text-white">Shajra Explorer Preview</h3>
                             <p class="text-slate-300 text-sm leading-relaxed">
                                 The tree preview above shows a father, two marriages, and full and half lineages without duplicate records &mdash; the same structure the mobile app explores, with complete male and female lineage.
@@ -297,7 +297,7 @@
 </section>
 
         <!-- ==================== ABOUT NASSAB PAGE ==================== -->
-        <section id="page-about" class="page-section hidden py-16 lg:py-24">
+        <section id="page-about" class="page-section hidden py-20 lg:py-28">
             <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
                 
                 <!-- ABOUT HEADER -->
@@ -306,7 +306,7 @@
                         <i class="fa-solid fa-book-bookmark"></i>
                         <span>Project Documentation</span>
                     </div>
-                    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white">About NASSAB</h2>
+                    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white">About NASSAB</h2>
                     <p class="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto">
                         Combining traditional genealogical heritage with modern software technology to preserve family records digitally.
                     </p>
@@ -455,14 +455,14 @@
         </section>
 
         <!-- ==================== APP FEATURES SECTION ==================== -->
-        <section id="page-features" class="page-section hidden py-16 lg:py-24">
+        <section id="page-features" class="page-section hidden py-20 lg:py-28">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
                 <div class="text-center space-y-4 max-w-3xl mx-auto">
                     <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs font-semibold uppercase tracking-wider">
                         <i class="fa-solid fa-layer-group"></i>
                         <span>Platform Capabilities</span>
                     </div>
-                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Advanced Genealogical Features</h2>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-white">Advanced Genealogical Features</h2>
                     <p class="text-slate-300 text-base sm:text-lg">
                         Traditional family trees fail with complex family structures. NASSAB uses a relational graph architecture to handle real-world historical records accurately. The Flutter &amp; Firebase mobile app is in closed testing on Google Play and is not public yet.
                     </p>
@@ -471,8 +471,8 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     
                     <!-- Feature Card 1 -->
-                    <div class="feature-card p-8 rounded-3xl bg-emerald-900/40 border border-emerald-800/60 hover:border-gold-500/40 transition-all space-y-4 hover:-translate-y-1">
-                        <div class="w-12 h-12 rounded-2xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-400 text-xl">
+                    <div class="feature-card p-7 sm:p-8 rounded-3xl bg-white/[0.03] border border-white/10 space-y-4">
+                        <div class="w-12 h-12 rounded-2xl bg-[#d9c07a]/10 border border-[#d9c07a]/20 flex items-center justify-center text-[#d9c07a] text-xl">
                             <i class="fa-solid fa-users"></i>
                         </div>
                         <h3 class="text-xl font-bold text-white">Equal Female & Male Representation</h3>
@@ -482,8 +482,8 @@
                     </div>
 
                     <!-- Feature Card 2 -->
-                    <div class="feature-card p-8 rounded-3xl bg-emerald-900/40 border border-emerald-800/60 hover:border-gold-500/40 transition-all space-y-4 hover:-translate-y-1">
-                        <div class="w-12 h-12 rounded-2xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-400 text-xl">
+                    <div class="feature-card p-7 sm:p-8 rounded-3xl bg-white/[0.03] border border-white/10 space-y-4">
+                        <div class="w-12 h-12 rounded-2xl bg-[#d9c07a]/10 border border-[#d9c07a]/20 flex items-center justify-center text-[#d9c07a] text-xl">
                             <i class="fa-solid fa-code-merge"></i>
                         </div>
                         <h3 class="text-xl font-bold text-white">Remarriages & Step-Siblings</h3>
@@ -493,8 +493,8 @@
                     </div>
 
                     <!-- Feature Card 3 -->
-                    <div class="feature-card p-8 rounded-3xl bg-emerald-900/40 border border-emerald-800/60 hover:border-gold-500/40 transition-all space-y-4 hover:-translate-y-1">
-                        <div class="w-12 h-12 rounded-2xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-400 text-xl">
+                    <div class="feature-card p-7 sm:p-8 rounded-3xl bg-white/[0.03] border border-white/10 space-y-4">
+                        <div class="w-12 h-12 rounded-2xl bg-[#d9c07a]/10 border border-[#d9c07a]/20 flex items-center justify-center text-[#d9c07a] text-xl">
                             <i class="fa-solid fa-scroll"></i>
                         </div>
                         <h3 class="text-xl font-bold text-white">Bukhari Syed & Silsila Tracing</h3>
@@ -504,8 +504,8 @@
                     </div>
 
                     <!-- Feature Card 4 -->
-                    <div class="feature-card p-8 rounded-3xl bg-emerald-900/40 border border-emerald-800/60 hover:border-gold-500/40 transition-all space-y-4 hover:-translate-y-1">
-                        <div class="w-12 h-12 rounded-2xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-400 text-xl">
+                    <div class="feature-card p-7 sm:p-8 rounded-3xl bg-white/[0.03] border border-white/10 space-y-4">
+                        <div class="w-12 h-12 rounded-2xl bg-[#d9c07a]/10 border border-[#d9c07a]/20 flex items-center justify-center text-[#d9c07a] text-xl">
                             <i class="fa-solid fa-magnifying-glass-chart"></i>
                         </div>
                         <h3 class="text-xl font-bold text-white">Relationship Calculator</h3>
@@ -515,8 +515,8 @@
                     </div>
 
                     <!-- Feature Card 5 -->
-                    <div class="feature-card p-8 rounded-3xl bg-emerald-900/40 border border-emerald-800/60 hover:border-gold-500/40 transition-all space-y-4 hover:-translate-y-1">
-                        <div class="w-12 h-12 rounded-2xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-400 text-xl">
+                    <div class="feature-card p-7 sm:p-8 rounded-3xl bg-white/[0.03] border border-white/10 space-y-4">
+                        <div class="w-12 h-12 rounded-2xl bg-[#d9c07a]/10 border border-[#d9c07a]/20 flex items-center justify-center text-[#d9c07a] text-xl">
                             <i class="fa-solid fa-shield-halved"></i>
                         </div>
                         <h3 class="text-xl font-bold text-white">Evidence & Dispute Tracking</h3>
@@ -526,8 +526,8 @@
                     </div>
 
                     <!-- Feature Card 6 -->
-                    <div class="feature-card p-8 rounded-3xl bg-emerald-900/40 border border-emerald-800/60 hover:border-gold-500/40 transition-all space-y-4 hover:-translate-y-1">
-                        <div class="w-12 h-12 rounded-2xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-400 text-xl">
+                    <div class="feature-card p-7 sm:p-8 rounded-3xl bg-white/[0.03] border border-white/10 space-y-4">
+                        <div class="w-12 h-12 rounded-2xl bg-[#d9c07a]/10 border border-[#d9c07a]/20 flex items-center justify-center text-[#d9c07a] text-xl">
                             <i class="fa-solid fa-cloud-arrow-up"></i>
                         </div>
                         <h3 class="text-xl font-bold text-white">Secure Digital Archiving</h3>
@@ -537,13 +537,10 @@
                     </div>
 
                 </div>
-            </div>
-        </section>
-
-
-                    <!-- Feature Card: Rada'at -->
-                    <div class="feature-card p-8 rounded-3xl bg-emerald-900/40 border border-emerald-800/60 hover:border-gold-500/40 transition-all space-y-4 hover:-translate-y-1">
-                        <div class="w-12 h-12 rounded-2xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-400 text-xl">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+<!-- Feature Card: Rada'at -->
+                    <div class="feature-card p-7 sm:p-8 rounded-3xl bg-white/[0.03] border border-white/10 space-y-4">
+                        <div class="w-12 h-12 rounded-2xl bg-[#d9c07a]/10 border border-[#d9c07a]/20 flex items-center justify-center text-[#d9c07a] text-xl">
                             <i class="fa-solid fa-heart"></i>
                         </div>
                         <h3 class="text-xl font-bold text-white">Rada&apos;at (Milk-Kinship)</h3>
@@ -553,8 +550,8 @@
                     </div>
 
                     <!-- Feature Card: Mahram -->
-                    <div class="feature-card p-8 rounded-3xl bg-emerald-900/40 border border-emerald-800/60 hover:border-gold-500/40 transition-all space-y-4 hover:-translate-y-1">
-                        <div class="w-12 h-12 rounded-2xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-400 text-xl">
+                    <div class="feature-card p-7 sm:p-8 rounded-3xl bg-white/[0.03] border border-white/10 space-y-4">
+                        <div class="w-12 h-12 rounded-2xl bg-[#d9c07a]/10 border border-[#d9c07a]/20 flex items-center justify-center text-[#d9c07a] text-xl">
                             <i class="fa-solid fa-scale-balanced"></i>
                         </div>
                         <h3 class="text-xl font-bold text-white">Mahram &amp; Marriage-Eligibility</h3>
@@ -564,8 +561,8 @@
                     </div>
 
                     <!-- Feature Card: Privacy by design -->
-                    <div class="feature-card p-8 rounded-3xl bg-emerald-900/40 border border-emerald-800/60 hover:border-gold-500/40 transition-all space-y-4 hover:-translate-y-1">
-                        <div class="w-12 h-12 rounded-2xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-400 text-xl">
+                    <div class="feature-card p-7 sm:p-8 rounded-3xl bg-white/[0.03] border border-white/10 space-y-4">
+                        <div class="w-12 h-12 rounded-2xl bg-[#d9c07a]/10 border border-[#d9c07a]/20 flex items-center justify-center text-[#d9c07a] text-xl">
                             <i class="fa-solid fa-user-shield"></i>
                         </div>
                         <h3 class="text-xl font-bold text-white">Privacy by Design</h3>
@@ -575,8 +572,8 @@
                     </div>
 
                     <!-- Feature Card: Certificates -->
-                    <div class="feature-card p-8 rounded-3xl bg-emerald-900/40 border border-emerald-800/60 hover:border-gold-500/40 transition-all space-y-4 hover:-translate-y-1">
-                        <div class="w-12 h-12 rounded-2xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-400 text-xl">
+                    <div class="feature-card p-7 sm:p-8 rounded-3xl bg-white/[0.03] border border-white/10 space-y-4">
+                        <div class="w-12 h-12 rounded-2xl bg-[#d9c07a]/10 border border-[#d9c07a]/20 flex items-center justify-center text-[#d9c07a] text-xl">
                             <i class="fa-solid fa-certificate"></i>
                         </div>
                         <h3 class="text-xl font-bold text-white">Verified Lineage Certificates</h3>
@@ -584,9 +581,14 @@
                             Lineage certificates carry SHA-256 document-integrity verification, so a record can be checked against its hash. This is document-integrity verification &mdash; it is not blockchain verification, and it is not legally certified ancestry.
                         </p>
                     </div>
+                </div>
 
-        <!-- ==================== UPGRADED INTERACTIVE RECORD UPDATES PAGE ==================== -->
-        <section id="page-contact" class="page-section hidden py-16 lg:py-24">
+            </div>
+        </section>
+
+
+                    <!-- ==================== UPGRADED INTERACTIVE RECORD UPDATES PAGE ==================== -->
+        <section id="page-contact" class="page-section hidden py-20 lg:py-28">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
                 
                 <div class="text-center space-y-4 max-w-3xl mx-auto">
@@ -594,7 +596,7 @@
                         <i class="fa-solid fa-paper-plane"></i>
                         <span>Interactive Submission Portal</span>
                     </div>
-                    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white">Submit a Record Update</h2>
+                    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white">Submit a Record Update</h2>
                     <p class="text-slate-300 text-base sm:text-lg">
                         Submit new family members, corrections, birth records, or lineage documentation. Our verification team will review your ticket.
                     </p>
@@ -603,7 +605,7 @@
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                     
                     <!-- LEFT COLUMN: INTERACTIVE FORM -->
-                    <div class="lg:col-span-7 bg-emerald-900/40 border border-emerald-800/60 rounded-3xl p-6 sm:p-8 backdrop-blur-lg shadow-2xl space-y-6">
+                    <div class="lg:col-span-7 bg-white/[0.03] border border-white/10 rounded-3xl p-6 sm:p-8 backdrop-blur-lg shadow-xl space-y-6">
                         <div class="flex items-center justify-between border-b border-emerald-800/60 pb-4">
                             <h3 class="text-lg font-bold text-white flex items-center space-x-2">
                                 <i class="fa-solid fa-pen-to-square text-gold-400"></i>
@@ -663,7 +665,7 @@
                                 </div>
                             </div>
 
-                            <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-gold-500 via-amber-500 to-amber-600 hover:from-gold-400 hover:to-amber-500 text-emerald-950 font-extrabold text-base shadow-xl shadow-gold-500/20 flex items-center justify-center space-x-2 transition-all hover:scale-[1.01]">
+                            <button type="submit" class="btn-primary-pill w-full py-3.5 rounded-full text-emerald-950 font-semibold text-base flex items-center justify-center space-x-2 transition-all hover:scale-[1.01]">
                                 <i class="fa-solid fa-paper-plane text-lg"></i>
                                 <span>Generate Ticket & Submit Update</span>
                             </button>
@@ -783,7 +785,7 @@
         </section>
 
         <!-- ==================== PRIVACY POLICY PAGE ==================== -->
-        <section id="page-privacy" class="page-section hidden py-16 lg:py-24">
+        <section id="page-privacy" class="page-section hidden py-20 lg:py-28">
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
                 <div class="border-b border-emerald-800/60 pb-6">
                     <h2 class="text-3xl font-extrabold text-white">Privacy Policy</h2>
@@ -819,7 +821,7 @@
         </section>
 
         <!-- ==================== TERMS OF SERVICE PAGE ==================== -->
-        <section id="page-terms" class="page-section hidden py-16 lg:py-24">
+        <section id="page-terms" class="page-section hidden py-20 lg:py-28">
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
                 <div class="border-b border-emerald-800/60 pb-6">
                     <h2 class="text-3xl font-extrabold text-white">Terms of Service</h2>
@@ -852,7 +854,7 @@
     </main>
 
     <!-- FOOTER -->
-    <footer class="bg-emerald-950 border-t border-emerald-800/60 py-12 text-xs text-slate-400">
+    <footer class="bg-emerald-950 border-t border-white/10 py-12 text-xs text-slate-400">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
             <div class="flex flex-col md:flex-row items-center justify-between gap-6">
                 <!-- LOGO & TAGLINE WITH LOGO.PNG -->
