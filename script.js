@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (mm) mm.querySelectorAll("a").forEach(a => a.addEventListener("click", closeMobileMenu));
   // Tour init
   if (document.getElementById("tour-img")) selectTour(0, false);
-  const tourEl = document.getElementById("tour");
+  const tourEl = document.getElementById("theatre");
   if (tourEl) tourEl.addEventListener("keydown", e => { if (e.key === "ArrowRight") tourNext(); if (e.key === "ArrowLeft") tourPrev(); });
   // Gallery filter init
   if (document.getElementById("gallery-grid")) setGalleryFilter("all", null);
@@ -106,6 +106,8 @@ function selectTour(i, animate){
     const prev = document.getElementById("tour-prev"), next = document.getElementById("tour-next");
     if (prev) prev.disabled = (i === 0);
     if (next) next.disabled = (i === TOUR.length - 1);
+    document.querySelectorAll("[data-motif]").forEach(m => { m.classList.toggle("hidden", parseInt(m.dataset.motif, 10) !== i); });
+    if (t) { t.classList.remove("title-flip"); void t.offsetWidth; t.classList.add("title-flip"); }
     const phoneBtn = document.getElementById("tour-phone-btn");
     if (phoneBtn) phoneBtn.setAttribute("aria-label", "View " + TOUR[i].title + " screenshot larger");
   };
@@ -130,7 +132,7 @@ function selectDiagram(key, el){
     if (n.tagName === "BUTTON") n.setAttribute("aria-pressed", String(on));
     if (n.tagName === "G") n.setAttribute("aria-pressed", String(on));
   });
-  document.querySelectorAll("[data-diagram-line]").forEach(l => { const on = l.dataset.diagramLine === key || key === "ancestor"; l.classList.toggle("active", on); l.classList.toggle("dim", !on); });
+  document.querySelectorAll("[data-diagram-line]").forEach(l => { const on = l.dataset.diagramLine === key || key === "ancestor"; l.classList.toggle("active", on); l.classList.toggle("dim", !on); l.classList.remove("draw"); if (on) { void l.getBoundingClientRect(); l.classList.add("draw"); } });
 }
 function diagramKey(e, key){ if (e.key === "Enter" || e.key === " ") { e.preventDefault(); selectDiagram(key, e.currentTarget); } }
 /* Gallery filter + lightbox */
@@ -232,7 +234,7 @@ function renderSubmissionsList(){
   const el = document.getElementById("submissions-list"); if (!el) return;
   let list = []; try { list = JSON.parse(localStorage.getItem("nassab_submissions") || "[]"); } catch (e) {}
   if (!list.length) { el.innerHTML = "<p class='muted'>No tickets yet in this browser.</p>"; return; }
-  el.innerHTML = list.map(item => `<div class="panel" style="padding:14px 16px;margin-bottom:10px"><strong>${item.ticketId}</strong> — ${item.type}<br><span class="muted small">${item.timestamp} · ${item.name}</span><br><button class="btn btn-text" onclick="reOpenTicket('${item.ticketId}')">View ticket</button></div>`).join("");
+  el.innerHTML = list.map(item => `<div class="panel" style="padding:14px 16px;margin-bottom:10px"><strong>${item.ticketId}</strong> — ${item.type}<br><span class="muted small">${item.timestamp} · ${item.name}</span><details><summary>View details</summary><p>${item.details || ""}</p><p class="muted small">${item.email || ""} · ${item.phone || "No phone provided"}</p></details><button class="btn btn-text" onclick="reOpenTicket('${item.ticketId}')">View ticket</button></div>`).join("");
 }
 function reOpenTicket(id){
   let list = []; try { list = JSON.parse(localStorage.getItem("nassab_submissions") || "[]"); } catch (e) {}
@@ -268,3 +270,54 @@ function showToast(message){
 function copySubmissionPayload(){ copyToClipboard(); }
 function hideGalleryItem(img){ const wrap = img.closest(".gallery-item"); if (wrap) wrap.style.display = "none"; }
 function backToTop(){ window.scrollTo({top: 0, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"}); }
+
+/* Living Heritage additions: progress, compact header, hero pointer, reveals, timeline, seal, privacy demo, Mahram highlight */
+function togglePrivacy(state, btn){
+  document.querySelectorAll("[data-privacy-btn]").forEach(b => b.setAttribute("aria-pressed", String(b === btn)));
+  document.querySelectorAll(".pv-row").forEach(row => {
+    const label = row.querySelector(".pv-label"); if (!label) return;
+    label.textContent = label.dataset[state] || label.dataset.open || label.textContent;
+    row.classList.toggle("masked", state === "masked");
+  });
+}
+function toggleMahram(btn){
+  const wrap = document.getElementById("mahram-visual"); if (!wrap) return;
+  const on = wrap.classList.toggle("hl");
+  if (btn) btn.setAttribute("aria-pressed", String(on));
+}
+document.addEventListener("DOMContentLoaded", () => {
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  /* Scroll progress + compact header (single passive listener, transform only) */
+  const prog = document.createElement("div"); prog.id = "scroll-progress"; prog.setAttribute("aria-hidden", "true"); document.body.prepend(prog);
+  const header = document.querySelector(".site-header");
+  let ticking = false;
+  const onScroll = () => {
+    if (ticking) return; ticking = true;
+    requestAnimationFrame(() => {
+      const h = document.documentElement.scrollHeight - window.innerHeight;
+      prog.style.transform = "scaleX(" + (h > 0 ? window.scrollY / h : 0) + ")";
+      if (header) header.classList.toggle("scrolled", window.scrollY > 24);
+      ticking = false;
+    });
+  };
+  window.addEventListener("scroll", onScroll, {passive:true}); onScroll();
+  /* Hero pointer: whole network shifts a few px only; disabled on touch */
+  const hero = document.querySelector(".hero");
+  const net = document.querySelector(".hero-lineage");
+  if (hero && net && window.matchMedia("(pointer: fine)").matches && !reduced) {
+    hero.addEventListener("pointermove", e => {
+      const r = hero.getBoundingClientRect();
+      const dx = (e.clientX - r.left) / Math.max(r.width, 1) - 0.5;
+      const dy = (e.clientY - r.top) / Math.max(r.height, 1) - 0.5;
+      net.style.transform = "translate3d(" + (dx * 8) + "px," + (dy * 6) + "px,0)";
+    });
+    hero.addEventListener("pointerleave", () => { net.style.transform = ""; });
+  }
+  if ("IntersectionObserver" in window && !reduced) {
+    const io2 = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { en.target.classList.add("in"); io2.unobserve(en.target); } }), {threshold: 0.15});
+    document.querySelectorAll(".thread,.about-timeline,.heritage-seal").forEach(el => io2.observe(el));
+    const items = document.querySelectorAll("#gallery-grid .gallery-item");
+    const io3 = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { en.target.classList.add("in"); io3.unobserve(en.target); } }), {threshold: 0.1});
+    items.forEach((el, i) => { el.classList.add("reveal-item"); el.style.transitionDelay = ((i % 3) * 90) + "ms"; io3.observe(el); });
+  }
+});

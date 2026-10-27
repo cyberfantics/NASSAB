@@ -12,11 +12,11 @@ Site: https://nassab-nine.vercel.app/
 
 ## Pages (distinct URLs, Vercel cleanUrls)
 
-- index.html — Home: hero with clickable phones, guided 6-step interactive app tour (Welcome, Explore, Tree, Person, Fan, Verify, no auto-play), what makes NASSAB different with links to Features groups, visual SVG relationship diagram, gallery preview, privacy & certificates, how it works, closed testing
+- index.html — Home: hero with clickable phones, app theatre (Welcome, Explore, Tree, Person, Fan, Verify, no auto-play, with a decorative motif per step), what makes NASSAB different with links to Features groups, visual SVG relationship diagram, gallery preview, privacy & certificates, how it works, closed testing
 - features.html — Features, grouped editorially, with live search, group filters, and anchors #group-family, #group-kinship, #group-history, #group-records, #group-privacy
-- gallery.html — App Gallery, rounded-octagonal frames + accessible lightbox with filter chips, count, touch/mouse swipe, and zoom toggle
+- gallery.html — App Gallery, rounded-octagonal frames with a thin outline, staggered reveal, mobile swipe row + accessible lightbox with filter chips, count, touch/mouse swipe, and zoom toggle
 - records.html — Record updates, local-only tickets with live preview and email/WhatsApp sending
-- about.html — About, mission, founder, traditional perspective (English only)
+- about.html — About, mission, founder, confirmed-milestones timeline, heritage seal around the existing logo, traditional perspective (English only)
 - privacy.html — Privacy Policy, October 2026
 - terms.html — Terms of Service, October 2026
 - contact.html — Contact, official details only
@@ -75,3 +75,11 @@ python -m http.server 8080
 - Instagram: https://www.instagram.com/nassabapp/
 - Facebook: https://facebook.com/NassabApp
 - Email: digital.creator380@gmail.com
+
+## Living Heritage motion (vanilla CSS/JS only)
+
+- Living hero genealogy network (abstract nodes only, no names or dates), pointer shift of a few pixels on desktop, static on touch.
+- Scroll-progress indicator under the header, compact sticky header on scroll, animated section numbers and gold dividers.
+- Relationship diagram paths redraw on selection; Rada'at shown in gold, kept distinct from biological and marriage lines.
+- Home privacy demo with Open / Masked / Guest states using abstract sample labels only.
+- All motion respects prefers-reduced-motion and content remains fully visible without animation.
