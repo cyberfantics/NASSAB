@@ -41,18 +41,10 @@ function navTo(pageId) {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // Update Desktop Nav Active States
     const navButtons = document.querySelectorAll('.nav-btn');
-    navButtons.forEach(btn => {
-        btn.classList.remove('text-gold-400', 'bg-emerald-900/60', 'border', 'border-gold-500/30');
-        btn.classList.add('text-slate-300');
-    });
-
+    navButtons.forEach(btn => btn.classList.remove('nav-active'));
     const activeBtn = document.getElementById(`nav-${pageId}`);
-    if (activeBtn) {
-        activeBtn.classList.remove('text-slate-300');
-        activeBtn.classList.add('text-gold-400', 'bg-emerald-900/60', 'border', 'border-gold-500/30');
-    }
+    if (activeBtn) activeBtn.classList.add('nav-active');
 }
 
 // Mobile Navigation Toggle
@@ -60,15 +52,8 @@ function toggleMobileMenu() {
     const mobileMenu = document.getElementById('mobile-menu');
     const menuIcon = document.getElementById('menu-icon');
 
-    if (mobileMenu.classList.contains('hidden')) {
-        mobileMenu.classList.remove('hidden');
-        menuIcon.classList.remove('fa-bars');
-        menuIcon.classList.add('fa-xmark');
-    } else {
-        mobileMenu.classList.add('hidden');
-        menuIcon.classList.remove('fa-xmark');
-        menuIcon.classList.add('fa-bars');
-    }
+    mobileMenu.classList.toggle('open');
+    if (menuIcon) menuIcon.textContent = mobileMenu.classList.contains('open') ? 'x' : 'menu';
 }
 
 // About Us Section Style Switcher (Modern vs Traditional Islamic Wording)
@@ -82,14 +67,14 @@ function switchAboutStyle(style) {
         modernBox.classList.add('hidden');
         traditionalBox.classList.remove('hidden');
         
-        btnModern.className = "px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all text-slate-300 hover:text-white";
-        btnTraditional.className = "px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all bg-gold-500 text-emerald-950 shadow-md";
+        btnModern.classList.remove('toggle-active');
+        btnTraditional.classList.add('toggle-active');
     } else {
         traditionalBox.classList.add('hidden');
         modernBox.classList.remove('hidden');
 
-        btnTraditional.className = "px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all text-slate-300 hover:text-white";
-        btnModern.className = "px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all bg-gold-500 text-emerald-950 shadow-md";
+        btnTraditional.classList.remove('toggle-active');
+        btnModern.classList.add('toggle-active');
     }
 }
 
@@ -115,7 +100,7 @@ function handleFileSelect(event) {
     const file = event.target.files[0];
     const statusBox = document.getElementById('file-status');
     if (file) {
-        statusBox.innerHTML = `<i class="fa-solid fa-file-check text-gold-400 mr-1.5"></i> Attached: <strong>${file.name}</strong> (${(file.size / 1024).toFixed(1)} KB)`;
+        statusBox.innerHTML = `<i ></i> Attached: <strong>${file.name}</strong> (${(file.size / 1024).toFixed(1)} KB)`;
         statusBox.classList.remove('hidden');
         showToast(`Document attached: ${file.name}`);
     }
@@ -163,8 +148,7 @@ function handleFormSubmit(e) {
     document.getElementById('modal-timestamp').innerText = timestamp;
 
     const modal = document.getElementById('submission-modal');
-    modal.classList.remove('hidden');
-    modal.classList.add('flex');
+    modal.classList.add('open');
 
     // Reset Form & Preview
     document.getElementById('record-form').reset();
@@ -213,8 +197,7 @@ function copySubmissionPayload() {
 // Close Modal
 function closeModal() {
     const modal = document.getElementById('submission-modal');
-    modal.classList.add('hidden');
-    modal.classList.remove('flex');
+    modal.classList.remove('open');
 }
 
 // LocalStorage History Helpers
@@ -240,23 +223,15 @@ function renderSubmissionsList() {
     }
 
     container.innerHTML = history.map(item => `
-        <div class="p-4 rounded-2xl bg-emerald-950/80 border border-emerald-800/60 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
-            <div class="space-y-1">
-                <div class="flex items-center space-x-2">
-                    <span class="font-mono font-bold text-gold-400">#${item.ticketId}</span>
-                    <span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-gold-500/20 text-gold-300 border border-gold-500/30">
-                        ${item.status}
-                    </span>
-                </div>
-                <div class="text-white font-medium">${item.type} — <span class="text-slate-300">${item.name}</span></div>
-                <div class="text-[11px] text-slate-400 truncate max-w-md">${item.details}</div>
+        <div class="history-item">
+            <div>
+                <div><strong>#${item.ticketId}</strong> &nbsp; ${item.status}</div>
+                <div>${item.type} — ${item.name}</div>
+                <div class="small muted">${item.details}</div>
             </div>
-            <div class="text-right shrink-0">
-                <div class="text-[10px] text-slate-500">${item.timestamp}</div>
-                <button onclick="reOpenTicket('${item.ticketId}')" class="mt-1 text-gold-400 hover:text-gold-300 text-[11px] font-semibold flex items-center space-x-1">
-                    <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i>
-                    <span>View Ticket</span>
-                </button>
+            <div>
+                <div class="small muted">${item.timestamp}</div>
+                <button onclick="reOpenTicket('${item.ticketId}')">View ticket</button>
             </div>
         </div>
     `).join('');
@@ -274,8 +249,7 @@ function reOpenTicket(ticketId) {
         document.getElementById('modal-timestamp').innerText = item.timestamp;
 
         const modal = document.getElementById('submission-modal');
-        modal.classList.remove('hidden');
-        modal.classList.add('flex');
+        modal.classList.add('open');
     }
 }
 
@@ -300,11 +274,6 @@ function showToast(message) {
     const toastMsg = document.getElementById('toast-msg');
 
     toastMsg.innerText = message;
-    toast.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
-    toast.classList.add('translate-y-0', 'opacity-100');
-
-    setTimeout(() => {
-        toast.classList.remove('translate-y-0', 'opacity-100');
-        toast.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
-    }, 3500);
+    toast.classList.add('show');
+    setTimeout(() => { toast.classList.remove('show'); }, 3500);
 }

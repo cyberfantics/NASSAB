@@ -72,12 +72,11 @@ linked here and no placeholder image URLs are used.
 ![NASSAB Logo](logo.png)
 
 Screenshots will be added here when the app images are supplied.
-The exact files needed are:
+The exact files needed are (also listed on the site Showcase section):
 
-- `images/nassab-tree-screen.png` — family tree screen
-- `images/nassab-record-screen.png` — family record screen
-- `images/nassab-certificate-screen.png` — lineage certificate screen
-- `images/nassab-app-icon.png` — app icon, if one is to be shown
+- `app-home.png` — home / tree screen
+- `app-radaat.png` — Rada'at view
+- `app-certificate.png` — certificate screen
 
 Until those files are supplied and verified in the repository,
 this section contains only the logo above, plus this placeholder
@@ -88,8 +87,8 @@ image line should be removed rather than left as a broken link.
 
 ```text
 ├── index.html        # Main web application structure & responsive sections
-├── styles.css        # Custom dark emerald-gold theme & Noto Nastaliq font rules
-├── script.js         # Tab navigation, ticket generator, modal logic, local storage
+├── styles.css        # Professional light editorial theme (v3, Oct 2026): off-white, deep forest accent, thin gold rule only, Fraunces + Inter + Noto Nastaliq
+├── script.js         # Page navigation, ticket generator, modal logic, local storage (v3 classes: nav-active, toggle-active, modal open, toast show)
 ├── logo.png          # Nassab branding logo image
 ├── vercel.json       # Vercel deployment configuration & security headers
 └── README.md         # Documentation & project guide
@@ -97,9 +96,9 @@ image line should be removed rather than left as a broken link.
 
 ## Technology stack (web app, as documented)
 
-- Frontend: HTML5, Tailwind CSS (via CDN), Vanilla JavaScript (ES6+)
-- Typography: Plus Jakarta Sans (English) & Noto Nastaliq Urdu (Urdu/Arabic)
-- Icons: FontAwesome 6 Free
+- Frontend: HTML5, custom CSS in styles.css (no Tailwind CDN in v3), Vanilla JavaScript (ES6+)
+- Typography: Fraunces for display headings, Inter for body (English) & Noto Nastaliq Urdu (Urdu/Arabic)
+- Design (v3): light, clean, editorial and professional — the public face of Nassab. No dark emerald-gold gradient theme, no glow effects, no fake family example with invented names; the site diagram uses labelled relationship types only.
 - Hosting & Deployment: Vercel Static Hosting
 - Mobile app (as described on the founder's profile): Flutter & Firebase
 

@@ -1,121 +1,164 @@
-/* Custom CSS Rules for NASSAB Web Application */
-/* Nassab redesign v2 — modern, stylish, elegant, Oct 2026.
-   Dark emerald + muted gold identity kept; gold is restrained, not bright yellow. */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;500;600;700&display=swap');
+/* NASSAB v3 — Professional, light, editorial.
+   Palette: off-white #fbfaf7, white #ffffff, ink #14201b,
+   muted #5b6570, deep forest #123524, thin gold rule #b9975b only.
+   No gradients as decoration, no glows, no cartoon styling. */
 
-/* Urdu Nastaliq Styling */
-.font-urdu {
-    font-family: 'Noto Nastaliq Urdu', serif;
-    line-height: 2.2 !important;
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: #fbfaf7;
+  color: #14201b;
+  font-family: "Inter", "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
 }
+a { color: #123524; }
+a:hover { text-decoration: underline; }
+img { max-width: 100%; }
+.hidden { display: none !important; }
+.font-urdu { font-family: "Noto Nastaliq Urdu", serif; line-height: 2.1; }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-    width: 8px;
-}
-::-webkit-scrollbar-track {
-    background: #011c15;
-}
-::-webkit-scrollbar-thumb {
-    background: #064e3b;
-    border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-    background: #b9975b;
-}
-
-/* Page Section Animations */
-.page-section {
-    animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(8px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Modal Popup Animations */
-.modal-enter {
-    animation: modalPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-}
-
-@keyframes modalPop {
-    from {
-        opacity: 0;
-        transform: scale(0.9) translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-    }
-}
-
-/* Active Nav Button Highlighting — muted gold, soft */
-.nav-btn-active {
-    color: #d9c07a !important;
-    background-color: rgba(255, 255, 255, 0.06) !important;
-    border: 1px solid rgba(255, 255, 255, 0.12) !important;
-}
-
-/* Glassmorphism utility */
-.glass-panel {
-    background: rgba(2, 44, 34, 0.7);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.10);
-}
-
-/* Nassab refresh, Oct 2026 — dark emerald + gold identity kept */
-.gold-gradient-text {
-    background: linear-gradient(90deg, #f3e5b8, #d9c07a, #b9975b);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-}
-
-/* Elegant v2 utilities */
+.container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+.section { padding: 72px 0; }
+.section-tight { padding: 48px 0; }
 .eyebrow {
-    letter-spacing: 0.14em;
+  display: inline-block;
+  font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: #123524; font-weight: 700;
+  border-bottom: 2px solid #b9975b; padding-bottom: 6px; margin-bottom: 16px;
 }
+h1, h2, h3 { font-family: "Fraunces", Georgia, serif; color: #14201b; line-height: 1.15; margin: 0 0 16px; }
+h1 { font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 600; letter-spacing: -0.01em; }
+h2 { font-size: clamp(1.8rem, 3.5vw, 2.5rem); font-weight: 600; }
+h3 { font-size: 1.25rem; font-weight: 600; }
+.lede { font-size: 1.2rem; color: #3d4741; max-width: 640px; }
+.muted { color: #5b6570; }
+.small { font-size: 0.9rem; }
+.rule { height: 2px; width: 48px; background: #b9975b; margin: 24px 0; }
 
-.btn-primary-pill {
-    background: linear-gradient(90deg, #d9c07a, #b9975b);
-    box-shadow: 0 10px 30px rgba(185, 151, 91, 0.25);
+/* Header */
+.site-header {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(251, 250, 247, 0.96);
+  border-bottom: 1px solid #e5e0d5;
 }
-.btn-primary-pill:hover {
-    background: linear-gradient(90deg, #e8d5a0, #c9a95e);
+.header-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; gap: 16px; }
+.brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.brand:hover { text-decoration: none; }
+.brand img { height: 40px; width: auto; }
+.brand-name { font-family: "Fraunces", Georgia, serif; font-size: 1.55rem; font-weight: 600; letter-spacing: 0.08em; color: #14201b; }
+.brand-sub { font-size: 0.75rem; color: #5b6570; letter-spacing: 0.06em; }
+.main-nav { display: flex; gap: 4px; align-items: center; flex-wrap: wrap; }
+.nav-btn {
+  background: none; border: none; cursor: pointer;
+  font: inherit; font-size: 0.95rem; font-weight: 500; color: #3d4741;
+  padding: 8px 12px; border-radius: 6px;
 }
+.nav-btn:hover { color: #123524; background: #f0ede6; }
+.nav-btn.nav-active { color: #123524; font-weight: 700; box-shadow: inset 0 -2px 0 #b9975b; border-radius: 6px 6px 0 0; }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 13px 24px; border-radius: 8px; font-weight: 600; font-size: 1rem;
+  text-decoration: none; cursor: pointer; border: 1px solid transparent;
+}
+.btn:hover { text-decoration: none; }
+.btn-primary { background: #123524; color: #fff; }
+.btn-primary:hover { background: #0c2a1c; }
+.btn-outline { background: transparent; color: #123524; border-color: #123524; }
+.btn-outline:hover { background: #eef2ef; }
+.btn-small { padding: 10px 18px; font-size: 0.92rem; }
+.menu-toggle { display: none; background: #fff; border: 1px solid #e5e0d5; border-radius: 8px; padding: 10px 14px; cursor: pointer; font-size: 1.1rem; }
+.mobile-menu { display: none; border-top: 1px solid #e5e0d5; background: #fff; padding: 12px 24px 20px; }
+.mobile-menu.open { display: block; }
+.mobile-menu button { display: block; width: 100%; text-align: left; background: none; border: none; font: inherit; padding: 12px 0; cursor: pointer; border-bottom: 1px solid #f0ede6; }
 
-.btn-secondary-outline {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.14);
+/* Hero */
+.hero { padding: 72px 0 48px; }
+.hero-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 56px; align-items: start; }
+.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin: 28px 0 16px; }
+.trust-strip {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+  border-top: 1px solid #e5e0d5; border-bottom: 1px solid #e5e0d5; margin: 48px 0 0;
 }
-.btn-secondary-outline:hover {
-    background: rgba(255, 255, 255, 0.10);
-}
+.trust-strip div { padding: 20px 20px 20px 0; border-right: 1px solid #e5e0d5; }
+.trust-strip div:last-child { border-right: none; padding-left: 20px; }
+.trust-strip strong { display: block; font-size: 0.95rem; color: #123524; }
+.trust-strip span { font-size: 0.9rem; color: #5b6570; }
 
-.stat-number {
-    color: #d9c07a;
+/* Diagram — abstract, labelled only, no invented people */
+.diagram {
+  background: #fff; border: 1px solid #e5e0d5; border-radius: 16px; padding: 28px;
+  box-shadow: 0 8px 30px rgba(18, 53, 36, 0.06);
 }
-
-.showcase-card, .feature-card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+.diagram h3 { font-family: "Inter", sans-serif; font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase; color: #5b6570; }
+.diagram-node {
+  border: 1px solid #d8d2c4; border-radius: 10px; padding: 14px 16px; background: #fbfaf7; margin: 14px 0;
 }
+.diagram-node strong { display: block; color: #123524; }
+.diagram-node span { font-size: 0.9rem; color: #5b6570; }
+.diagram-branch { border-left: 2px dashed #b9975b; margin-left: 24px; padding-left: 20px; }
+.diagram-note { font-size: 0.85rem; color: #5b6570; border-top: 1px solid #e5e0d5; padding-top: 16px; margin-top: 20px; }
 
-.showcase-card:hover, .feature-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.30), 0 0 0 1px rgba(217, 192, 122, 0.18);
-    border-color: rgba(217, 192, 122, 0.35) !important;
+/* Grids and cards */
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 32px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 32px; }
+.card {
+  background: #fff; border: 1px solid #e5e0d5; border-radius: 14px; padding: 28px;
+  box-shadow: 0 4px 20px rgba(18, 53, 36, 0.04);
 }
+.card h3 { margin-top: 8px; }
+.card p { color: #3d4741; margin: 0; }
+.icon-line { font-size: 1.4rem; color: #123524; }
+.callout { background: #eef2ef; border-left: 3px solid #123524; padding: 20px 24px; border-radius: 0 10px 10px 0; }
+.callout p { margin: 0; }
 
-@media (max-width: 640px) {
-    .showcase-card, .feature-card {
-        padding: 1.25rem !important;
-    }
+/* Showcase */
+.showcase { background: #fff; border: 1px solid #e5e0d5; border-radius: 16px; padding: 32px; display: flex; gap: 28px; align-items: center; }
+.showcase img { height: 96px; width: auto; }
+.showcase-note { background: #fbfaf7; border: 1px dashed #d8d2c4; border-radius: 10px; padding: 16px 20px; margin-top: 20px; }
+
+/* Forms */
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+label { display: block; font-weight: 600; font-size: 0.92rem; margin-bottom: 6px; }
+input, select, textarea {
+  width: 100%; padding: 12px 14px; border: 1px solid #d8d2c4; border-radius: 8px;
+  background: #fff; color: #14201b; font: inherit; font-size: 1rem;
+}
+input:focus, select:focus, textarea:focus { outline: 2px solid #123524; outline-offset: 1px; border-color: #123524; }
+.field { margin-bottom: 18px; }
+.preview-card { background: #fff; border: 1px solid #e5e0d5; border-radius: 14px; padding: 24px; }
+.preview-card p { margin: 4px 0; }
+.file-box { border: 1px dashed #d8d2c4; border-radius: 10px; padding: 20px; text-align: center; position: relative; }
+.file-box input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+
+/* Toggle */
+.toggle-group { display: inline-flex; border: 1px solid #d8d2c4; border-radius: 8px; overflow: hidden; background: #fff; }
+.toggle-group button { border: none; background: none; padding: 10px 18px; font: inherit; font-weight: 600; cursor: pointer; color: #3d4741; }
+.toggle-group button.toggle-active { background: #123524; color: #fff; }
+
+/* Footer, modal, toast, history */
+.site-footer { border-top: 1px solid #e5e0d5; background: #fff; padding: 48px 0 32px; margin-top: 32px; }
+.footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 32px; }
+.footer-grid button { background: none; border: none; font: inherit; color: #123524; cursor: pointer; padding: 0; text-align: left; }
+.footer-grid button:hover { text-decoration: underline; }
+.modal-backdrop { position: fixed; inset: 0; z-index: 100; background: rgba(20, 32, 27, 0.55); display: none; align-items: center; justify-content: center; padding: 20px; }
+.modal-backdrop.open { display: flex; }
+.modal { background: #fff; border-radius: 16px; padding: 32px; max-width: 520px; width: 100%; position: relative; }
+.modal-close { position: absolute; top: 16px; right: 16px; background: none; border: none; font-size: 1.3rem; cursor: pointer; }
+.toast { position: fixed; bottom: 24px; right: 24px; z-index: 110; background: #123524; color: #fff; padding: 14px 20px; border-radius: 10px; transform: translateY(80px); opacity: 0; transition: all 0.3s ease; pointer-events: none; }
+.toast.show { transform: translateY(0); opacity: 1; }
+.history-item { background: #fff; border: 1px solid #e5e0d5; border-radius: 12px; padding: 16px 20px; margin-bottom: 12px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.history-item button { background: none; border: none; color: #123524; font-weight: 600; cursor: pointer; }
+
+@media (max-width: 860px) {
+  .hero-grid, .grid-3, .grid-2, .form-grid, .footer-grid { grid-template-columns: 1fr; }
+  .main-nav { display: none; }
+  .menu-toggle { display: block; }
+  .trust-strip { grid-template-columns: 1fr; }
+  .trust-strip div { border-right: none; border-bottom: 1px solid #e5e0d5; padding: 16px 0; }
+  .trust-strip div:last-child { border-bottom: none; padding-left: 0; }
+  .showcase { flex-direction: column; align-items: flex-start; }
+  .section { padding: 48px 0; }
 }

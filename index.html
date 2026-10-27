@@ -1,974 +1,320 @@
 <!DOCTYPE html>
-<html lang="en" class="dark scroll-smooth">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NASSAB (نَسَب) — Digital Family Tree & Heritage Preservation</title>
-    <meta name="description" content="NASSAB — Family tree & heritage, done right. A Flutter & Firebase genealogy app in closed testing on Google Play, with Rada'at kinship, Mahram guidance, privacy by design, and SHA-256 verified lineage certificates.">
-    
-    <!-- Google Fonts: Plus Jakarta Sans & Noto Nastaliq Urdu -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Tailwind Custom Configuration -->
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        emerald: {
-                            850: '#064e3b',
-                            900: '#022c22',
-                            950: '#011c15',
-                        },
-                        gold: {
-                            400: '#fbbf24',
-                            500: '#f59e0b',
-                            600: '#d97706',
-                            700: '#b45309',
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-                        urdu: ['"Noto Nastaliq Urdu"', 'serif'],
-                        arabic: ['"Noto Nastaliq Urdu"', 'serif']
-                    }
-                }
-            }
-        }
-    </script>
-    <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NASSAB (نَسَب) — Digital Family Tree &amp; Heritage Preservation</title>
+<meta name="description" content="NASSAB — Family tree & heritage, done right. A Flutter and Firebase genealogy app in closed testing, with Rada'at kinship, Mahram guidance, privacy by design, and SHA-256 verified lineage certificates.">
+<link rel="icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 </head>
-<body class="bg-emerald-950 text-slate-100 font-sans antialiased selection:bg-gold-500 selection:text-emerald-950 min-h-screen flex flex-col justify-between">
+<body>
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="#home" onclick="navTo('home')" class="brand">
+      <img src="logo.png" alt="NASSAB logo">
+      <span><span class="brand-name">NASSAB</span><br><span class="brand-sub">Family tree &amp; heritage, done right</span></span>
+    </a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <button onclick="navTo('home')" id="nav-home" class="nav-btn">Home</button>
+      <button onclick="navTo('features')" id="nav-features" class="nav-btn">Features</button>
+      <button onclick="navTo('records')" id="nav-records" class="nav-btn">Records</button>
+      <button onclick="navTo('about')" id="nav-about" class="nav-btn">About</button>
+      <button onclick="navTo('privacy')" id="nav-privacy" class="nav-btn">Privacy</button>
+      <button onclick="navTo('contact')" id="nav-contact" class="nav-btn">Contact</button>
+      <a class="btn btn-primary btn-small" href="https://play.google.com/apps/testing/com.cyberfantics.nassab" target="_blank" rel="noopener noreferrer">Join closed testing</a>
+    </nav>
+    <button class="menu-toggle" id="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Open menu"><span id="menu-icon">☰</span></button>
+  </div>
+  <div id="mobile-menu" class="mobile-menu">
+    <button onclick="navTo('home'); toggleMobileMenu()">Home</button>
+    <button onclick="navTo('features'); toggleMobileMenu()">Features</button>
+    <button onclick="navTo('records'); toggleMobileMenu()">Records</button>
+    <button onclick="navTo('about'); toggleMobileMenu()">About</button>
+    <button onclick="navTo('privacy'); toggleMobileMenu()">Privacy</button>
+    <button onclick="navTo('contact'); toggleMobileMenu()">Contact</button>
+    <a class="btn btn-primary btn-small" href="https://play.google.com/apps/testing/com.cyberfantics.nassab" target="_blank" rel="noopener noreferrer">Join closed testing</a>
+  </div>
+</header>
 
-    <!-- NAVIGATION HEADER -->
-    <header class="sticky top-0 z-50 backdrop-blur-md bg-emerald-950/85 border-b border-white/10 transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <!-- LOGO WITH CUSTOM LOGO.PNG INTEGRATION -->
-                <a href="#home" onclick="navTo('home')" class="flex items-center space-x-3 group">
-                    <img src="logo.png" alt="NASSAB Logo" class="h-12 w-auto object-contain rounded-xl drop-shadow-md group-hover:scale-105 transition-transform duration-300">
-                    <div class="flex flex-col">
-                        <span class="text-2xl font-extrabold tracking-wider bg-gradient-to-r from-white via-slate-100 to-gold-400 bg-clip-text text-transparent">
-                            NASSAB
-                        </span>
-                        <span class="text-xs font-urdu text-gold-400 -mt-1 tracking-wide leading-normal">نَسَب — شجرۂ نسب</span>
-                    </div>
-                </a>
-
-                <!-- DESKTOP NAV LINKS -->
-                <nav class="hidden md:flex items-center space-x-1 lg:space-x-2">
-                    <button onclick="navTo('home')" id="nav-home" class="nav-btn px-4 py-2 rounded-full text-sm font-medium transition-all text-[#d9c07a] bg-white/5 border border-white/10">
-                        Home
-                    </button>
-                    <button onclick="navTo('about')" id="nav-about" class="nav-btn px-4 py-2 rounded-full text-sm font-medium transition-all text-slate-300 hover:text-white hover:bg-white/5">
-                        About NASSAB
-                    </button>
-                    <button onclick="navTo('features')" id="nav-features" class="nav-btn px-4 py-2 rounded-full text-sm font-medium transition-all text-slate-300 hover:text-white hover:bg-white/5">
-                        App Features
-                    </button>
-                    <button onclick="navTo('contact')" id="nav-contact" class="nav-btn px-4 py-2 rounded-full text-sm font-medium transition-all text-slate-300 hover:text-white hover:bg-white/5">
-                        Record Updates
-                    </button>
-                    <button onclick="navTo('privacy')" id="nav-privacy" class="nav-btn px-4 py-2 rounded-full text-sm font-medium transition-all text-slate-300 hover:text-white hover:bg-white/5">
-                        Privacy Policy
-                    </button>
-                    <button onclick="navTo('terms')" id="nav-terms" class="nav-btn px-4 py-2 rounded-full text-sm font-medium transition-all text-slate-300 hover:text-white hover:bg-white/5">
-                        Terms
-                    </button>
-                </nav>
-
-                <!-- EXTERNAL ACTION BUTTONS -->
-                <div class="hidden lg:flex items-center space-x-3">
-                    <a href="https://play.google.com/apps/testing/com.cyberfantics.nassab" target="_blank" rel="noopener noreferrer"
-                       class="btn-primary-pill px-5 py-2.5 rounded-full text-emerald-950 font-semibold text-xs tracking-wide flex items-center space-x-2 transition-all hover:scale-[1.02]">
-                        <i class="fa-brands fa-google-play text-base"></i>
-                        <span>Join closed testing</span>
-                    </a>
-                    <a href="https://wa.me/923408100868" target="_blank" rel="noopener noreferrer" 
-                       class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white font-semibold text-xs tracking-wider uppercase shadow-lg shadow-emerald-600/30 flex items-center space-x-2 transition-all hover:scale-[1.02]">
-                        <i class="fa-brands fa-whatsapp text-lg"></i>
-                        <span>WhatsApp Chat</span>
-                    </a>
-                </div>
-
-                <!-- MOBILE MENU BUTTON -->
-                <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-toggle" onclick="toggleMobileMenu()" class="p-2.5 rounded-xl bg-emerald-900/60 border border-emerald-800/60 text-slate-300 hover:text-white">
-                        <i class="fa-solid fa-bars text-xl" id="menu-icon"></i>
-                    </button>
-                </div>
-            </div>
+<main>
+<!-- HOME -->
+<section id="page-home" class="page-section">
+  <div class="container hero">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow">Genealogy &amp; heritage preservation</span>
+        <h1>Family tree &amp; heritage, done right.</h1>
+        <p class="lede">NASSAB helps families record, organise, and understand their lineage — including complex relationships that ordinary family trees leave out — with privacy built in from the start.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="https://play.google.com/apps/testing/com.cyberfantics.nassab" target="_blank" rel="noopener noreferrer">Join closed testing</a>
+          <button class="btn btn-outline" onclick="navTo('features')">Explore features</button>
         </div>
-
-        <!-- MOBILE NAV MENU -->
-        <div id="mobile-menu" class="hidden md:hidden bg-emerald-950/95 border-b border-emerald-800/60 px-4 pt-3 pb-6 space-y-2 backdrop-blur-xl">
-            <button onclick="navTo('home'); toggleMobileMenu()" class="w-full text-left px-4 py-3 rounded-lg text-base font-medium text-slate-200 hover:bg-emerald-900/50">Home</button>
-            <button onclick="navTo('about'); toggleMobileMenu()" class="w-full text-left px-4 py-3 rounded-lg text-base font-medium text-slate-200 hover:bg-emerald-900/50">About NASSAB</button>
-            <button onclick="navTo('features'); toggleMobileMenu()" class="w-full text-left px-4 py-3 rounded-lg text-base font-medium text-slate-200 hover:bg-emerald-900/50">App Features</button>
-            <button onclick="navTo('contact'); toggleMobileMenu()" class="w-full text-left px-4 py-3 rounded-lg text-base font-medium text-slate-200 hover:bg-emerald-900/50">Record Updates</button>
-            <button onclick="navTo('privacy'); toggleMobileMenu()" class="w-full text-left px-4 py-3 rounded-lg text-base font-medium text-slate-200 hover:bg-emerald-900/50">Privacy Policy</button>
-            <button onclick="navTo('terms'); toggleMobileMenu()" class="w-full text-left px-4 py-3 rounded-lg text-base font-medium text-slate-200 hover:bg-emerald-900/50">Terms of Service</button>
-            <div class="pt-3 border-t border-emerald-800/40 flex flex-col space-y-2">
-                <a href="https://play.google.com/apps/testing/com.cyberfantics.nassab" target="_blank" rel="noopener noreferrer" class="w-full text-center py-3 rounded-xl bg-gradient-to-r from-gold-500 to-amber-600 text-emerald-950 font-bold flex items-center justify-center space-x-2">
-                    <i class="fa-brands fa-google-play text-lg"></i>
-                    <span>Join closed testing</span>
-                </a>
-                <a href="https://wa.me/923408100868" target="_blank" class="w-full text-center py-3 rounded-xl bg-emerald-600 text-white font-semibold flex items-center justify-center space-x-2">
-                    <i class="fa-brands fa-whatsapp text-lg"></i>
-                    <span>Chat on WhatsApp (+92 340 8100868)</span>
-                </a>
-            </div>
+        <p class="small muted">Closed testing only. The testing link works for people on the tester list; if you are not on the list, request access at <a href="mailto:digital.creator380@gmail.com">digital.creator380@gmail.com</a>. The app is not publicly listed yet.</p>
+        <div class="rule"></div>
+        <p class="small muted">Founded and led by Syed Mansoor ul Hassan Bukhari, Founder &amp; Lead Developer, August 2026 to present, Rawalpindi, Pakistan. Developed by CyberFantics.</p>
+      </div>
+      <div class="diagram" aria-label="How Nassab models a family">
+        <h3>How a family is modelled</h3>
+        <div class="diagram-node"><strong>Ancestor</strong><span>The starting point of a recorded lineage.</span></div>
+        <div class="diagram-branch">
+          <div class="diagram-node"><strong>Descendant line</strong><span>Children and later generations, without duplicate records.</span></div>
+          <div class="diagram-node"><strong>Rada'at branch</strong><span>Milk-kinship, recorded as its own relationship type.</span></div>
+          <div class="diagram-node"><strong>Marriage history</strong><span>Current and former marriages kept distinct, with history preserved.</span></div>
         </div>
-    </header>
+        <p class="diagram-note">Diagram is illustrative only. It shows relationship types, not a real family, and contains no personal names, dates, or records.</p>
+      </div>
+    </div>
+    <div class="trust-strip">
+      <div><strong>Closed testing on Google Play</strong><span>Flutter &amp; Firebase mobile app, Alpha track.</span></div>
+      <div><strong>30 testers</strong><span>On the tester list for closed testing.</span></div>
+      <div><strong>SHA-256 integrity</strong><span>Lineage certificates carry a SHA-256 hash for document-integrity checking.</span></div>
+    </div>
+  </div>
 
-    <!-- MAIN CONTENT CONTAINER -->
-    <main class="flex-grow">
+  <div class="container section">
+    <span class="eyebrow">What makes Nassab different</span>
+    <h2>Built for real families, not simple trees.</h2>
+    <p class="lede">Traditional records often hide female branches, flatten remarriages, and ignore milk-kinship. Nassab records those relationships properly, and keeps private information protected.</p>
+    <div class="grid-3">
+      <div class="card"><div class="icon-line">—</div><h3>Rada'at, as its own relationship</h3><p>Milk-kinship is handled distinctly from blood and marriage relationships, rather than folded into a generic tree.</p></div>
+      <div class="card"><div class="icon-line">—</div><h3>Mahram &amp; marriage eligibility</h3><p>Mahram relationships and marriage eligibility are interpreted from the recorded kinship structure. Where evidence is missing, the answer stays undetermined — never guessed.</p></div>
+      <div class="card"><div class="icon-line">—</div><h3>Privacy by design</h3><p>Protected female names are masked, and a guest mode is available, so family information is not exposed by default.</p></div>
+    </div>
+    <p style="margin-top:24px"><button class="btn btn-outline" onclick="navTo('features')">See all features</button></p>
+  </div>
 
-        <!-- ==================== HOME PAGE / HERO ==================== -->
-        <section id="page-home" class="page-section relative overflow-hidden py-20 lg:py-28">
-            <!-- Background Glow Effects -->
-            <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gold-500/[0.06] rounded-full blur-[140px] pointer-events-none"></div>
-            <div class="absolute top-1/3 left-10 w-[400px] h-[400px] bg-emerald-500/10 rounded-full blur-[120px] pointer-events-none"></div>
+  <div class="container section">
+    <span class="eyebrow">How it works</span>
+    <h2>Three steps, clearly separated.</h2>
+    <div class="grid-3">
+      <div class="card"><h3>1. Record</h3><p>Add family members and relationships, or submit a record update for review through the Records page.</p></div>
+      <div class="card"><h3>2. Review</h3><p>Updates are checked before they change a record. Disputed claims are marked transparently, not silently overwritten.</p></div>
+      <div class="card"><h3>3. Preserve</h3><p>Records are kept as a connected lineage, and lineage certificates can be issued with a SHA-256 integrity hash.</p></div>
+    </div>
+  </div>
 
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-                    
-                    <!-- LEFT COLUMN: INTRO TEXT -->
-                    <div class="lg:col-span-7 space-y-8 text-center lg:text-left">
-                        <div class="eyebrow inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-[#d9c07a] text-xs font-medium tracking-widest">
-                            <i class="fa-solid fa-gem text-xs"></i>
-                            <span>Closed testing on Google Play &middot; Flutter &amp; Firebase mobile app</span>
-                        </div>
+  <div class="container section">
+    <span class="eyebrow">Privacy &amp; certificates</span>
+    <h2>Private by design. Verifiable, in a precise sense.</h2>
+    <p class="lede">Exact birthdates, contact details, and personal details of living individuals are restricted and masked from public indexing unless the record owner gives explicit permission.</p>
+    <div class="callout" style="margin-top:28px">
+      <p><strong>About certificates, stated plainly:</strong> a lineage certificate carries a SHA-256 hash so the document itself can be integrity-checked. Nassab is not blockchain-verified, and its certificates are not legally certified ancestry. That distinction matters, and it is kept in all Nassab wording.</p>
+    </div>
+  </div>
 
-                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.12]">
-                            Family tree &amp; heritage,<br/>
-                            <span class="gold-gradient-text">done right.</span>
-                        </h1>
-                        <p class="text-lg sm:text-xl text-slate-400 font-medium tracking-wide">Preserving heritage. Connecting lineages.</p>
+  <div class="container section">
+    <span class="eyebrow">App status</span>
+    <h2>Currently in closed testing.</h2>
+    <p class="lede">The Nassab mobile app (Flutter &amp; Firebase, package com.cyberfantics.nassab) is in closed Play testing. It is not publicly listed yet. A public rollout will be announced when testing is complete; until then, access is through the tester list only.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="https://play.google.com/apps/testing/com.cyberfantics.nassab" target="_blank" rel="noopener noreferrer">Join closed testing</a>
+      <a class="btn btn-outline" href="mailto:digital.creator380@gmail.com">Request access by email</a>
+    </div>
+  </div>
 
-                        <p class="text-base sm:text-lg text-slate-400 font-normal leading-relaxed max-w-xl mx-auto lg:mx-0">
-                            NASSAB is a digital genealogy and family heritage platform, built as a Flutter &amp; Firebase mobile app. Build your family tree, explore relationships across generations &mdash; including Rada&apos;at (milk-kinship) as its own relationship type &mdash; and keep private family information protected, with masked protected female names and guest mode. Lineage certificates use SHA-256 document-integrity verification.
-                        </p>
+  <div class="container section" id="showcase">
+    <span class="eyebrow">Showcase</span>
+    <h2>Images &amp; showcase</h2>
+    <div class="showcase">
+      <img src="logo.png" alt="NASSAB logo">
+      <div>
+        <h3 style="margin-top:0">NASSAB</h3>
+        <p class="muted" style="margin:0">The project logo, as used across Nassab. App screenshots are not shown here yet, because no verified app screenshots have been supplied for this site.</p>
+      </div>
+    </div>
+    <div class="showcase-note">
+      <p style="margin:0"><strong>App screenshots will be added here.</strong> The exact files still needed are: <code>app-home.png</code> (home / tree screen), <code>app-radaat.png</code> (Rada'at view), and <code>app-certificate.png</code> (certificate screen). Until those files are supplied and verified in the repository, this section contains only the logo above, plus this note. No placeholder images are used.</p>
+    </div>
+  </div>
 
-                        <!-- CALL TO ACTIONS -->
-                        <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-                            <a href="https://play.google.com/apps/testing/com.cyberfantics.nassab" target="_blank" rel="noopener noreferrer" class="btn-primary-pill w-full sm:w-auto px-7 py-3.5 rounded-full text-emerald-950 font-semibold text-base flex items-center justify-center space-x-3 transition-all hover:scale-[1.02]">
-                                <span>Join closed testing</span>
-                                <i class="fa-brands fa-google-play"></i>
-                            </a>
-                            <button onclick="navTo('features')" class="btn-secondary-outline w-full sm:w-auto px-7 py-3.5 rounded-full text-white font-medium text-base flex items-center justify-center space-x-3 transition-all">
-                                <span>Explore features</span>
-                                <i class="fa-solid fa-arrow-right"></i>
-                            </button>
-                        </div>
-                        <p class="text-sm text-slate-400 max-w-2xl mx-auto lg:mx-0">
-                            Google Play testing link is tester-list only &mdash; if you are not on the list, request access at
-                            <a href="mailto:digital.creator380@gmail.com" class="text-gold-400 hover:text-gold-300 font-semibold">digital.creator380@gmail.com</a>.
-                            The app is in closed testing and is not public yet.
-                        </p>
-                        <p class="text-sm text-slate-300 max-w-2xl mx-auto lg:mx-0">
-                            Founded and led by <strong class="text-white">Syed Mansoor ul Hassan Bukhari</strong>, Founder &amp; Lead Developer, Aug 2026&ndash;present, Rawalpindi, Pakistan &middot; Developed by CyberFantics.
-                        </p>
-
-                        <!-- STATS / HIGHLIGHTS BAR -->
-                        <div class="pt-8 border-t border-white/10 grid grid-cols-3 gap-4 text-center lg:text-left">
-                            <div>
-                                <div class="stat-number text-2xl lg:text-3xl font-bold">Closed</div>
-                                <div class="text-xs text-slate-400 font-medium">Testing on Google Play</div>
-                            </div>
-                            <div>
-                                <div class="stat-number text-2xl lg:text-3xl font-bold">30</div>
-                                <div class="text-xs text-slate-400 font-medium">Testers on the tester list</div>
-                            </div>
-                            <div>
-                                <div class="stat-number text-2xl lg:text-3xl font-bold">SHA-256</div>
-                                <div class="text-xs text-slate-400 font-medium">Certificate integrity check</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- RIGHT COLUMN: APP SHOWCASE GRAPHIC WITH LOGO INTEGRATION -->
-                    <div class="lg:col-span-5 relative">
-                        <div class="relative mx-auto max-w-md lg:max-w-none">
-                            <!-- Glassmorphism Card Showcase -->
-                            <div class="showcase-card relative z-10 rounded-3xl p-6 lg:p-8 bg-[#04241c]/90 border border-white/10 shadow-xl shadow-black/30 backdrop-blur-xl space-y-6">
-                                
-                                <div class="flex items-center justify-between border-b border-emerald-800/60 pb-4">
-                                    <div class="flex items-center space-x-3">
-                                        <img src="logo.png" alt="NASSAB Icon" class="w-10 h-10 object-contain rounded-lg">
-                                        <div>
-                                            <h3 class="text-base font-bold text-white">Shajra Explorer Preview</h3>
-                                            <p class="text-xs text-slate-400">Family Relationship Knowledge Graph</p>
-                                        </div>
-                                    </div>
-                                    <span class="px-2.5 py-1 rounded-full text-[10px] font-medium uppercase tracking-wider bg-white/5 text-slate-300 border border-white/10">
-                                        Closed testing
-                                    </span>
-                                </div>
-
-                                <!-- MOCK GRAPH NODE DEMO -->
-                                <div class="space-y-4 font-sans text-xs">
-                                    <!-- Parent Node -->
-                                    <div class="p-3.5 rounded-xl bg-emerald-900/60 border border-emerald-700/50 flex items-center justify-between">
-                                        <div class="flex items-center space-x-3">
-                                            <div class="w-8 h-8 rounded-full bg-emerald-800 flex items-center justify-center text-gold-400 font-bold">
-                                                A
-                                            </div>
-                                            <div>
-                                                <div class="text-sm font-semibold text-white">Ahmed (Father)</div>
-                                                <div class="text-[11px] text-slate-400">Biological Parent & Ancestor</div>
-                                            </div>
-                                        </div>
-                                        <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-950 text-emerald-300">Head of Lineage</span>
-                                    </div>
-
-                                    <!-- Connecting Line -->
-                                    <div class="flex justify-center my-1">
-                                        <div class="w-0.5 h-6 bg-gradient-to-b from-gold-500 to-emerald-500"></div>
-                                    </div>
-
-                                    <!-- Sub Nodes: Marriage Contexts -->
-                                    <div class="grid grid-cols-2 gap-3">
-                                        <div class="p-3 rounded-xl bg-emerald-900/40 border border-emerald-800/60 space-y-1">
-                                            <div class="text-[11px] font-bold text-gold-400">1st Marriage: Fatima</div>
-                                            <div class="text-slate-300 font-medium">Children: Ali, Maryam</div>
-                                            <div class="text-[10px] text-slate-500">Full & Half Lineages</div>
-                                        </div>
-                                        <div class="p-3 rounded-xl bg-emerald-900/40 border border-emerald-800/60 space-y-1">
-                                            <div class="text-[11px] font-bold text-gold-400">2nd Marriage: Ayesha</div>
-                                            <div class="text-slate-300 font-medium">Children: Hassan, Zainab</div>
-                                            <div class="text-[10px] text-slate-500">Step & Remarriage Context</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="pt-3 border-t border-emerald-800/60 flex items-center justify-between text-xs text-slate-400">
-                                    <span><i class="fa-solid fa-check text-gold-400 mr-1"></i> No Duplicate Records</span>
-                                    <span><i class="fa-solid fa-check text-gold-400 mr-1"></i> Full Female Lineage</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        
-                <!-- ==================== IMAGES / SHOWCASE ==================== -->
-                <div id="showcase" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-20 lg:mt-24">
-                    <div class="text-center space-y-3 max-w-3xl mx-auto">
-                        <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs font-semibold uppercase tracking-wider">
-                            <i class="fa-solid fa-images"></i>
-                            <span>Images &amp; Showcase</span>
-                        </div>
-                        <h2 class="text-2xl sm:text-3xl font-bold text-white">See NASSAB at a glance</h2>
-                        <p class="text-slate-300 text-base sm:text-lg">
-                            The family tree, kept private by design. Rada&apos;at kinship shown as its own relationship, not as a footnote.
-                        </p>
-                    </div>
-                    <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="showcase-card rounded-3xl p-6 sm:p-8 bg-white/[0.03] border border-white/10 space-y-4">
-                            <img src="logo.png" alt="NASSAB logo" class="h-20 w-auto object-contain rounded-xl mx-auto">
-                            <h3 class="text-xl font-bold text-white text-center">NASSAB &mdash; Family tree &amp; heritage, done right</h3>
-                            <p class="text-slate-300 text-sm leading-relaxed text-center">
-                                The NASSAB mark, as used on the app and on Instagram @nassabapp. A tree, a lineage, and a heritage to keep.
-                            </p>
-                        </div>
-                        <div class="showcase-card rounded-3xl p-6 sm:p-8 bg-white/[0.03] border border-white/10 space-y-4">
-                            <h3 class="text-xl font-bold text-white">Shajra Explorer Preview</h3>
-                            <p class="text-slate-300 text-sm leading-relaxed">
-                                The tree preview above shows a father, two marriages, and full and half lineages without duplicate records &mdash; the same structure the mobile app explores, with complete male and female lineage.
-                            </p>
-                            <p class="text-slate-400 text-sm leading-relaxed">
-                                <strong class="text-gold-400">App screenshots will be added here.</strong> Needed files: one home/tree screenshot, one Rada&apos;at view screenshot, and one certificate screenshot, saved as <span class="font-mono text-xs">app-home.png</span>, <span class="font-mono text-xs">app-radaat.png</span>, and <span class="font-mono text-xs">app-certificate.png</span> in the site folder. No placeholder images are used in the meantime.
-                            </p>
-                            <button onclick="navTo('features')" class="px-6 py-3 rounded-xl bg-gold-500 hover:bg-gold-400 text-emerald-950 font-bold text-sm transition-all">Explore the features</button>
-                        </div>
-                    </div>
-                </div>
+  <div class="container section">
+    <span class="eyebrow">About</span>
+    <h2>Preserving heritage, with care for accuracy.</h2>
+    <p class="lede">NASSAB combines traditional genealogical records with modern software, so family history can be preserved digitally for future generations — without overstating what a record can prove.</p>
+    <p><button class="btn btn-outline" onclick="navTo('about')">Read about Nassab</button></p>
+  </div>
 </section>
 
-        <!-- ==================== ABOUT NASSAB PAGE ==================== -->
-        <section id="page-about" class="page-section hidden py-20 lg:py-28">
-            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-                
-                <!-- ABOUT HEADER -->
-                <div class="text-center space-y-4">
-                    <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs font-semibold uppercase tracking-wider">
-                        <i class="fa-solid fa-book-bookmark"></i>
-                        <span>Project Documentation</span>
-                    </div>
-                    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white">About NASSAB</h2>
-                    <p class="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto">
-                        Combining traditional genealogical heritage with modern software technology to preserve family records digitally.
-                    </p>
-
-                    <!-- TRADITIONAL VS MODERN TOGGLE BUTTON -->
-                    <div class="pt-4 flex justify-center">
-                        <div class="bg-emerald-900/80 p-1.5 rounded-2xl border border-emerald-800/80 flex items-center space-x-1 shadow-inner">
-                            <button id="toggle-modern" onclick="switchAboutStyle('modern')" class="px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all bg-gold-500 text-emerald-950 shadow-md">
-                                <i class="fa-solid fa-laptop-code mr-1.5"></i> Modern Overview
-                            </button>
-                            <button id="toggle-traditional" onclick="switchAboutStyle('traditional')" class="px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all text-slate-300 hover:text-white">
-                                <i class="fa-solid fa-scroll mr-1.5"></i> Traditional / Islamic View (<span class="font-urdu">شجرۂ نسب</span>)
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- DYNAMIC CONTENT BOX (MODERN OVERVIEW DEFAULT) -->
-                <div id="about-content-modern" class="space-y-8 bg-emerald-900/40 border border-emerald-800/60 rounded-3xl p-6 sm:p-10 backdrop-blur-lg shadow-xl">
-                    <div class="space-y-4">
-                        <h3 class="text-2xl font-bold text-gold-400 flex items-center space-x-3">
-                            <i class="fa-solid fa-compass"></i>
-                            <span>Purpose of NASSAB</span>
-                        </h3>
-                        <p class="text-slate-200 leading-relaxed text-base sm:text-lg">
-                            NASSAB is a digital genealogy project dedicated to preserving, organizing, and exploring family records and Shajra.
-                        </p>
-                        <p class="text-slate-300 leading-relaxed text-base">
-                            The purpose of NASSAB is to make genealogical information easier to access and understand while preserving connections between generations. The platform is designed to represent complete family relationships, including male and female descendants, marriages, divorces, remarriages, children from different marriages, and other complex family connections.
-                        </p>
-                        <p class="text-slate-300 leading-relaxed text-base">
-                            Users can explore individuals within the genealogy, discover their ancestors and descendants, and understand their relationship with other people in the recorded family tree.
-                        </p>
-                        <p class="text-slate-300 leading-relaxed text-base">
-                            NASSAB aims to combine traditional genealogical records with modern technology so that family history can be preserved digitally for future generations.
-                        </p>
-                        <p class="text-slate-300 leading-relaxed text-base">
-                            The mobile app is built with Flutter &amp; Firebase and is led by <strong class="text-white">Syed Mansoor ul Hassan Bukhari</strong>, Founder &amp; Lead Developer, Aug 2026&ndash;present, Rawalpindi, Pakistan. It is in closed testing on Google Play and is not public yet. Developed by CyberFantics.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- TRADITIONAL ISLAMIC WORDING VARIANT (NOTO NASTALIQ URDU) -->
-                <div id="about-content-traditional" class="hidden space-y-8 bg-emerald-900/40 border border-gold-500/30 rounded-3xl p-6 sm:p-10 backdrop-blur-lg shadow-xl">
-                    <div class="space-y-4">
-                        <div class="flex items-center justify-between border-b border-emerald-800/60 pb-3">
-                            <h3 class="text-2xl font-bold text-gold-400 font-urdu tracking-wide leading-relaxed flex items-center space-x-3">
-                                <i class="fa-solid fa-kaaba text-lg"></i>
-                                <span dir="rtl">محافظتِ نسب و شجرۂ طیبہ (Traditional Perspective)</span>
-                            </h3>
-                            <span class="text-xs px-3 py-1 rounded-full bg-gold-500/10 text-gold-300 border border-gold-500/20 font-urdu">
-                                نسب و سلسلہ
-                            </span>
-                        </div>
-                        <p class="text-slate-200 text-lg sm:text-xl font-urdu tracking-wide leading-[2.3]" dir="rtl">
-                            نَسب (Nassab) ایک جدید الرقمي منصوبہ ہے جس کا مقصد اسلاف (Ancestors) کی تاریخ، شجرۂ نسب، اور خلف (Descendants) کے تمام سلسلہ کو محفوظ و منظم کرنا ہے۔
-                        </p>
-                        <p class="text-slate-300 text-base sm:text-lg font-urdu leading-[2.3]" dir="rtl">
-                            یہ پلیٹ فارم روایتی خاندانی ریکارڈز، شجرہ جات، اور سلسلوں کو جدید ترین سائنس و ٹیکنالوجی کے ساتھ ہم آہنگ کرتا ہے۔ اس میں تمام رشتوں—بشمول مرد و خواتین کی اولاد، متعدد ازواج، مطلقہ، اور سوتیلے رشتوں—کی کامل اور شفاف عکاسی کی گئی ہے تاکہ نسلِ نو اپنے آباؤ اجداد کی تاریخ کو بخوبی سمجھ سکے۔
-                        </p>
-                        <div class="p-5 rounded-2xl bg-emerald-950/80 border border-gold-500/30 text-gold-300 text-lg font-urdu leading-[2.3]" dir="rtl">
-                            "احفظوا من أنسابكم ما تصلون به أرحامكم" — اپنے نسب کو محفوظ رکھو جس کے ذریعے تم صلہ رحمی کر سکو۔
-                        </div>
-                    </div>
-                </div>
-
-                <!-- RECORD UPDATES SECTION -->
-                <div class="bg-gradient-to-r from-emerald-900/60 to-emerald-950/90 border border-gold-500/30 rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl">
-                    <div class="flex items-start space-x-4">
-                        <div class="w-12 h-12 rounded-2xl bg-gold-500/20 border border-gold-500/40 flex items-center justify-center text-gold-400 text-xl shrink-0">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                        </div>
-                        <div class="space-y-2">
-                            <h3 class="text-xl font-bold text-white">Record Updates & Verification</h3>
-                            <p class="text-slate-300 text-sm leading-relaxed">
-                                If you would like to add a new record, correct an existing record, provide additional information, or submit genealogical documentation, please contact our team via Email or WhatsApp.
-                            </p>
-                            <div class="pt-2 flex flex-wrap items-center gap-4">
-                                <a href="mailto:digital.creator380@gmail.com" class="inline-flex items-center space-x-2 px-4 py-2.5 rounded-xl bg-gold-500 hover:bg-gold-400 text-emerald-950 font-bold text-xs tracking-wider uppercase shadow-md transition-all">
-                                    <i class="fa-solid fa-envelope"></i>
-                                    <span>digital.creator380@gmail.com</span>
-                                </a>
-                                <a href="https://wa.me/923408100868" target="_blank" class="inline-flex items-center space-x-2 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs tracking-wider uppercase shadow-md transition-all">
-                                    <i class="fa-brands fa-whatsapp text-lg"></i>
-                                    <span>+92 340 8100868</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- OFFICIAL CHANNELS & DEVELOPER CREDITS -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    
-                    <!-- WHATSAPP BROADCAST CHANNEL & DIRECT CHAT -->
-                    <div class="p-6 rounded-2xl bg-emerald-900/50 border border-emerald-800/60 space-y-4 hover:border-emerald-500/50 transition-all">
-                        <div class="flex items-center space-x-3 text-emerald-400">
-                            <i class="fa-brands fa-whatsapp text-3xl"></i>
-                            <div>
-                                <h4 class="font-bold text-white text-base">WhatsApp Support & Channel</h4>
-                                <p class="text-xs text-slate-400">Direct Chat: +92 340 8100868</p>
-                            </div>
-                        </div>
-                        <p class="text-xs text-slate-300 leading-relaxed">
-                            Connect with us directly on WhatsApp or join the official NASSAB WhatsApp Channel to receive announcements, project updates, and new record releases.
-                        </p>
-                        <div class="flex items-center space-x-4 pt-1">
-                            <a href="https://wa.me/923408100868" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-1.5 text-xs font-bold text-gold-400 hover:text-gold-300">
-                                <span>Chat Direct (+92 340 8100868)</span>
-                                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
-                            </a>
-                            <a href="https://whatsapp.com/channel/0029Vb8MiX06GcGAB6sBsw31?utm_source=chatgpt.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-1.5 text-xs font-bold text-emerald-400 hover:text-emerald-300">
-                                <span>Join Channel</span>
-                                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- DEVELOPER & SOCIAL CREDITS -->
-                    <div class="p-6 rounded-2xl bg-emerald-900/50 border border-emerald-800/60 space-y-4 hover:border-emerald-500/50 transition-all">
-                        <div class="flex items-center space-x-3 text-gold-400">
-                            <i class="fa-solid fa-code text-2xl"></i>
-                            <div>
-                                <h4 class="font-bold text-white text-base">Developed by CyberFantics</h4>
-                                <p class="text-xs text-slate-400">Technology for Genealogical Preservation</p>
-                            </div>
-                        </div>
-                        <p class="text-xs text-slate-300 leading-relaxed">
-                            NASSAB is a project focused on using technology to preserve and make genealogical information accessible for present and future generations.
-                        </p>
-                        <div class="flex items-center space-x-4 pt-1">
-                            <a href="https://facebook.com/NassabApp" target="_blank" rel="noopener noreferrer" class="text-slate-300 hover:text-gold-400 text-sm flex items-center space-x-1.5">
-                                <i class="fa-brands fa-facebook"></i>
-                                <span class="text-xs">Facebook</span>
-                            </a>
-                            <a href="https://www.instagram.com/nassabapp/" target="_blank" rel="noopener noreferrer" class="text-slate-300 hover:text-gold-400 text-sm flex items-center space-x-1.5">
-                                <i class="fa-brands fa-instagram"></i>
-                                <span class="text-xs">Instagram</span>
-                            </a>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-        </section>
-
-        <!-- ==================== APP FEATURES SECTION ==================== -->
-        <section id="page-features" class="page-section hidden py-20 lg:py-28">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-                <div class="text-center space-y-4 max-w-3xl mx-auto">
-                    <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs font-semibold uppercase tracking-wider">
-                        <i class="fa-solid fa-layer-group"></i>
-                        <span>Platform Capabilities</span>
-                    </div>
-                    <h2 class="text-3xl sm:text-4xl font-bold text-white">Advanced Genealogical Features</h2>
-                    <p class="text-slate-300 text-base sm:text-lg">
-                        Traditional family trees fail with complex family structures. NASSAB uses a relational graph architecture to handle real-world historical records accurately. The Flutter &amp; Firebase mobile app is in closed testing on Google Play and is not public yet.
-                    </p>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    
-                    <!-- Feature Card 1 -->
-                    <div class="feature-card p-7 sm:p-8 rounded-3xl bg-white/[0.03] border border-white/10 space-y-4">
-                        <div class="w-12 h-12 rounded-2xl bg-[#d9c07a]/10 border border-[#d9c07a]/20 flex items-center justify-center text-[#d9c07a] text-xl">
-                            <i class="fa-solid fa-users"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-white">Equal Female & Male Representation</h3>
-                        <p class="text-slate-300 text-sm leading-relaxed">
-                            Unlike traditional records that obscure female branches, NASSAB maps all daughters, mothers, and female ancestors with complete historical context.
-                        </p>
-                    </div>
-
-                    <!-- Feature Card 2 -->
-                    <div class="feature-card p-7 sm:p-8 rounded-3xl bg-white/[0.03] border border-white/10 space-y-4">
-                        <div class="w-12 h-12 rounded-2xl bg-[#d9c07a]/10 border border-[#d9c07a]/20 flex items-center justify-center text-[#d9c07a] text-xl">
-                            <i class="fa-solid fa-code-merge"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-white">Remarriages & Step-Siblings</h3>
-                        <p class="text-slate-300 text-sm leading-relaxed">
-                            Accurately represents divorces, multiple marriages, half-siblings, and step-children without creating duplicate person records.
-                        </p>
-                    </div>
-
-                    <!-- Feature Card 3 -->
-                    <div class="feature-card p-7 sm:p-8 rounded-3xl bg-white/[0.03] border border-white/10 space-y-4">
-                        <div class="w-12 h-12 rounded-2xl bg-[#d9c07a]/10 border border-[#d9c07a]/20 flex items-center justify-center text-[#d9c07a] text-xl">
-                            <i class="fa-solid fa-scroll"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-white">Bukhari Syed & Silsila Tracing</h3>
-                        <p class="text-slate-300 text-sm leading-relaxed">
-                            Dedicated engine for preserving patrilineal lineage claims (Silsila), verifying ancestral chains with historic documentation.
-                        </p>
-                    </div>
-
-                    <!-- Feature Card 4 -->
-                    <div class="feature-card p-7 sm:p-8 rounded-3xl bg-white/[0.03] border border-white/10 space-y-4">
-                        <div class="w-12 h-12 rounded-2xl bg-[#d9c07a]/10 border border-[#d9c07a]/20 flex items-center justify-center text-[#d9c07a] text-xl">
-                            <i class="fa-solid fa-magnifying-glass-chart"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-white">Relationship Calculator</h3>
-                        <p class="text-slate-300 text-sm leading-relaxed">
-                            Calculates nearest shared ancestors (LCA algorithm) to generate clear human-readable explanations between any two family members.
-                        </p>
-                    </div>
-
-                    <!-- Feature Card 5 -->
-                    <div class="feature-card p-7 sm:p-8 rounded-3xl bg-white/[0.03] border border-white/10 space-y-4">
-                        <div class="w-12 h-12 rounded-2xl bg-[#d9c07a]/10 border border-[#d9c07a]/20 flex items-center justify-center text-[#d9c07a] text-xl">
-                            <i class="fa-solid fa-shield-halved"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-white">Evidence & Dispute Tracking</h3>
-                        <p class="text-slate-300 text-sm leading-relaxed">
-                            Every relationship can be backed by birth certificates, family manuscripts, or oral testimony with confidence scores.
-                        </p>
-                    </div>
-
-                    <!-- Feature Card 6 -->
-                    <div class="feature-card p-7 sm:p-8 rounded-3xl bg-white/[0.03] border border-white/10 space-y-4">
-                        <div class="w-12 h-12 rounded-2xl bg-[#d9c07a]/10 border border-[#d9c07a]/20 flex items-center justify-center text-[#d9c07a] text-xl">
-                            <i class="fa-solid fa-cloud-arrow-up"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-white">Secure Digital Archiving</h3>
-                        <p class="text-slate-300 text-sm leading-relaxed">
-                            Cloud-synced database structure ensures historical family records remain preserved safely for future generations.
-                        </p>
-                    </div>
-
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
-<!-- Feature Card: Rada'at -->
-                    <div class="feature-card p-7 sm:p-8 rounded-3xl bg-white/[0.03] border border-white/10 space-y-4">
-                        <div class="w-12 h-12 rounded-2xl bg-[#d9c07a]/10 border border-[#d9c07a]/20 flex items-center justify-center text-[#d9c07a] text-xl">
-                            <i class="fa-solid fa-heart"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-white">Rada&apos;at (Milk-Kinship)</h3>
-                        <p class="text-slate-300 text-sm leading-relaxed">
-                            Rada&apos;at is handled as its own relationship type, not as a footnote to blood lineage &mdash; so milk-kinship is shown clearly, in its own view, with its own meaning.
-                        </p>
-                    </div>
-
-                    <!-- Feature Card: Mahram -->
-                    <div class="feature-card p-7 sm:p-8 rounded-3xl bg-white/[0.03] border border-white/10 space-y-4">
-                        <div class="w-12 h-12 rounded-2xl bg-[#d9c07a]/10 border border-[#d9c07a]/20 flex items-center justify-center text-[#d9c07a] text-xl">
-                            <i class="fa-solid fa-scale-balanced"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-white">Mahram &amp; Marriage-Eligibility</h3>
-                        <p class="text-slate-300 text-sm leading-relaxed">
-                            Mahram and marriage-eligibility are interpreted from the recorded relationships, including Rada&apos;at. Where evidence is missing, the answer stays undetermined &mdash; never guessed.
-                        </p>
-                    </div>
-
-                    <!-- Feature Card: Privacy by design -->
-                    <div class="feature-card p-7 sm:p-8 rounded-3xl bg-white/[0.03] border border-white/10 space-y-4">
-                        <div class="w-12 h-12 rounded-2xl bg-[#d9c07a]/10 border border-[#d9c07a]/20 flex items-center justify-center text-[#d9c07a] text-xl">
-                            <i class="fa-solid fa-user-shield"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-white">Privacy by Design</h3>
-                        <p class="text-slate-300 text-sm leading-relaxed">
-                            Protected female names are masked, and guest mode lets visitors explore without exposing private family data. Privacy is enforced at the data layer, not just on the screen.
-                        </p>
-                    </div>
-
-                    <!-- Feature Card: Certificates -->
-                    <div class="feature-card p-7 sm:p-8 rounded-3xl bg-white/[0.03] border border-white/10 space-y-4">
-                        <div class="w-12 h-12 rounded-2xl bg-[#d9c07a]/10 border border-[#d9c07a]/20 flex items-center justify-center text-[#d9c07a] text-xl">
-                            <i class="fa-solid fa-certificate"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-white">Verified Lineage Certificates</h3>
-                        <p class="text-slate-300 text-sm leading-relaxed">
-                            Lineage certificates carry SHA-256 document-integrity verification, so a record can be checked against its hash. This is document-integrity verification &mdash; it is not blockchain verification, and it is not legally certified ancestry.
-                        </p>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-
-                    <!-- ==================== UPGRADED INTERACTIVE RECORD UPDATES PAGE ==================== -->
-        <section id="page-contact" class="page-section hidden py-20 lg:py-28">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-                
-                <div class="text-center space-y-4 max-w-3xl mx-auto">
-                    <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs font-semibold uppercase tracking-wider">
-                        <i class="fa-solid fa-paper-plane"></i>
-                        <span>Interactive Submission Portal</span>
-                    </div>
-                    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white">Submit a Record Update</h2>
-                    <p class="text-slate-300 text-base sm:text-lg">
-                        Submit new family members, corrections, birth records, or lineage documentation. Our verification team will review your ticket.
-                    </p>
-                </div>
-
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                    
-                    <!-- LEFT COLUMN: INTERACTIVE FORM -->
-                    <div class="lg:col-span-7 bg-white/[0.03] border border-white/10 rounded-3xl p-6 sm:p-8 backdrop-blur-lg shadow-xl space-y-6">
-                        <div class="flex items-center justify-between border-b border-emerald-800/60 pb-4">
-                            <h3 class="text-lg font-bold text-white flex items-center space-x-2">
-                                <i class="fa-solid fa-pen-to-square text-gold-400"></i>
-                                <span>Record Submission Form</span>
-                            </h3>
-                            <span class="text-xs px-2.5 py-1 rounded-full bg-emerald-950 text-gold-400 font-mono">Step 1 of 2</span>
-                        </div>
-
-                        <form id="record-form" onsubmit="handleFormSubmit(event)" class="space-y-5">
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                                <div class="space-y-2">
-                                    <label class="block text-xs font-bold text-gold-400 uppercase tracking-wider">Your Full Name *</label>
-                                    <input type="text" id="form-name" required placeholder="e.g. Ali Ahmed Bukhari" class="w-full px-4 py-3 rounded-xl bg-emerald-950/90 border border-emerald-800 text-white placeholder-slate-500 focus:outline-none focus:border-gold-500 transition-colors text-sm">
-                                </div>
-                                <div class="space-y-2">
-                                    <label class="block text-xs font-bold text-gold-400 uppercase tracking-wider">Your Email *</label>
-                                    <input type="email" id="form-email" required placeholder="name@domain.com" class="w-full px-4 py-3 rounded-xl bg-emerald-950/90 border border-emerald-800 text-white placeholder-slate-500 focus:outline-none focus:border-gold-500 transition-colors text-sm">
-                                </div>
-                            </div>
-
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                                <div class="space-y-2">
-                                    <label class="block text-xs font-bold text-gold-400 uppercase tracking-wider">WhatsApp / Phone Number</label>
-                                    <input type="text" id="form-phone" placeholder="e.g. 03408100868" class="w-full px-4 py-3 rounded-xl bg-emerald-950/90 border border-emerald-800 text-white placeholder-slate-500 focus:outline-none focus:border-gold-500 transition-colors text-sm">
-                                </div>
-                                <div class="space-y-2">
-                                    <label class="block text-xs font-bold text-gold-400 uppercase tracking-wider">Family Branch / Lineage Name</label>
-                                    <input type="text" id="form-branch" placeholder="e.g. Bukhari Syed Branch #4" class="w-full px-4 py-3 rounded-xl bg-emerald-950/90 border border-emerald-800 text-white placeholder-slate-500 focus:outline-none focus:border-gold-500 transition-colors text-sm">
-                                </div>
-                            </div>
-
-                            <div class="space-y-2">
-                                <label class="block text-xs font-bold text-gold-400 uppercase tracking-wider">Update Category *</label>
-                                <select id="form-type" class="w-full px-4 py-3 rounded-xl bg-emerald-950/90 border border-emerald-800 text-white focus:outline-none focus:border-gold-500 transition-colors text-sm">
-                                    <option value="New Record Addition">✨ New Record Addition (Add a family member)</option>
-                                    <option value="Correction of Existing Record">✏️ Correction of Existing Record</option>
-                                    <option value="Lineage Document Submission">📜 Lineage Document / Shajra Submission</option>
-                                    <option value="Disputed Claim Review">⚖️ Disputed Claim Review</option>
-                                    <option value="General Inquiry">💬 General Inquiry</option>
-                                </select>
-                            </div>
-
-                            <div class="space-y-2">
-                                <label class="block text-xs font-bold text-gold-400 uppercase tracking-wider">Record Details & Family Tree Names *</label>
-                                <textarea id="form-details" rows="5" required placeholder="Describe the individual's full name, father's name, mother's name, children, birth/death year, or specific corrections needed..." class="w-full px-4 py-3 rounded-xl bg-emerald-950/90 border border-emerald-800 text-white placeholder-slate-500 focus:outline-none focus:border-gold-500 transition-colors text-sm leading-relaxed"></textarea>
-                            </div>
-
-                            <!-- FILE ATTACHMENT SIMULATOR -->
-                            <div class="space-y-2">
-                                <label class="block text-xs font-bold text-gold-400 uppercase tracking-wider">Attach Document / Shajra Proof (Optional)</label>
-                                <div class="border-2 border-dashed border-emerald-800 hover:border-gold-500/50 rounded-2xl p-4 text-center cursor-pointer transition-colors bg-emerald-950/50 relative">
-                                    <input type="file" id="form-file" onchange="handleFileSelect(event)" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
-                                    <i class="fa-solid fa-cloud-arrow-up text-gold-400 text-2xl mb-1"></i>
-                                    <p class="text-xs text-slate-300 font-medium">Click or Drag & Drop Birth Certificates, Old Shajra Scans, or Documents</p>
-                                    <p class="text-[10px] text-slate-500 mt-0.5">Supports PDF, JPG, PNG up to 10MB</p>
-                                    <div id="file-status" class="hidden mt-2 text-xs text-gold-300 font-medium bg-emerald-900/80 py-1.5 px-3 rounded-xl inline-block border border-gold-500/30"></div>
-                                </div>
-                            </div>
-
-                            <button type="submit" class="btn-primary-pill w-full py-3.5 rounded-full text-emerald-950 font-semibold text-base flex items-center justify-center space-x-2 transition-all hover:scale-[1.01]">
-                                <i class="fa-solid fa-paper-plane text-lg"></i>
-                                <span>Generate Ticket & Submit Update</span>
-                            </button>
-                        </form>
-                    </div>
-
-                    <!-- RIGHT COLUMN: LIVE REAL-TIME PREVIEW & DIRECT WHATSAPP -->
-                    <div class="lg:col-span-5 space-y-6">
-                        
-                        <div class="rounded-3xl p-6 bg-gradient-to-b from-emerald-900/80 to-emerald-950/90 border border-gold-500/30 shadow-2xl backdrop-blur-xl space-y-5">
-                            <div class="flex items-center justify-between border-b border-emerald-800/60 pb-3">
-                                <div class="flex items-center space-x-2.5">
-                                    <div class="w-8 h-8 rounded-lg bg-gold-500/20 border border-gold-500/40 flex items-center justify-center text-gold-400 text-sm">
-                                        <i class="fa-solid fa-ticket"></i>
-                                    </div>
-                                    <h4 class="font-bold text-white text-sm">Live Ticket Preview</h4>
-                                </div>
-                                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-gold-500/20 text-gold-300 border border-gold-500/30">
-                                    Realtime
-                                </span>
-                            </div>
-
-                            <!-- PREVIEW DETAILS CARD -->
-                            <div class="space-y-4 text-xs font-sans">
-                                <div>
-                                    <div class="text-[10px] uppercase font-bold text-slate-400">Submitter</div>
-                                    <div id="prev-name" class="text-sm font-bold text-white">Your Name</div>
-                                    <div id="prev-email" class="text-slate-400 font-mono">your.email@domain.com</div>
-                                </div>
-
-                                <div class="grid grid-cols-2 gap-3 pt-2 border-t border-emerald-800/40">
-                                    <div>
-                                        <div class="text-[10px] uppercase font-bold text-slate-400">Category</div>
-                                        <div id="prev-type" class="text-gold-400 font-medium">New Record Addition</div>
-                                    </div>
-                                    <div>
-                                        <div class="text-[10px] uppercase font-bold text-slate-400">Branch</div>
-                                        <div id="prev-branch" class="text-slate-300 font-medium">General Lineage</div>
-                                    </div>
-                                </div>
-
-                                <div class="pt-2 border-t border-emerald-800/40">
-                                    <div class="text-[10px] uppercase font-bold text-slate-400">Phone / WhatsApp</div>
-                                    <div id="prev-phone" class="text-slate-300">Not provided</div>
-                                </div>
-
-                                <div class="pt-2 border-t border-emerald-800/40">
-                                    <div class="text-[10px] uppercase font-bold text-slate-400">Update Payload</div>
-                                    <div id="prev-details" class="p-3 rounded-xl bg-emerald-950/80 border border-emerald-800 text-slate-300 italic leading-relaxed min-h-[80px]">
-                                        Your update details will appear here as you type...
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="pt-3 border-t border-emerald-800/60 flex items-center justify-between text-[11px] text-slate-400">
-                                <span><i class="fa-solid fa-lock text-gold-400 mr-1"></i> Privacy Masked</span>
-                                <span><i class="fa-solid fa-envelope-circle-check text-gold-400 mr-1"></i> Review Queue</span>
-                            </div>
-                        </div>
-
-                        <!-- DIRECT CONTACT QUICK BOX WITH WHATSAPP 03408100868 -->
-                        <div class="p-6 rounded-3xl bg-emerald-900/40 border border-emerald-800/60 space-y-4">
-                            <h4 class="font-bold text-white text-sm flex items-center space-x-2">
-                                <i class="fa-brands fa-whatsapp text-emerald-400 text-lg"></i>
-                                <span>Direct WhatsApp Contact</span>
-                            </h4>
-                            <div class="flex items-center justify-between p-3.5 rounded-xl bg-emerald-950/90 border border-emerald-800 text-white font-mono text-xs">
-                                <div class="flex items-center space-x-2">
-                                    <i class="fa-solid fa-phone text-gold-400"></i>
-                                    <span>+92 340 8100868</span>
-                                </div>
-                                <div class="flex items-center space-x-2">
-                                    <button onclick="copyToClipboard('03408100868')" class="p-1.5 text-slate-400 hover:text-white" title="Copy Number">
-                                        <i class="fa-regular fa-copy"></i>
-                                    </button>
-                                    <a href="https://wa.me/923408100868" target="_blank" class="px-3 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-[11px] font-sans font-bold flex items-center space-x-1">
-                                        <span>Chat</span>
-                                        <i class="fa-solid fa-paper-plane text-[9px]"></i>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="flex items-center justify-between p-3.5 rounded-xl bg-emerald-950/90 border border-emerald-800 text-gold-300 font-mono text-xs">
-                                <div class="flex items-center space-x-2">
-                                    <i class="fa-solid fa-envelope text-gold-400"></i>
-                                    <span class="truncate max-w-[170px]">digital.creator380@gmail.com</span>
-                                </div>
-                                <button onclick="copyToClipboard('digital.creator380@gmail.com')" class="p-1.5 text-slate-400 hover:text-white" title="Copy Email">
-                                    <i class="fa-regular fa-copy"></i>
-                                </button>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <!-- SUBMITTED TICKETS HISTORY SECTION -->
-                <div class="pt-8 border-t border-emerald-800/60 space-y-6">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <h3 class="text-xl font-bold text-white flex items-center space-x-2">
-                                <i class="fa-solid fa-clock-rotate-left text-gold-400"></i>
-                                <span>Your Submitted Requests History</span>
-                            </h3>
-                            <p class="text-xs text-slate-400">Records of update tickets created in this session</p>
-                        </div>
-                        <button onclick="clearSubmissionHistory()" class="text-xs text-slate-400 hover:text-rose-400 font-medium">Clear History</button>
-                    </div>
-
-                    <div id="submissions-history-list" class="space-y-3">
-                        <!-- Rendered dynamically via JavaScript -->
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- ==================== PRIVACY POLICY PAGE ==================== -->
-        <section id="page-privacy" class="page-section hidden py-20 lg:py-28">
-            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-                <div class="border-b border-emerald-800/60 pb-6">
-                    <h2 class="text-3xl font-extrabold text-white">Privacy Policy</h2>
-                    <p class="text-xs text-gold-400 mt-1">Last Updated: October 2026 — NASSAB Platform</p>
-                </div>
-
-                <div class="prose prose-invert max-w-none text-slate-300 space-y-6 text-sm leading-relaxed">
-                    <p>
-                        NASSAB ("we", "our", or "platform") respects the sensitivity of personal and genealogical records. This Privacy Policy outlines how information is handled within our digital genealogy ecosystem.
-                    </p>
-
-                    <h3 class="text-lg font-bold text-white">1. Protection of Living Individuals</h3>
-                    <p>
-                        To safeguard privacy, exact birthdates, contact information, and personal details of living individuals are restricted and masked from public indexing unless explicit permission is provided by the record owner.
-                    </p>
-
-                    <h3 class="text-lg font-bold text-white">2. Genealogical Information & Public Records</h3>
-                    <p>
-                        NASSAB compiles family relationships, historical lineage connections, and ancestor data. Historical records for deceased individuals form part of the digital heritage archive for future generations.
-                    </p>
-
-                    <h3 class="text-lg font-bold text-white">3. Information Submitted via Contact Forms</h3>
-                    <p>
-                        When you submit record updates, documents, or inquiries to <strong class="text-gold-400">digital.creator380@gmail.com</strong> or WhatsApp (<strong class="text-gold-400">+92 340 8100868</strong>), your contact details are strictly used for verification and correspondence regarding your request.
-                    </p>
-
-                    <h3 class="text-lg font-bold text-white">4. Data Correction & Deletion Rights</h3>
-                    <p>
-                        If you are a living member represented within NASSAB and wish to correct, update, or request the redaction of your personal record, please contact us at <strong class="text-gold-400">digital.creator380@gmail.com</strong> or via WhatsApp.
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <!-- ==================== TERMS OF SERVICE PAGE ==================== -->
-        <section id="page-terms" class="page-section hidden py-20 lg:py-28">
-            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-                <div class="border-b border-emerald-800/60 pb-6">
-                    <h2 class="text-3xl font-extrabold text-white">Terms of Service</h2>
-                    <p class="text-xs text-gold-400 mt-1">Effective Date: October 2026 — NASSAB Platform</p>
-                </div>
-
-                <div class="prose prose-invert max-w-none text-slate-300 space-y-6 text-sm leading-relaxed">
-                    <p>
-                        By accessing NASSAB or submitting genealogical information, you agree to comply with these Terms of Service.
-                    </p>
-
-                    <h3 class="text-lg font-bold text-white">1. Information Accuracy & Verification</h3>
-                    <p>
-                        NASSAB aims to preserve family history accurately. However, genealogical records often rely on historical documents, oral traditions, and user submissions. Disputed lineage claims are marked transparently within the platform.
-                    </p>
-
-                    <h3 class="text-lg font-bold text-white">2. User Submissions & Conduct</h3>
-                    <p>
-                        Users submitting updates or documents confirm that the information provided is accurate to the best of their knowledge and does not violate third-party copyrights or privacy rights.
-                    </p>
-
-                    <h3 class="text-lg font-bold text-white">3. Platform Intellectual Property</h3>
-                    <p>
-                        NASSAB application software, graph resolution algorithms, and visual branding are developed by <strong>CyberFantics</strong>. Public domain genealogical facts remain part of open family heritage.
-                    </p>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- FOOTER -->
-    <footer class="bg-emerald-950 border-t border-white/10 py-12 text-xs text-slate-400">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
-                <!-- LOGO & TAGLINE WITH LOGO.PNG -->
-                <div class="flex items-center space-x-3">
-                    <img src="logo.png" alt="NASSAB Logo" class="h-10 w-auto object-contain rounded-lg">
-                    <div>
-                        <div class="text-white font-bold text-lg tracking-wider">NASSAB</div>
-                        <div class="text-[12px] text-gold-400 font-urdu leading-normal">دیجیٹل شجرۂ نسب و تاریخ</div>
-                    </div>
-                </div>
-
-                <!-- FOOTER NAVIGATION -->
-                <div class="flex flex-wrap items-center justify-center gap-6 text-slate-300 font-medium">
-                    <button onclick="navTo('home')" class="hover:text-gold-400 transition-colors">Home</button>
-                    <button onclick="navTo('about')" class="hover:text-gold-400 transition-colors">About Us</button>
-                    <button onclick="navTo('features')" class="hover:text-gold-400 transition-colors">Features</button>
-                    <button onclick="navTo('contact')" class="hover:text-gold-400 transition-colors">Record Updates</button>
-                    <button onclick="navTo('privacy')" class="hover:text-gold-400 transition-colors">Privacy Policy</button>
-                    <button onclick="navTo('terms')" class="hover:text-gold-400 transition-colors">Terms of Service</button>
-                </div>
-
-                <!-- SOCIAL LINKS & DIRECT WHATSAPP -->
-                <div class="flex items-center space-x-4">
-                    <a href="https://wa.me/923408100868" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-full bg-emerald-900/80 border border-emerald-800 flex items-center justify-center text-emerald-400 hover:text-white hover:bg-emerald-800 transition-all" title="WhatsApp Direct Chat: 03408100868">
-                        <i class="fa-brands fa-whatsapp text-lg"></i>
-                    </a>
-                    <a href="https://facebook.com/NassabApp" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-full bg-emerald-900/80 border border-emerald-800 flex items-center justify-center text-slate-300 hover:text-gold-400 hover:bg-emerald-800 transition-all" title="Facebook">
-                        <i class="fa-brands fa-facebook-f text-base"></i>
-                    </a>
-                    <a href="https://www.instagram.com/nassabapp/" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-full bg-emerald-900/80 border border-emerald-800 flex items-center justify-center text-slate-300 hover:text-gold-400 hover:bg-emerald-800 transition-all" title="Instagram">
-                        <i class="fa-brands fa-instagram text-base"></i>
-                    </a>
-                </div>
-            </div>
-
-            <div class="pt-6 border-t border-emerald-900/80 flex flex-col sm:flex-row items-center justify-between text-slate-500 gap-4">
-                <p>© 2026 NASSAB. All rights reserved. Family tree &amp; heritage, done right. Developed by <strong class="text-gold-400/80">CyberFantics</strong>.</p>
-                <p>WhatsApp: <strong class="text-emerald-400/80">+92 340 8100868</strong></p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- SUBMISSION CONFIRMATION MODAL OVERLAY -->
-    <div id="submission-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-emerald-950/80 backdrop-blur-md">
-        <div class="modal-enter relative w-full max-w-lg rounded-3xl bg-gradient-to-b from-emerald-900 to-emerald-950 border border-gold-500/40 p-6 sm:p-8 shadow-2xl space-y-6">
-            
-            <!-- CLOSE BUTTON -->
-            <button onclick="closeModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white p-2">
-                <i class="fa-solid fa-xmark text-xl"></i>
-            </button>
-
-            <!-- GLOWING SUCCESS ICON -->
-            <div class="text-center space-y-3">
-                <div class="w-16 h-16 rounded-full bg-gold-500/20 border border-gold-500/50 text-gold-400 text-3xl flex items-center justify-center mx-auto shadow-lg shadow-gold-500/20 animate-pulse">
-                    <i class="fa-solid fa-circle-check"></i>
-                </div>
-                <h3 class="text-2xl font-extrabold text-white">Ticket Created Successfully!</h3>
-                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-950 border border-gold-500/30 text-gold-400 font-mono text-xs">
-                    <span>Ticket Ref:</span>
-                    <strong id="modal-ticket-id">#NAS-2026-8392</strong>
-                </div>
-            </div>
-
-            <!-- TICKET SUMMARY BOX -->
-            <div class="p-4 rounded-2xl bg-emerald-950/80 border border-emerald-800 text-xs space-y-2">
-                <div class="flex justify-between border-b border-emerald-900 pb-2">
-                    <span class="text-slate-400">Submitter:</span>
-                    <strong id="modal-name" class="text-white">Ali Ahmed</strong>
-                </div>
-                <div class="flex justify-between border-b border-emerald-900 pb-2">
-                    <span class="text-slate-400">Email:</span>
-                    <span id="modal-email" class="text-gold-300 font-mono">ali@domain.com</span>
-                </div>
-                <div class="flex justify-between border-b border-emerald-900 pb-2">
-                    <span class="text-slate-400">Category:</span>
-                    <span id="modal-type" class="text-slate-200">New Record Addition</span>
-                </div>
-                <div class="flex justify-between">
-                    <span class="text-slate-400">Timestamp:</span>
-                    <span id="modal-timestamp" class="text-slate-400">Sep 23, 2026</span>
-                </div>
-            </div>
-
-            <p class="text-xs text-slate-300 text-center leading-relaxed">
-                Choose your preferred channel below to send this update directly to our verification team:
-            </p>
-
-            <!-- DUAL ACTION BUTTONS -->
-            <div class="space-y-3">
-                <button onclick="sendViaWhatsApp()" class="w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs tracking-wider uppercase shadow-lg flex items-center justify-center space-x-2 transition-all hover:scale-[1.01]">
-                    <i class="fa-brands fa-whatsapp text-xl"></i>
-                    <span>Send via WhatsApp (+92 340 8100868)</span>
-                </button>
-                <button onclick="sendViaEmail()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-gold-500 to-amber-600 hover:from-gold-400 hover:to-amber-500 text-emerald-950 font-bold text-xs tracking-wider uppercase shadow-md flex items-center justify-center space-x-2 transition-all hover:scale-[1.01]">
-                    <i class="fa-solid fa-envelope text-base"></i>
-                    <span>Send via Email (digital.creator380@gmail.com)</span>
-                </button>
-                <button onclick="copySubmissionPayload()" class="w-full py-2.5 rounded-xl bg-emerald-950 hover:bg-emerald-900 border border-emerald-800 text-slate-300 font-semibold text-xs flex items-center justify-center space-x-2 transition-all">
-                    <i class="fa-regular fa-copy"></i>
-                    <span>Copy Ticket Summary to Clipboard</span>
-                </button>
-            </div>
-
-        </div>
+<!-- FEATURES -->
+<section id="page-features" class="page-section hidden">
+  <div class="container section">
+    <span class="eyebrow">Features</span>
+    <h2>Features, in plain terms.</h2>
+    <p class="lede">A genealogy platform for complete family relationships, including male and female descendants, marriages, divorces, remarriages, children from different marriages, and other complex connections — without duplicate records.</p>
+    <div class="grid-3">
+      <div class="card"><h3>Rada'at kinship</h3><p>Milk-kinship is recorded as its own relationship type, distinct from blood and marriage relationships.</p></div>
+      <div class="card"><h3>Mahram &amp; marriage eligibility</h3><p>Interpreted from the recorded kinship structure. Where evidence is missing, the result stays undetermined, never guessed.</p></div>
+      <div class="card"><h3>Privacy by design</h3><p>Protected female names are masked, and guest mode is available. Family-aware permissions are enforced, not just hidden on screen.</p></div>
+      <div class="card"><h3>Lineage certificates</h3><p>Certificates carry a SHA-256 hash for document-integrity checking. Not blockchain-verified, not legally certified ancestry.</p></div>
+      <div class="card"><h3>Equal female &amp; male representation</h3><p>Daughters, mothers, and female ancestors are mapped with complete historical context, not obscured.</p></div>
+      <div class="card"><h3>Remarriages &amp; step-relations</h3><p>Divorces, multiple marriages, half-siblings, and step-children are represented accurately, without creating duplicate person records.</p></div>
+      <div class="card"><h3>Relationship explanation</h3><p>The nearest shared ancestor between two people is used to generate a clear, human-readable explanation of how they are related.</p></div>
+      <div class="card"><h3>Evidence &amp; dispute tracking</h3><p>Relationships can be backed by birth certificates, family manuscripts, or oral testimony, with confidence noted. Disputed claims are marked transparently.</p></div>
+      <div class="card"><h3>Secure digital archiving</h3><p>Records are kept in a cloud-synced structure so family history remains preserved for future generations.</p></div>
+      <div class="card"><h3>Record updates &amp; verification</h3><p>New records, corrections, and lineage documents can be submitted for review through the Records page, with a ticket reference.</p></div>
     </div>
+  </div>
+</section>
 
-    <!-- TOAST NOTIFICATION CONTAINER -->
-    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
-        <div class="px-5 py-3 rounded-2xl bg-gold-500 text-emerald-950 font-bold text-xs shadow-2xl flex items-center space-x-2">
-            <i class="fa-solid fa-circle-check text-base"></i>
-            <span id="toast-msg">Action completed successfully</span>
+<!-- RECORDS -->
+<section id="page-records" class="page-section hidden">
+  <div class="container section">
+    <span class="eyebrow">Record updates</span>
+    <h2>Submit a record update.</h2>
+    <p class="lede">Submit new family members, corrections, birth records, or lineage documentation. A verification team will review your ticket. This form creates a local ticket in your browser; sending it by email or WhatsApp is a separate step from the confirmation window.</p>
+    <div class="form-grid">
+      <div>
+        <form id="record-form" onsubmit="handleFormSubmit(event)">
+          <div class="field"><label for="form-name">Your name</label><input type="text" id="form-name" required placeholder="Your full name"></div>
+          <div class="field"><label for="form-email">Email</label><input type="email" id="form-email" required placeholder="name@domain.com"></div>
+          <div class="field"><label for="form-phone">Phone / WhatsApp (optional)</label><input type="text" id="form-phone" placeholder="Phone or WhatsApp number"></div>
+          <div class="field"><label for="form-branch">Family branch (optional)</label><input type="text" id="form-branch" placeholder="General Lineage"></div>
+          <div class="field"><label for="form-type">Category</label>
+            <select id="form-type">
+              <option>New Record Addition</option>
+              <option>Correction of Existing Record</option>
+              <option>Lineage Document / Shajra Submission</option>
+              <option>Disputed Claim Review</option>
+              <option>General Inquiry</option>
+            </select>
+          </div>
+          <div class="field"><label for="form-details">Update details</label><textarea id="form-details" rows="5" required placeholder="Describe the person, relationship, or correction, with the details needed to check it."></textarea></div>
+          <div class="field"><label>Supporting document (optional)</label>
+            <div class="file-box"><input type="file" id="form-file" onchange="handleFileSelect(event)"><span>Choose a file, or drop it here</span><div id="file-status" class="hidden small" style="margin-top:8px"></div></div>
+          </div>
+          <button type="submit" class="btn btn-primary">Create update ticket</button>
+        </form>
+      </div>
+      <div>
+        <div class="preview-card">
+          <h3>Live preview</h3>
+          <p><strong id="prev-name">Your Name</strong></p>
+          <p class="small muted" id="prev-email">your.email@domain.com</p>
+          <p class="small"><span id="prev-type">New Record Addition</span> — <span id="prev-branch">General Lineage</span></p>
+          <p class="small">Phone: <span id="prev-phone">Not provided</span></p>
+          <p id="prev-details" style="font-style:italic">Your update details will appear here as you type...</p>
         </div>
+        <div style="margin-top:24px">
+          <h3>Your submitted requests</h3>
+          <p class="small muted">Records of update tickets created in this session, stored in this browser only.</p>
+          <button class="btn btn-outline btn-small" onclick="clearSubmissionHistory()">Clear history</button>
+          <div id="submissions-history-list" style="margin-top:16px"></div>
+        </div>
+      </div>
     </div>
+  </div>
+</section>
 
-    <script src="script.js"></script>
+<!-- ABOUT -->
+<section id="page-about" class="page-section hidden">
+  <div class="container section">
+    <span class="eyebrow">About Nassab</span>
+    <h2>About Nassab.</h2>
+    <div class="toggle-group" style="margin-bottom:28px">
+      <button id="toggle-modern" onclick="switchAboutStyle('modern')" class="toggle-active">Modern overview</button>
+      <button id="toggle-traditional" onclick="switchAboutStyle('traditional')">Traditional perspective</button>
+    </div>
+    <div id="about-content-modern">
+      <p class="lede">NASSAB is a digital genealogy project dedicated to preserving, organising, and exploring family records and Shajra. It is designed to represent complete family relationships, including male and female descendants, marriages, divorces, remarriages, children from different marriages, and other complex connections.</p>
+      <p>Users can explore individuals within a genealogy, discover ancestors and descendants, and understand how they are related to other people in the recorded family tree. The aim is to combine traditional genealogical records with modern technology so family history can be preserved digitally for future generations.</p>
+      <p><strong>Founder &amp; Lead Developer:</strong> Syed Mansoor ul Hassan Bukhari, August 2026 to present, Rawalpindi, Pakistan. Developed by CyberFantics. Mobile app: Flutter &amp; Firebase, in closed Play testing, package com.cyberfantics.nassab, not publicly listed yet.</p>
+      <div class="callout" style="margin-top:28px"><p><strong>Contact:</strong> <a href="mailto:digital.creator380@gmail.com">digital.creator380@gmail.com</a> · <a href="https://www.instagram.com/nassabapp/" target="_blank" rel="noopener noreferrer">Instagram @nassabapp</a> · <a href="https://facebook.com/NassabApp" target="_blank" rel="noopener noreferrer">Facebook — Nassab</a></p></div>
+    </div>
+    <div id="about-content-traditional" class="hidden">
+      <h3 class="font-urdu">محافظتِ نسب و شجرۂ طیبہ</h3>
+      <p class="font-urdu" dir="rtl">نَسب (Nassab) ایک جدید الرقمي منصوبہ ہے جس کا مقصد اسلاف (Ancestors) کی تاریخ، شجرۂ نسب، اور خلف (Descendants) کے تمام سلسلہ کو محفوظ و منظم کرنا ہے۔ یہ پلیٹ فارم روایتی خاندانی ریکارڈز، شجرہ جات، اور سلسلوں کو جدید ترین سائنس و ٹیکنالوجی کے ساتھ ہم آہنگ کرتا ہے۔ اس میں تمام رشتوں — بشمول مرد و خواتین کی اولاد، متعدد ازواج، مطلقہ، اور سوتیلے رشتوں — کی کامل اور شفاف عکاسی کی گئی ہے تاکہ نسلِ نو اپنے آباؤ اجداد کی تاریخ کو بخوبی سمجھ سکے۔</p>
+      <p>“احفظوا من أنسابكم ما تصلون به أرحامكم” — Preserve your lineage, through which you maintain family ties.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRIVACY -->
+<section id="page-privacy" class="page-section hidden">
+  <div class="container section">
+    <span class="eyebrow">Privacy policy</span>
+    <h2>Privacy Policy</h2>
+    <p class="muted">Last updated: October 2026 — NASSAB Platform</p>
+    <h3>1. Protection of living individuals</h3>
+    <p>To safeguard privacy, exact birthdates, contact information, and personal details of living individuals are restricted and masked from public indexing unless explicit permission is provided by the record owner.</p>
+    <h3>2. Genealogical information &amp; public records</h3>
+    <p>NASSAB compiles family relationships, historical lineage connections, and ancestor data. Historical records for deceased individuals form part of the digital heritage archive for future generations.</p>
+    <h3>3. Information submitted via contact forms</h3>
+    <p>When you submit record updates, documents, or inquiries to <a href="mailto:digital.creator380@gmail.com">digital.creator380@gmail.com</a> or WhatsApp, your contact details are used strictly for verification and correspondence regarding your request.</p>
+    <h3>4. Data correction &amp; deletion rights</h3>
+    <p>If you are a living member represented within NASSAB and wish to correct, update, or request the redaction of your personal record, please contact us at <a href="mailto:digital.creator380@gmail.com">digital.creator380@gmail.com</a>.</p>
+  </div>
+</section>
+
+<!-- TERMS -->
+<section id="page-terms" class="page-section hidden">
+  <div class="container section">
+    <span class="eyebrow">Terms of service</span>
+    <h2>Terms of Service</h2>
+    <p class="muted">Effective date: October 2026 — NASSAB Platform</p>
+    <h3>1. Information accuracy &amp; verification</h3>
+    <p>NASSAB aims to preserve family history accurately. However, genealogical records often rely on historical documents, oral traditions, and user submissions. Disputed lineage claims are marked transparently within the platform.</p>
+    <h3>2. User submissions &amp; conduct</h3>
+    <p>Users submitting updates or documents confirm that the information provided is accurate to the best of their knowledge and does not violate third-party copyrights or privacy rights.</p>
+    <h3>3. Platform intellectual property</h3>
+    <p>NASSAB application software, graph resolution algorithms, and visual branding are developed by CyberFantics. Public domain genealogical facts remain part of open family heritage.</p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="page-contact" class="page-section hidden">
+  <div class="container section">
+    <span class="eyebrow">Contact</span>
+    <h2>Contact Nassab.</h2>
+    <p class="lede">For record updates, use the Records page. For general contact, use the options below.</p>
+    <div class="grid-2">
+      <div class="card"><h3>Email</h3><p><a href="mailto:digital.creator380@gmail.com">digital.creator380@gmail.com</a></p><p class="small muted">For record updates, testing access requests, and corrections.</p></div>
+      <div class="card"><h3>Social</h3><p><a href="https://www.instagram.com/nassabapp/" target="_blank" rel="noopener noreferrer">Instagram — @nassabapp</a><br><a href="https://facebook.com/NassabApp" target="_blank" rel="noopener noreferrer">Facebook — Nassab</a></p><p class="small muted">Follow for testing updates and announcements.</p></div>
+      <div class="card"><h3>Closed testing</h3><p><a href="https://play.google.com/apps/testing/com.cyberfantics.nassab" target="_blank" rel="noopener noreferrer">Join closed testing</a></p><p class="small muted">Tester-list only. The app is not publicly listed yet.</p></div>
+      <div class="card"><h3>Record updates</h3><p><button class="btn btn-outline btn-small" onclick="navTo('records')">Go to the Records page</button></p><p class="small muted">Submit a new record, a correction, or a lineage document for review.</p></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <p><strong style="font-family:Fraunces,Georgia,serif;font-size:1.3rem">NASSAB</strong><br><span class="muted small">Family tree &amp; heritage, done right. Developed by CyberFantics.</span></p>
+      <p class="small muted">Founder &amp; Lead Developer: Syed Mansoor ul Hassan Bukhari, August 2026 to present, Rawalpindi, Pakistan.</p>
+    </div>
+    <div>
+      <p><strong>Site</strong></p>
+      <p><button onclick="navTo('home')">Home</button><br><button onclick="navTo('features')">Features</button><br><button onclick="navTo('records')">Records</button><br><button onclick="navTo('about')">About</button></p>
+    </div>
+    <div>
+      <p><strong>Legal &amp; contact</strong></p>
+      <p><button onclick="navTo('privacy')">Privacy Policy</button><br><button onclick="navTo('terms')">Terms of Service</button><br><a href="mailto:digital.creator380@gmail.com">digital.creator380@gmail.com</a><br><a href="https://www.instagram.com/nassabapp/" target="_blank" rel="noopener noreferrer">Instagram @nassabapp</a></p>
+    </div>
+  </div>
+  <div class="container"><p class="small muted" style="border-top:1px solid #e5e0d5;padding-top:20px">© 2026 NASSAB / CyberFantics. Lineage certificates use SHA-256 document-integrity checking; they are not blockchain-verified and not legally certified ancestry.</p></div>
+</footer>
+
+<div id="submission-modal" class="modal-backdrop">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()" aria-label="Close">✕</button>
+    <h2>Ticket created</h2>
+    <p>Ticket: <strong id="modal-ticket-id"></strong></p>
+    <p>Name: <strong id="modal-name"></strong><br>Email: <span id="modal-email"></span><br>Type: <span id="modal-type"></span><br>Submitted: <span id="modal-timestamp"></span></p>
+    <p class="small muted">Send this ticket by email or WhatsApp to complete your submission, or copy the summary.</p>
+    <div style="display:grid;gap:10px">
+      <button class="btn btn-primary" onclick="sendViaWhatsApp()">Send via WhatsApp</button>
+      <button class="btn btn-outline" onclick="sendViaEmail()">Send via email</button>
+      <button class="btn btn-outline" onclick="copySubmissionPayload()">Copy ticket summary</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast"><span id="toast-msg">Action completed successfully</span></div>
+
+<script src="script.js"></script>
 </body>
 </html>
