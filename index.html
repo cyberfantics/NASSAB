@@ -47,11 +47,12 @@
     <div class="hero-grid">
       <div>
         <span class="eyebrow">Genealogy &amp; heritage preservation</span>
-        <h1>Family tree &amp; heritage, done right.</h1>
-        <p class="lede">NASSAB helps families record, organise, and understand their lineage — including complex relationships that ordinary family trees leave out — with privacy built in from the start.</p>
+        <h1>Your family history, beautifully preserved.</h1>
+        <p class="lede">A thoughtful home for your family tree. NASSAB helps families record, organise, and understand their lineage — including complex relationships that ordinary family trees leave out — with privacy built in from the start.</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="https://play.google.com/apps/testing/com.cyberfantics.nassab" target="_blank" rel="noopener noreferrer">Join closed testing</a>
           <button class="btn btn-outline" onclick="navTo('features')">Explore features</button>
+          <button class="btn btn-outline" onclick="scrollToShowcase()">View app screenshots</button>
         </div>
         <p class="small muted">Closed testing only. The testing link works for people on the tester list; if you are not on the list, request access at <a href="mailto:digital.creator380@gmail.com">digital.creator380@gmail.com</a>. The app is not publicly listed yet.</p>
         <div class="rule"></div>
@@ -117,17 +118,37 @@
   </div>
 
   <div class="container section" id="showcase">
-    <span class="eyebrow">Showcase</span>
-    <h2>Images &amp; showcase</h2>
-    <div class="showcase">
-      <img src="logo.png" alt="NASSAB logo">
-      <div>
-        <h3 style="margin-top:0">NASSAB</h3>
-        <p class="muted" style="margin:0">The project logo, as used across Nassab. App screenshots are not shown here yet, because no verified app screenshots have been supplied for this site.</p>
-      </div>
+    <span class="eyebrow">App showcase</span>
+    <h2>See the app, as it looks today.</h2>
+    <p class="lede">Real screens from the Nassab app in closed testing. Tap any image to view it larger. Screenshots are added to this site only after they are uploaded to the <code>images/</code> folder; any image not yet uploaded is hidden automatically, so no broken image is shown.</p>
+    <div class="gallery" id="gallery">
+      <figure class="gallery-item" data-index="0">
+        <button type="button" class="gallery-btn" onclick="openLightbox(0)" aria-label="Enlarge Welcome screenshot"><img src="images/app-welcome.jpg" alt="Nassab welcome screen" loading="lazy" onerror="hideGalleryItem(this)"></button>
+        <figcaption>Welcome</figcaption>
+      </figure>
+      <figure class="gallery-item" data-index="1">
+        <button type="button" class="gallery-btn" onclick="openLightbox(1)" aria-label="Enlarge Explore screenshot"><img src="images/app-explore.jpg" alt="Explore historical people screen" loading="lazy" onerror="hideGalleryItem(this)"></button>
+        <figcaption>Explore historical people</figcaption>
+      </figure>
+      <figure class="gallery-item" data-index="2">
+        <button type="button" class="gallery-btn" onclick="openLightbox(2)" aria-label="Enlarge Family tree screenshot"><img src="images/app-tree.jpg" alt="Family tree screen" loading="lazy" onerror="hideGalleryItem(this)"></button>
+        <figcaption>Family tree</figcaption>
+      </figure>
+      <figure class="gallery-item" data-index="3">
+        <button type="button" class="gallery-btn" onclick="openLightbox(3)" aria-label="Enlarge Person detail screenshot"><img src="images/app-person.jpg" alt="Person detail screen" loading="lazy" onerror="hideGalleryItem(this)"></button>
+        <figcaption>Person detail</figcaption>
+      </figure>
+      <figure class="gallery-item" data-index="4">
+        <button type="button" class="gallery-btn" onclick="openLightbox(4)" aria-label="Enlarge Fan chart screenshot"><img src="images/app-fan.jpg" alt="Fan chart screen" loading="lazy" onerror="hideGalleryItem(this)"></button>
+        <figcaption>Fan chart</figcaption>
+      </figure>
+      <figure class="gallery-item" data-index="5">
+        <button type="button" class="gallery-btn" onclick="openLightbox(5)" aria-label="Enlarge Verify certificate screenshot"><img src="images/app-verify.jpg" alt="Verify certificate screen" loading="lazy" onerror="hideGalleryItem(this)"></button>
+        <figcaption>Verify certificate</figcaption>
+      </figure>
     </div>
-    <div class="showcase-note">
-      <p style="margin:0"><strong>App screenshots will be added here.</strong> The exact files still needed are: <code>app-home.png</code> (home / tree screen), <code>app-radaat.png</code> (Rada'at view), and <code>app-certificate.png</code> (certificate screen). Until those files are supplied and verified in the repository, this section contains only the logo above, plus this note. No placeholder images are used.</p>
+    <div class="showcase-note" id="gallery-note">
+      <p style="margin:0"><strong>App screenshots are being added.</strong> If a screen above is not visible yet, its image has not been uploaded to <code>images/</code> yet. The six files are: <code>images/app-welcome.jpg</code>, <code>images/app-explore.jpg</code>, <code>images/app-tree.jpg</code>, <code>images/app-person.jpg</code>, <code>images/app-fan.jpg</code>, and <code>images/app-verify.jpg</code>. No placeholder images are used, and no personal names appear in the captions.</p>
     </div>
   </div>
 
@@ -156,6 +177,10 @@
       <div class="card"><h3>Evidence &amp; dispute tracking</h3><p>Relationships can be backed by birth certificates, family manuscripts, or oral testimony, with confidence noted. Disputed claims are marked transparently.</p></div>
       <div class="card"><h3>Secure digital archiving</h3><p>Records are kept in a cloud-synced structure so family history remains preserved for future generations.</p></div>
       <div class="card"><h3>Record updates &amp; verification</h3><p>New records, corrections, and lineage documents can be submitted for review through the Records page, with a ticket reference.</p></div>
+      <div class="card"><h3>Explore historical people</h3><p>Browse recorded historical people, search by name, and filter the list, with each person shown as a read-only historical record where applicable.</p></div>
+      <div class="card"><h3>Family tree, horizontal and fan views</h3><p>View a lineage as a horizontal tree, or as a fan chart, and move the focus between generations without losing the recorded structure.</p></div>
+      <div class="card"><h3>Person detail, marriage history &amp; children</h3><p>Open a person to see spouses, marriage history, and children, kept distinct by marriage, with the recorded status shown plainly.</p></div>
+      <div class="card"><h3>Verify Chronicle</h3><p>Verify a lineage certificate by PDF file for anti-tamper integrity, or by Serial ID. Certificates use SHA-256 document-integrity checking. Not blockchain-verified, not legally certified ancestry.</p></div>
     </div>
   </div>
 </section>
@@ -314,6 +339,15 @@
 </div>
 
 <div id="toast" class="toast"><span id="toast-msg">Action completed successfully</span></div>
+
+
+<div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Screenshot viewer">
+  <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close">✕</button>
+  <button class="lightbox-nav lightbox-prev" onclick="lightboxPrev()" aria-label="Previous screenshot">‹</button>
+  <img id="lightbox-img" src="logo.png" alt="">
+  <p id="lightbox-caption"></p>
+  <button class="lightbox-nav lightbox-next" onclick="lightboxNext()" aria-label="Next screenshot">›</button>
+</div>
 
 <script src="script.js"></script>
 </body>

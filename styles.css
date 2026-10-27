@@ -162,3 +162,29 @@ input:focus, select:focus, textarea:focus { outline: 2px solid #123524; outline-
   .showcase { flex-direction: column; align-items: flex-start; }
   .section { padding: 48px 0; }
 }
+
+/* Gallery — premium, tall phone frames, no stretch */
+.gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 32px; }
+.gallery-item { margin: 0; background: #fff; border: 1px solid #e5e0d5; border-radius: 20px; padding: 14px 14px 18px; box-shadow: 0 8px 30px rgba(18,53,36,0.06); }
+.gallery-btn { display: block; width: 100%; padding: 0; border: none; background: none; cursor: pointer; }
+.gallery-btn img { display: block; width: 100%; aspect-ratio: 9 / 16; object-fit: cover; object-position: top center; border-radius: 14px; border: 1px solid #e5e0d5; background: #f0ede6; }
+.gallery-item figcaption { text-align: center; font-weight: 600; color: #123524; margin-top: 14px; }
+.gallery-item.hidden-item { display: none !important; }
+/* Lightbox */
+.lightbox { position: fixed; inset: 0; z-index: 120; background: rgba(20,32,27,0.88); display: none; align-items: center; justify-content: center; flex-direction: column; padding: 24px; }
+.lightbox.open { display: flex; }
+.lightbox img { max-width: 92vw; max-height: 78vh; width: auto; height: auto; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.4); background: #fff; }
+.lightbox p { color: #fff; font-weight: 600; margin: 16px 0 0; }
+.lightbox-close { position: absolute; top: 20px; right: 24px; background: #fff; color: #14201b; border: none; border-radius: 50%; width: 44px; height: 44px; font-size: 1.2rem; cursor: pointer; }
+.lightbox-nav { position: absolute; top: 50%; transform: translateY(-50%); background: #fff; color: #14201b; border: none; border-radius: 50%; width: 48px; height: 48px; font-size: 1.8rem; cursor: pointer; }
+.lightbox-prev { left: 20px; }
+.lightbox-next { right: 20px; }
+@media (max-width: 860px) {
+  .gallery { grid-template-columns: 1fr 1fr; }
+  .lightbox-nav { width: 40px; height: 40px; font-size: 1.4rem; }
+  .lightbox-prev { left: 8px; }
+  .lightbox-next { right: 8px; }
+}
+@media (max-width: 520px) {
+  .gallery { grid-template-columns: 1fr; }
+}

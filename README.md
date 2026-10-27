@@ -119,3 +119,17 @@ No complex build steps or node modules are required for the web app:
 - Project site: https://nassab-nine.vercel.app/
 - Founder on LinkedIn: https://www.linkedin.com/in/mansoor-bukhari/
 - Contact email: digital.creator380@gmail.com
+
+
+## App showcase — approved screenshots (user uploads images)
+
+The website Showcase gallery references six images in `images/`, uploaded by the owner (binary images are not pushed via the text-only GitHub connector):
+
+- `images/app-welcome.jpg` — Welcome screen, hero showcase image
+- `images/app-explore.jpg` — Historical People, Explore screen
+- `images/app-tree.jpg` — Family tree view
+- `images/app-person.jpg` — Person detail screen
+- `images/app-fan.jpg` — Fan chart screen
+- `images/app-verify.jpg` — Verify Chronicle certificate screen
+
+The sign-out screen is intentionally NOT included in the showcase. If an image is missing, the gallery hides that item automatically instead of showing a broken image. Captions use generic names only, no personal names.
