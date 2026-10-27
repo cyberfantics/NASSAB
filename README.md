@@ -12,11 +12,11 @@ Site: https://nassab-nine.vercel.app/
 
 ## Pages (distinct URLs, Vercel cleanUrls)
 
-- index.html — Home: hero, interactive app showcase, what makes NASSAB different, relationship diagram, gallery preview, privacy & certificates, how it works, closed testing
-- features.html — Features, grouped editorially
-- gallery.html — App Gallery, rounded-octagonal frames + accessible lightbox
+- index.html — Home: hero with clickable phones, guided 6-step interactive app tour (Welcome, Explore, Tree, Person, Fan, Verify, no auto-play), what makes NASSAB different with links to Features groups, visual SVG relationship diagram, gallery preview, privacy & certificates, how it works, closed testing
+- features.html — Features, grouped editorially, with live search, group filters, and anchors #group-family, #group-kinship, #group-history, #group-records, #group-privacy
+- gallery.html — App Gallery, rounded-octagonal frames + accessible lightbox with filter chips, count, touch/mouse swipe, and zoom toggle
 - records.html — Record updates, local-only tickets with live preview and email/WhatsApp sending
-- about.html — About, mission, founder, traditional Urdu perspective
+- about.html — About, mission, founder, traditional perspective (English only)
 - privacy.html — Privacy Policy, October 2026
 - terms.html — Terms of Service, October 2026
 - contact.html — Contact, official details only
@@ -24,7 +24,7 @@ Site: https://nassab-nine.vercel.app/
 ## What Nassab is
 
 Digital genealogy platform preserving, organising and exploring family
-records, Shajra and complex lineages, including male and female descendants,
+records and complex lineages, including male and female descendants,
 marriages, divorces, remarriages, half-siblings and step-relations, without
 duplicate records.
 
@@ -59,7 +59,7 @@ note, never a broken image or fabricated mockup.
 ## Technology (website)
 
 - Frontend: HTML5, custom CSS design tokens, vanilla JavaScript (ES6+)
-- Typography: Cormorant Garamond (display), Inter (body), Noto Nastaliq Urdu (Urdu, RTL)
+- Typography: Cormorant Garamond (display), Inter (body)
 - Hosting: Vercel static hosting, see vercel.json
 
 ## Run locally

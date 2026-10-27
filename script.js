@@ -1,4 +1,4 @@
-/* NASSAB shared script: menu, showcase, diagram, gallery lightbox, records form.
+/* NASSAB shared script v2: menu, tour, diagram, gallery lightbox, records form.
    Guards every feature so pages without that feature do not error. */
 let currentSubmissionPayload = null;
 const GALLERY = [
@@ -9,20 +9,67 @@ const GALLERY = [
   {src:"images/app-fan.jpg", fallback:"images/Screenshot_20261027-112900.jpg.jpeg", title:"Fan chart", desc:"Generations shown as a fan, with a movable focus."},
   {src:"images/app-verify.jpg", fallback:"images/Screenshot_20261027-112643.jpg.jpeg", title:"Verify certificate", desc:"Verify a certificate by PDF file or by Serial ID."}
 ];
-const SHOWCASE = [
-  {src:"images/app-tree.jpg", fallback:"images/Screenshot_20261027-112749.jpg.jpeg", title:"Family Tree", desc:"View a lineage as a horizontal tree, move the focus between generations, and keep marriages and children distinct."},
-  {src:"images/app-explore.jpg", fallback:"images/Screenshot_20261027-112708.jpg.jpeg", title:"Historical People", desc:"Browse recorded historical people, search by name, and open a read-only historical record."},
-  {src:"images/app-person.jpg", fallback:"images/Screenshot_20261027-112720.jpg.jpeg", title:"Person Profiles", desc:"Open a person to see spouses, marriage history and children, with recorded status shown plainly."},
-  {src:"images/app-fan.jpg", fallback:"images/Screenshot_20261027-112900.jpg.jpeg", title:"Fan Chart", desc:"See generations as a fan chart, with paternal and maternal routes shown separately."},
-  {src:"images/app-verify.jpg", fallback:"images/Screenshot_20261027-112643.jpg.jpeg", title:"Chronicle Verification", desc:"Verify a lineage certificate by PDF file for anti-tamper integrity, or by Serial ID, using SHA-256 document-integrity checking."}
+const TOUR = [
+  {title:"Welcome", desc:"The opening screen of NASSAB, with a thoughtful home for your family tree."},
+  {title:"Explore historical people", desc:"Browse recorded historical people, search by name, and open a read-only historical record."},
+  {title:"Family tree", desc:"View a lineage as a horizontal tree, move the focus between generations, and keep marriages and children distinct."},
+  {title:"Person detail", desc:"Open a person to see spouses, marriage history and children, with recorded status shown plainly."},
+  {title:"Fan chart", desc:"See generations as a fan chart, with paternal and maternal routes shown separately."},
+  {title:"Verify certificate", desc:"Verify a lineage certificate by PDF file for anti-tamper integrity, or by Serial ID, using SHA-256 document-integrity checking."}
 ];
+let tourIndex = 0;
+let visibleGallery = [0,1,2,3,4,5];
+
 document.addEventListener("DOMContentLoaded", () => {
   const formInputs = ["form-name","form-email","form-phone","form-branch","form-type","form-details"];
   formInputs.forEach(id => { const el = document.getElementById(id); if (el) { el.addEventListener("input", updateLivePreview); el.addEventListener("change", updateLivePreview); } });
   renderSubmissionsList(); updateLivePreview();
   document.querySelectorAll("[data-img-fallback]").forEach(img => {
-    img.addEventListener("error", function handler(){ if (img.dataset.imgFallback && img.src.indexOf(img.dataset.imgFallback) === -1) { img.src = img.dataset.imgFallback; } else { img.removeEventListener("error", handler); const wrap = img.closest(".gallery-item, .phone, .showcase-phone"); if (wrap) wrap.style.display = "none"; const note = document.getElementById("gallery-note"); if (note) note.style.display = "block"; } });
+    img.addEventListener("error", function handler(){ if (img.dataset.imgFallback && img.src.indexOf(img.dataset.imgFallback) === -1) { img.src = img.dataset.imgFallback; } else { img.removeEventListener("error", handler); const wrap = img.closest(".gallery-item, .phone, .tour-phone"); if (wrap) wrap.style.display = "none"; const note = document.getElementById("gallery-note"); if (note) note.style.display = "block"; } });
   });
+  // Mobile menu: close on any link click
+  const mm = document.getElementById("mobile-menu");
+  if (mm) mm.querySelectorAll("a").forEach(a => a.addEventListener("click", closeMobileMenu));
+  // Tour init
+  if (document.getElementById("tour-img")) selectTour(0, false);
+  const tourEl = document.getElementById("tour");
+  if (tourEl) tourEl.addEventListener("keydown", e => { if (e.key === "ArrowRight") tourNext(); if (e.key === "ArrowLeft") tourPrev(); });
+  // Gallery filter init
+  if (document.getElementById("gallery-grid")) setGalleryFilter("all", null);
+  // Features filter init
+  if (document.getElementById("feature-search")) applyFeatureFilter();
+  // Scroll reveal (added via JS only, so no-JS pages stay visible)
+  if ("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const io = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { en.target.classList.add("visible"); io.unobserve(en.target); } }), {threshold: 0.08});
+    document.querySelectorAll("section.section").forEach(s => { s.classList.add("reveal"); io.observe(s); });
+  }
+  // Back to top
+  const btt = document.getElementById("back-to-top");
+  if (btt) window.addEventListener("scroll", () => { btt.classList.toggle("show", window.scrollY > 600); }, {passive:true});
+  // Lightbox swipe (touch + mouse drag)
+  const lb = document.getElementById("lightbox");
+  if (lb) {
+    let sx = null, sy = null;
+    const start = x => { sx = x; };
+    const end = x => { if (sx === null) return; const dx = x - sx; sx = null; if (Math.abs(dx) > 50) { if (dx < 0) lightboxNext(); else lightboxPrev(); } };
+    lb.addEventListener("touchstart", e => { if (e.touches[0]) start(e.touches[0].clientX); }, {passive:true});
+    lb.addEventListener("touchend", e => { if (e.changedTouches[0]) end(e.changedTouches[0].clientX); });
+    lb.addEventListener("mousedown", e => { if (!e.target.closest("button")) start(e.clientX); });
+    lb.addEventListener("mouseup", e => { if (!e.target.closest("button")) end(e.clientX); });
+  }
+});
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") {
+    const lb = document.getElementById("lightbox");
+    if (lb && lb.classList.contains("open")) { closeLightbox(); return; }
+    const modal = document.getElementById("submission-modal");
+    if (modal && modal.classList.contains("open")) { closeModal(); return; }
+    closeMobileMenu();
+  }
+  const lb = document.getElementById("lightbox"); if (!lb || !lb.classList.contains("open")) return;
+  if (e.key === "ArrowRight") lightboxStep(1);
+  if (e.key === "ArrowLeft") lightboxStep(-1);
+  if (e.key === "Tab") { const focusable = lb.querySelectorAll("button"); if (!focusable.length) return; const first = focusable[0], last = focusable[focusable.length - 1]; if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); } else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); } }
 });
 function toggleMobileMenu(){
   const m = document.getElementById("mobile-menu"); if (!m) return;
@@ -30,21 +77,44 @@ function toggleMobileMenu(){
   const btn = document.getElementById("menu-btn"); if (btn) { btn.setAttribute("aria-expanded", String(open)); btn.textContent = open ? "✕ Close" : "☰ Menu"; }
   if (open) { const first = m.querySelector("a"); if (first) first.focus(); }
 }
+function closeMobileMenu(){
+  const m = document.getElementById("mobile-menu"); if (!m || !m.classList.contains("open")) return;
+  m.classList.remove("open");
+  const btn = document.getElementById("menu-btn"); if (btn) { btn.setAttribute("aria-expanded", "false"); btn.textContent = "☰ Menu"; }
+}
 function switchAboutStyle(style){
   const modern = document.getElementById("about-content-modern"), trad = document.getElementById("about-content-traditional");
   const bm = document.getElementById("toggle-modern"), bt = document.getElementById("toggle-traditional");
   if (!modern || !trad) return;
   const isTrad = style === "traditional";
   modern.classList.toggle("hidden", isTrad); trad.classList.toggle("hidden", !isTrad);
-  if (bm) bm.classList.toggle("active", !isTrad); if (bt) bt.classList.toggle("active", isTrad);
+  if (bm) { bm.classList.toggle("active", !isTrad); bm.setAttribute("aria-pressed", String(!isTrad)); }
+  if (bt) { bt.classList.toggle("active", isTrad); bt.setAttribute("aria-pressed", String(isTrad)); }
 }
-function selectShowcase(i){
-  const img = document.getElementById("showcase-img"), t = document.getElementById("showcase-title"), d = document.getElementById("showcase-desc");
-  if (!img || !SHOWCASE[i]) return;
-  img.style.opacity = "0";
-  setTimeout(() => { img.src = SHOWCASE[i].src; img.dataset.imgFallback = SHOWCASE[i].fallback; img.alt = SHOWCASE[i].title + " screen from the NASSAB app"; if (t) t.textContent = SHOWCASE[i].title; if (d) d.textContent = SHOWCASE[i].desc; img.style.opacity = "1"; }, 180);
-  document.querySelectorAll(".showcase-nav button").forEach((b, j) => b.classList.toggle("active", j === i));
+/* App tour (Home): GALLERY order = tour order, lightbox index stays in sync */
+function selectTour(i, animate){
+  if (!GALLERY[i]) return; tourIndex = i;
+  const img = document.getElementById("tour-img"), t = document.getElementById("tour-title"), d = document.getElementById("tour-desc"), p = document.getElementById("tour-progress"), bar = document.getElementById("tour-bar");
+  const apply = () => {
+    if (img) { img.src = GALLERY[i].src; img.dataset.imgFallback = GALLERY[i].fallback; img.alt = TOUR[i].title + " screen from the NASSAB app"; img.style.opacity = "1"; }
+    if (t) t.textContent = TOUR[i].title;
+    if (d) d.textContent = TOUR[i].desc;
+    if (p) p.textContent = "Step " + (i + 1) + " of " + TOUR.length;
+    if (bar) bar.style.width = ((i + 1) / TOUR.length * 100) + "%";
+    document.querySelectorAll(".tour-nav button").forEach((b, j) => { b.classList.toggle("active", j === i); b.setAttribute("aria-current", j === i ? "step" : "false"); });
+    document.querySelectorAll(".tour-dots button").forEach((b, j) => { b.classList.toggle("active", j === i); b.setAttribute("aria-current", j === i ? "step" : "false"); });
+    const prev = document.getElementById("tour-prev"), next = document.getElementById("tour-next");
+    if (prev) prev.disabled = (i === 0);
+    if (next) next.disabled = (i === TOUR.length - 1);
+    const phoneBtn = document.getElementById("tour-phone-btn");
+    if (phoneBtn) phoneBtn.setAttribute("aria-label", "View " + TOUR[i].title + " screenshot larger");
+  };
+  if (img && animate !== false) { img.style.opacity = "0"; setTimeout(apply, 150); } else apply();
 }
+function tourNext(){ if (tourIndex < TOUR.length - 1) selectTour(tourIndex + 1); }
+function tourPrev(){ if (tourIndex > 0) selectTour(tourIndex - 1); }
+function tourFirst(){ selectTour(0); }
+/* Relationship diagram: SVG nodes + buttons stay in sync */
 function selectDiagram(key, el){
   const detail = document.getElementById("diagram-detail"); if (!detail) return;
   const texts = {
@@ -54,17 +124,38 @@ function selectDiagram(key, el){
     marriage:"Marriage history — current and former marriages kept distinct, with history preserved, so a former spouse is never shown as currently married."
   };
   detail.textContent = texts[key] || texts.ancestor;
-  document.querySelectorAll(".diagram button").forEach(b => b.classList.remove("active")); if (el) el.classList.add("active");
+  document.querySelectorAll("[data-diagram-key]").forEach(n => {
+    const on = n.dataset.diagramKey === key;
+    n.classList.toggle("active", on); n.classList.toggle("dim", !on);
+    if (n.tagName === "BUTTON") n.setAttribute("aria-pressed", String(on));
+    if (n.tagName === "G") n.setAttribute("aria-pressed", String(on));
+  });
+  document.querySelectorAll("[data-diagram-line]").forEach(l => { const on = l.dataset.diagramLine === key || key === "ancestor"; l.classList.toggle("active", on); l.classList.toggle("dim", !on); });
 }
-/* Lightbox */
-let lbIndex = 0, lbOpener = null;
+function diagramKey(e, key){ if (e.key === "Enter" || e.key === " ") { e.preventDefault(); selectDiagram(key, e.currentTarget); } }
+/* Gallery filter + lightbox */
+const GALLERY_GROUPS = {all:[0,1,2,3,4,5], tree:[2,4], people:[1,3], welcome:[0], verify:[5]};
+function setGalleryFilter(group, btn){
+  const list = GALLERY_GROUPS[group] || GALLERY_GROUPS.all; visibleGallery = list;
+  document.querySelectorAll(".filter-chips button").forEach(b => { const on = b.dataset.filter === group; b.classList.toggle("active", on); b.setAttribute("aria-pressed", String(on)); });
+  let shown = 0;
+  document.querySelectorAll("#gallery-grid .gallery-item").forEach(item => {
+    const idx = parseInt(item.dataset.galleryIndex, 10); const on = list.includes(idx); item.style.display = on ? "" : "none"; if (on) shown++;
+  });
+  const c = document.getElementById("gallery-count"); if (c) c.textContent = "Showing " + shown + " of 6";
+}
+let lbIndex = 0, lbOpener = null, lbZoom = false;
 function openLightbox(i){
-  const item = GALLERY[i]; if (!item) return; lbIndex = i; lbOpener = document.activeElement;
+  const item = GALLERY[i]; if (!item) return;
+  if (!visibleGallery.includes(i)) visibleGallery = [0,1,2,3,4,5];
+  lbIndex = i; lbOpener = document.activeElement; lbZoom = false;
   const lb = document.getElementById("lightbox"); if (!lb) return;
   const img = document.getElementById("lightbox-img"), cap = document.getElementById("lightbox-caption"), cnt = document.getElementById("lightbox-count");
-  img.src = item.src; img.dataset.imgFallback = item.fallback; img.alt = item.title + " screen from the NASSAB app";
+  img.src = item.src; img.dataset.imgFallback = item.fallback; img.alt = item.title + " screen from the NASSAB app"; img.classList.remove("zoomed");
+  const zb = document.getElementById("lightbox-zoom"); if (zb) zb.setAttribute("aria-pressed", "false");
   if (cap) cap.textContent = item.title + " — " + item.desc;
-  if (cnt) cnt.textContent = (i + 1) + " of " + GALLERY.length;
+  const pos = visibleGallery.indexOf(i) + 1;
+  if (cnt) cnt.textContent = pos + " of " + visibleGallery.length;
   lb.classList.add("open"); document.body.style.overflow = "hidden";
   const closeBtn = document.getElementById("lightbox-close"); if (closeBtn) closeBtn.focus();
 }
@@ -74,16 +165,36 @@ function closeLightbox(){
   if (lbOpener && lbOpener.focus) lbOpener.focus();
 }
 function lightboxStep(dir){
-  lbIndex = (lbIndex + dir + GALLERY.length) % GALLERY.length; openLightbox(lbIndex);
+  const pos = visibleGallery.indexOf(lbIndex); const nextPos = (pos + dir + visibleGallery.length) % visibleGallery.length; openLightbox(visibleGallery[nextPos]);
 }
 function lightboxNext(){ lightboxStep(1); } function lightboxPrev(){ lightboxStep(-1); }
-document.addEventListener("keydown", e => {
-  const lb = document.getElementById("lightbox"); if (!lb || !lb.classList.contains("open")) return;
-  if (e.key === "Escape") closeLightbox();
-  if (e.key === "ArrowRight") lightboxStep(1);
-  if (e.key === "ArrowLeft") lightboxStep(-1);
-  if (e.key === "Tab") { const focusable = lb.querySelectorAll("button"); if (!focusable.length) return; const first = focusable[0], last = focusable[focusable.length - 1]; if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); } else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); } }
-});
+function toggleLightboxZoom(){
+  const img = document.getElementById("lightbox-img"); if (!img) return;
+  lbZoom = !lbZoom; img.classList.toggle("zoomed", lbZoom);
+  const zb = document.getElementById("lightbox-zoom"); if (zb) zb.setAttribute("aria-pressed", String(lbZoom));
+}
+/* Features search + group filter */
+let featureGroup = "all";
+function setFeatureGroup(group, btn){
+  featureGroup = group;
+  document.querySelectorAll(".feature-filters button").forEach(b => { const on = b.dataset.group === group; b.classList.toggle("active", on); b.setAttribute("aria-pressed", String(on)); });
+  applyFeatureFilter();
+}
+function clearFeatureFilter(){
+  const s = document.getElementById("feature-search"); if (s) s.value = "";
+  setFeatureGroup("all", null);
+}
+function applyFeatureFilter(){
+  const q = (document.getElementById("feature-search") ? document.getElementById("feature-search").value : "").trim().toLowerCase();
+  let shown = 0;
+  document.querySelectorAll(".feature-group").forEach(g => {
+    const groupOk = featureGroup === "all" || g.dataset.group === featureGroup;
+    const textOk = !q || g.textContent.toLowerCase().includes(q);
+    const on = groupOk && textOk; g.style.display = on ? "" : "none"; if (on) shown++;
+  });
+  const nr = document.getElementById("feature-no-results"); if (nr) nr.style.display = shown ? "none" : "block";
+  const c = document.getElementById("feature-count"); if (c) c.textContent = shown ? ("Showing " + shown + " of 5 groups") : "";
+}
 /* Records form — preserved local-only behaviour */
 function updateLivePreview(){
   const get = id => { const el = document.getElementById(id); return el ? el.value.trim() : ""; };
@@ -156,4 +267,4 @@ function showToast(message){
 }
 function copySubmissionPayload(){ copyToClipboard(); }
 function hideGalleryItem(img){ const wrap = img.closest(".gallery-item"); if (wrap) wrap.style.display = "none"; }
-function scrollToShowcase(){ const el = document.getElementById("showcase"); if (el) el.scrollIntoView({behavior:"smooth"}); }
+function backToTop(){ window.scrollTo({top: 0, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"}); }
