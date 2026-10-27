@@ -239,8 +239,12 @@ h2{font-size:clamp(1.9rem,3.6vw,2.9rem)} h3{font-size:clamp(1.35rem,2.4vw,1.7rem
   #gallery-grid.gallery-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px}
   #gallery-grid .gallery-item{min-width:84vw;scroll-snap-align:center;flex:0 0 auto}
 }
-/* Lightbox scale-and-fade (shared-element simplified to a reliable version) */
+/* Lightbox: shared-element FLIP where reliable, scale-and-fade fallback.
+   .lb-flip suppresses the entry animation while a clone flies; see script.js. */
 .lightbox.open img{animation:lbIn .28s ease both}
+.lightbox.lb-flip.open img{animation:none}
+.lightbox img.lb-flip-hidden{visibility:hidden}
+.lb-clone{position:fixed;z-index:400;object-fit:contain;border-radius:18px;box-shadow:0 20px 50px rgba(0,0,0,.25);background:#fff;pointer-events:none;margin:0}
 @keyframes lbIn{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
 /* About timeline + heritage seal */
 .about-timeline{position:relative;padding-left:34px;margin:28px 0}
@@ -275,3 +279,15 @@ h2{font-size:clamp(1.9rem,3.6vw,2.9rem)} h3{font-size:clamp(1.35rem,2.4vw,1.7rem
 /* Mahram highlight state */
 #mahram-visual.hl .fv-path{stroke:var(--gold);stroke-width:2.6}
 #mahram-visual.hl .fv-node{stroke:var(--gold);stroke-width:2.4}
+
+/* Theatre sticky phone (safe version): sticky ONLY inside the theatre grid,
+   desktop + fine pointer only. It ends at the section end, never pins beyond
+   it, never disables scroll, never traps the user. Mobile/tablet and
+   reduced-motion keep the plain stacked layout. Clickable theatre navigation
+   is unchanged and always available. */
+@media (min-width:1024px) and (pointer:fine){
+  .theatre-phone{position:sticky;top:92px;align-self:start}
+}
+@media (prefers-reduced-motion:reduce){
+  .theatre-phone{position:static}
+}

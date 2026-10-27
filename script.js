@@ -146,12 +146,40 @@ function setGalleryFilter(group, btn){
   });
   const c = document.getElementById("gallery-count"); if (c) c.textContent = "Showing " + shown + " of 6";
 }
-let lbIndex = 0, lbOpener = null, lbZoom = false;
+let lbIndex = 0, lbOpener = null, lbZoom = false, lbFlipClone = null, lastThumbImg = null;
+/* Capture the clicked thumbnail before inline onclick handlers run (document
+   capture runs first), so FLIP knows its exact source rect on every entry. */
+document.addEventListener("click", e => {
+  const b = e.target && e.target.closest ? e.target.closest("button") : null;
+  if (b) { const im = b.querySelector("img"); if (im) lastThumbImg = im; }
+}, true);
+function findVisibleThumb(i){
+  const base = GALLERY[i] ? GALLERY[i].src.split("/").pop() : "";
+  if (!base) return null;
+  const imgs = document.querySelectorAll("img");
+  for (const im of imgs) {
+    if (im.src && im.src.indexOf(base) !== -1) {
+      const r = im.getBoundingClientRect();
+      if (r.width > 0 && r.height > 0 && r.bottom > 0 && r.top < window.innerHeight) return im;
+    }
+  }
+  return null;
+}
+function lbRemoveClone(){ if (lbFlipClone && lbFlipClone.parentNode) lbFlipClone.parentNode.removeChild(lbFlipClone); lbFlipClone = null; }
+function lbShowReal(){
+  const img = document.getElementById("lightbox-img"); if (img) img.classList.remove("lb-flip-hidden");
+  const lb = document.getElementById("lightbox"); if (lb) lb.classList.remove("lb-flip");
+}
 function openLightbox(i){
   const item = GALLERY[i]; if (!item) return;
   if (!visibleGallery.includes(i)) visibleGallery = [0,1,2,3,4,5];
-  lbIndex = i; lbOpener = document.activeElement; lbZoom = false;
   const lb = document.getElementById("lightbox"); if (!lb) return;
+  const wasOpen = lb.classList.contains("open");
+  /* Stepping (Prev/Next/swipe) must not overwrite the original opener, or
+     focus restore on close would land on the Prev/Next button. */
+  if (!wasOpen) lbOpener = document.activeElement;
+  lbRemoveClone(); lbShowReal();
+  lbIndex = i; lbZoom = false;
   const img = document.getElementById("lightbox-img"), cap = document.getElementById("lightbox-caption"), cnt = document.getElementById("lightbox-count");
   img.src = item.src; img.dataset.imgFallback = item.fallback; img.alt = item.title + " screen from the NASSAB app"; img.classList.remove("zoomed");
   const zb = document.getElementById("lightbox-zoom"); if (zb) zb.setAttribute("aria-pressed", "false");
@@ -160,11 +188,65 @@ function openLightbox(i){
   if (cnt) cnt.textContent = pos + " of " + visibleGallery.length;
   lb.classList.add("open"); document.body.style.overflow = "hidden";
   const closeBtn = document.getElementById("lightbox-close"); if (closeBtn) closeBtn.focus();
+  /* Shared-element FLIP on fresh opens only (not Prev/Next/swipe steps, which
+     have no thumbnail to fly from and keep the scale-and-fade fallback).
+     Reduced-motion: instant, no FLIP. Any FLIP failure falls back to the
+     real image with the existing scale-and-fade animation. */
+  const reducedLB = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (wasOpen || reducedLB) return;
+  const src = (lastThumbImg && lastThumbImg.getBoundingClientRect().width > 0) ? lastThumbImg : findVisibleThumb(i);
+  if (!src) return;
+  lb.classList.add("lb-flip"); img.classList.add("lb-flip-hidden");
+  const doFlip = () => {
+    try {
+      const sr = src.getBoundingClientRect(), tr = img.getBoundingClientRect();
+      if (!sr.width || !tr.width || !img.complete || !img.naturalWidth) { lbShowReal(); return; }
+      const clone = document.createElement("img"); clone.src = img.src; clone.alt = ""; clone.setAttribute("aria-hidden", "true"); clone.className = "lb-clone";
+      clone.style.left = tr.left + "px"; clone.style.top = tr.top + "px"; clone.style.width = tr.width + "px"; clone.style.height = tr.height + "px"; clone.style.transformOrigin = "top left";
+      document.body.appendChild(clone); lbFlipClone = clone;
+      const dx = sr.left - tr.left, dy = sr.top - tr.top, sx = sr.width / tr.width, sy = sr.height / tr.height;
+      const anim = clone.animate(
+        [{transform: "translate(" + dx + "px," + dy + "px) scale(" + sx + "," + sy + ")"}, {transform: "translate(0px,0px) scale(1,1)"}],
+        {duration: 300, easing: "ease-out"});
+      const done = () => { lbRemoveClone(); lbShowReal(); };
+      if (anim && anim.finished) anim.finished.then(done).catch(done); else setTimeout(done, 320);
+    } catch (e) { lbRemoveClone(); lbShowReal(); }
+  };
+  if (img.complete && img.naturalWidth) requestAnimationFrame(() => requestAnimationFrame(doFlip));
+  else {
+    const onLoad = () => { img.removeEventListener("load", onLoad); if (lb.classList.contains("open") && lbIndex === i) doFlip(); };
+    img.addEventListener("load", onLoad);
+    setTimeout(() => { img.removeEventListener("load", onLoad); if (lb.classList.contains("open") && lbIndex === i) lbShowReal(); }, 600);
+  }
 }
 function closeLightbox(){
-  const lb = document.getElementById("lightbox"); if (!lb) return;
-  lb.classList.remove("open"); document.body.style.overflow = "";
-  if (lbOpener && lbOpener.focus) lbOpener.focus();
+  const lb = document.getElementById("lightbox"); if (!lb || !lb.classList.contains("open")) return;
+  const img = document.getElementById("lightbox-img");
+  const finish = () => {
+    lbRemoveClone(); lb.classList.remove("open"); lb.classList.remove("lb-flip");
+    if (img) img.classList.remove("lb-flip-hidden"); document.body.style.overflow = "";
+    if (lbOpener && lbOpener.focus) { try { lbOpener.focus(); } catch (e) {} }
+  };
+  /* Reverse FLIP only when it can land on a visible thumbnail for the
+     current image; otherwise instant close (reduced-motion, zoomed, or the
+     thumbnail scrolled/filtered away). Focus restore always runs. */
+  const reducedLB = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const src = findVisibleThumb(lbIndex);
+  if (reducedLB || lbZoom || !src || !img || !img.complete) { finish(); return; }
+  try {
+    const sr = src.getBoundingClientRect(), tr = img.getBoundingClientRect();
+    if (!sr.width || !tr.width) { finish(); return; }
+    lb.classList.add("lb-flip"); img.classList.add("lb-flip-hidden");
+    const clone = document.createElement("img"); clone.src = img.src; clone.alt = ""; clone.setAttribute("aria-hidden", "true"); clone.className = "lb-clone";
+    clone.style.left = tr.left + "px"; clone.style.top = tr.top + "px"; clone.style.width = tr.width + "px"; clone.style.height = tr.height + "px"; clone.style.transformOrigin = "top left";
+    document.body.appendChild(clone); lbFlipClone = clone;
+    const dx = sr.left - tr.left, dy = sr.top - tr.top, sx = sr.width / tr.width, sy = sr.height / tr.height;
+    const anim = clone.animate(
+      [{transform: "translate(0px,0px) scale(1,1)"}, {transform: "translate(" + dx + "px," + dy + "px) scale(" + sx + "," + sy + ")"}],
+      {duration: 280, easing: "ease-in"});
+    const done = () => finish();
+    if (anim && anim.finished) anim.finished.then(done).catch(done); else setTimeout(done, 300);
+  } catch (e) { finish(); }
 }
 function lightboxStep(dir){
   const pos = visibleGallery.indexOf(lbIndex); const nextPos = (pos + dir + visibleGallery.length) % visibleGallery.length; openLightbox(visibleGallery[nextPos]);
@@ -301,17 +383,81 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
   window.addEventListener("scroll", onScroll, {passive:true}); onScroll();
-  /* Hero pointer: whole network shifts a few px only; disabled on touch */
+  /* Hero per-node pointer: each SVG node moves individually (desktop mouse only).
+     Lines are redrawn from the moved endpoints on every frame, so they stay
+     connected. Whole-network shift removed. No pointer code runs on touch or
+     reduced-motion (gated below); text is untouched (network is background). */
   const hero = document.querySelector(".hero");
   const net = document.querySelector(".hero-lineage");
   if (hero && net && window.matchMedia("(pointer: fine)").matches && !reduced) {
-    hero.addEventListener("pointermove", e => {
-      const r = hero.getBoundingClientRect();
-      const dx = (e.clientX - r.left) / Math.max(r.width, 1) - 0.5;
-      const dy = (e.clientY - r.top) / Math.max(r.height, 1) - 0.5;
-      net.style.transform = "translate3d(" + (dx * 8) + "px," + (dy * 6) + "px,0)";
-    });
-    hero.addEventListener("pointerleave", () => { net.style.transform = ""; });
+    const paths = net.querySelectorAll(".ln-path");
+    const circles = net.querySelectorAll(".ln-origin, .ln-node");
+    const base = []; circles.forEach(c => base.push({x: parseFloat(c.getAttribute("cx")) || 0, y: parseFloat(c.getAttribute("cy")) || 0}));
+    const origD = []; paths.forEach(p => origD.push(p.getAttribute("d")));
+    /* [path, startNode, endNode, ctrl1 offset, ctrl2 offset]; node order in DOM:
+       0 origin (200,60), 1 (70,220), 2 (200,230), 3 (330,220), 4 (200,390).
+       Offsets reproduce the original path control points exactly at rest. */
+    const conns = [[0,0,1,[0,70],[50,-70]],[1,0,2,[0,70],[0,-70]],[2,0,3,[0,70],[-50,-70]],[3,2,4,[-40,70],[40,-60]]];
+    let cur = base.map(() => ({x:0,y:0}));
+    let tgt = base.map(() => ({x:0,y:0}));
+    let raf = 0;
+    const fmt = n => Math.round(n * 10) / 10;
+    function renderHero(){
+      circles.forEach((c, i) => { if (Math.abs(cur[i].x) > 0.05 || Math.abs(cur[i].y) > 0.05) c.setAttribute("transform", "translate(" + fmt(cur[i].x) + " " + fmt(cur[i].y) + ")"); else c.removeAttribute("transform"); });
+      conns.forEach(([pi, si, ei, c1, c2]) => {
+        const s = {x: base[si].x + cur[si].x, y: base[si].y + cur[si].y};
+        const e = {x: base[ei].x + cur[ei].x, y: base[ei].y + cur[ei].y};
+        paths[pi].setAttribute("d", "M" + fmt(s.x) + "," + fmt(s.y) + " C" + fmt(s.x + c1[0]) + "," + fmt(s.y + c1[1]) + " " + fmt(e.x + c2[0]) + "," + fmt(e.y + c2[1]) + " " + fmt(e.x) + "," + fmt(e.y));
+      });
+    }
+    function heroFrame(){
+      raf = 0; let moving = false;
+      for (let i = 0; i < cur.length; i++) {
+        cur[i].x += (tgt[i].x - cur[i].x) * 0.18; cur[i].y += (tgt[i].y - cur[i].y) * 0.18;
+        if (Math.abs(tgt[i].x - cur[i].x) > 0.05 || Math.abs(tgt[i].y - cur[i].y) > 0.05) moving = true;
+        else { cur[i].x = tgt[i].x; cur[i].y = tgt[i].y; }
+      }
+      renderHero(); if (moving) raf = requestAnimationFrame(heroFrame);
+    }
+    function heroKick(){ if (!raf) raf = requestAnimationFrame(heroFrame); }
+    function heroMove(e){
+      if (e.pointerType && e.pointerType !== "mouse") return;
+      const r = net.getBoundingClientRect(); if (!r.width || !r.height) return;
+      const px = (e.clientX - r.left) / r.width * 400, py = (e.clientY - r.top) / r.height * 420;
+      for (let i = 0; i < base.length; i++) {
+        const dx = px - base[i].x, dy = py - base[i].y, d = Math.sqrt(dx * dx + dy * dy);
+        tgt[i] = (d < 260 && d > 0.01) ? {x: dx / d * (1 - d / 260) * 10, y: dy / d * (1 - d / 260) * 10} : {x:0,y:0};
+      }
+      heroKick();
+    }
+    function heroLeave(){ tgt = base.map(() => ({x:0,y:0})); heroKick(); }
+    function heroResetInstant(){
+      if (raf) cancelAnimationFrame(raf); raf = 0;
+      cur = base.map(() => ({x:0,y:0})); tgt = base.map(() => ({x:0,y:0}));
+      circles.forEach(c => c.removeAttribute("transform")); paths.forEach((p, i) => p.setAttribute("d", origD[i]));
+    }
+    function heroPagehide(){ heroResetInstant(); hero.removeEventListener("pointermove", heroMove); hero.removeEventListener("pointerleave", heroLeave); }
+    hero.addEventListener("pointermove", heroMove);
+    hero.addEventListener("pointerleave", heroLeave);
+    document.addEventListener("visibilitychange", () => { if (document.hidden) heroResetInstant(); });
+    window.addEventListener("pagehide", heroPagehide);
+  }
+  /* Theatre sticky sync (desktop only; CSS gates the sticky itself): when the
+     user scrolls so a theatre step button crosses the centre band, the phone
+     follows it. Clicking a button does not change intersection, so clicks
+     never fight scroll sync; Prev/Next and clicks always still work. */
+  const theatreEl = document.getElementById("theatre");
+  if (theatreEl && "IntersectionObserver" in window && !reduced) {
+    const navBtns = theatreEl.querySelectorAll(".tour-nav button");
+    if (navBtns.length) {
+      const tio = new IntersectionObserver(es => es.forEach(en => {
+        if (!en.isIntersecting) return;
+        if (!window.matchMedia("(min-width: 1024px)").matches || !window.matchMedia("(pointer: fine)").matches) return;
+        const idx = Array.prototype.indexOf.call(navBtns, en.target);
+        if (idx >= 0 && idx !== tourIndex) selectTour(idx, false);
+      }), {rootMargin: "-40% 0px -40% 0px", threshold: 0});
+      navBtns.forEach(b => tio.observe(b));
+    }
   }
   if ("IntersectionObserver" in window && !reduced) {
     const io2 = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { en.target.classList.add("in"); io2.unobserve(en.target); } }), {threshold: 0.15});
