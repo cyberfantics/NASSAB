@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NASSAB (نَسَب) — Digital Family Tree & Heritage Preservation</title>
-    <meta name="description" content="NASSAB is a modern digital genealogy platform dedicated to preserving, organizing, and exploring family records, Shajra, and complex lineages.">
+    <meta name="description" content="NASSAB — Family tree & heritage, done right. A Flutter & Firebase genealogy app in closed testing on Google Play, with Rada'at kinship, Mahram guidance, privacy by design, and SHA-256 verified lineage certificates.">
     
     <!-- Google Fonts: Plus Jakarta Sans & Noto Nastaliq Urdu -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -88,6 +88,11 @@
 
                 <!-- EXTERNAL ACTION BUTTONS -->
                 <div class="hidden lg:flex items-center space-x-3">
+                    <a href="https://play.google.com/apps/testing/com.cyberfantics.nassab" target="_blank" rel="noopener noreferrer"
+                       class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-gold-500 to-amber-600 hover:from-gold-400 hover:to-amber-500 text-emerald-950 font-bold text-xs tracking-wider uppercase shadow-lg shadow-gold-500/20 flex items-center space-x-2 transition-all hover:scale-[1.02]">
+                        <i class="fa-brands fa-google-play text-base"></i>
+                        <span>Join closed testing</span>
+                    </a>
                     <a href="https://wa.me/923408100868" target="_blank" rel="noopener noreferrer" 
                        class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white font-semibold text-xs tracking-wider uppercase shadow-lg shadow-emerald-600/30 flex items-center space-x-2 transition-all hover:scale-[1.02]">
                         <i class="fa-brands fa-whatsapp text-lg"></i>
@@ -113,6 +118,10 @@
             <button onclick="navTo('privacy'); toggleMobileMenu()" class="w-full text-left px-4 py-3 rounded-lg text-base font-medium text-slate-200 hover:bg-emerald-900/50">Privacy Policy</button>
             <button onclick="navTo('terms'); toggleMobileMenu()" class="w-full text-left px-4 py-3 rounded-lg text-base font-medium text-slate-200 hover:bg-emerald-900/50">Terms of Service</button>
             <div class="pt-3 border-t border-emerald-800/40 flex flex-col space-y-2">
+                <a href="https://play.google.com/apps/testing/com.cyberfantics.nassab" target="_blank" rel="noopener noreferrer" class="w-full text-center py-3 rounded-xl bg-gradient-to-r from-gold-500 to-amber-600 text-emerald-950 font-bold flex items-center justify-center space-x-2">
+                    <i class="fa-brands fa-google-play text-lg"></i>
+                    <span>Join closed testing</span>
+                </a>
                 <a href="https://wa.me/923408100868" target="_blank" class="w-full text-center py-3 rounded-xl bg-emerald-600 text-white font-semibold flex items-center justify-center space-x-2">
                     <i class="fa-brands fa-whatsapp text-lg"></i>
                     <span>Chat on WhatsApp (+92 340 8100868)</span>
@@ -137,45 +146,52 @@
                     <div class="lg:col-span-7 space-y-8 text-center lg:text-left">
                         <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-emerald-900/70 border border-gold-500/30 text-gold-400 text-xs font-semibold uppercase tracking-widest shadow-md">
                             <i class="fa-solid fa-gem text-xs"></i>
-                            <span>Official NASSAB Genealogy Platform</span>
+                            <span>Closed testing on Google Play &middot; Flutter &amp; Firebase mobile app</span>
                         </div>
 
-                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.15]">
-                            Preserving Heritage.<br/>
-                            <span class="bg-gradient-to-r from-gold-300 via-gold-400 to-amber-500 bg-clip-text text-transparent">
-                                Connecting Lineages.
-                            </span>
+                        <h1 class="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.08]">
+                            Family tree &amp; heritage,<br/>
+                            <span class="gold-gradient-text">done right.</span><br/>
+                            <span class="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-100">Preserving Heritage. Connecting Lineages.</span>
                         </h1>
 
                         <p class="text-lg sm:text-xl text-slate-300 font-normal leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                            NASSAB is a digital genealogy project dedicated to preserving, organizing, and exploring family records and Shajra. Designed to represent complete family relationships, including male and female descendants, remarriages, and complex connections.
+                            NASSAB is a digital genealogy and family heritage platform, built as a Flutter &amp; Firebase mobile app. Build your family tree, explore relationships across generations &mdash; including Rada&apos;at (milk-kinship) as its own relationship type &mdash; and keep private family information protected, with masked protected female names and guest mode. Lineage certificates use SHA-256 document-integrity verification.
                         </p>
 
                         <!-- CALL TO ACTIONS -->
                         <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-                            <button onclick="navTo('about')" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-gold-500 to-amber-600 hover:from-gold-400 hover:to-amber-500 text-emerald-950 font-bold text-base shadow-xl shadow-gold-500/20 flex items-center justify-center space-x-3 transition-all hover:scale-105">
-                                <span>Discover About NASSAB</span>
+                            <a href="https://play.google.com/apps/testing/com.cyberfantics.nassab" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-gold-500 to-amber-600 hover:from-gold-400 hover:to-amber-500 text-emerald-950 font-bold text-base shadow-xl shadow-gold-500/20 flex items-center justify-center space-x-3 transition-all hover:scale-105">
+                                <span>Join closed testing</span>
+                                <i class="fa-brands fa-google-play"></i>
+                            </a>
+                            <button onclick="navTo('features')" class="w-full sm:w-auto px-7 py-4 rounded-xl bg-emerald-900/80 hover:bg-emerald-800 border border-emerald-700/60 text-white font-semibold text-base shadow-lg flex items-center justify-center space-x-3 transition-all hover:scale-[1.02]">
+                                <span>Explore features</span>
                                 <i class="fa-solid fa-arrow-right"></i>
                             </button>
-                            <a href="https://wa.me/923408100868" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto px-7 py-4 rounded-xl bg-emerald-900/80 hover:bg-emerald-800 border border-emerald-700/60 text-white font-semibold text-base shadow-lg flex items-center justify-center space-x-3 transition-all hover:scale-[1.02]">
-                                <i class="fa-brands fa-whatsapp text-emerald-400 text-xl"></i>
-                                <span>WhatsApp: 0340-8100868</span>
-                            </a>
                         </div>
+                        <p class="text-sm text-slate-400 max-w-2xl mx-auto lg:mx-0">
+                            Google Play testing link is tester-list only &mdash; if you are not on the list, request access at
+                            <a href="mailto:digital.creator380@gmail.com" class="text-gold-400 hover:text-gold-300 font-semibold">digital.creator380@gmail.com</a>.
+                            The app is in closed testing and is not public yet.
+                        </p>
+                        <p class="text-sm text-slate-300 max-w-2xl mx-auto lg:mx-0">
+                            Founded and led by <strong class="text-white">Syed Mansoor ul Hassan Bukhari</strong>, Founder &amp; Lead Developer, Aug 2026&ndash;present, Rawalpindi, Pakistan &middot; Developed by CyberFantics.
+                        </p>
 
                         <!-- STATS / HIGHLIGHTS BAR -->
                         <div class="pt-8 border-t border-emerald-800/40 grid grid-cols-3 gap-4 text-center lg:text-left">
                             <div>
-                                <div class="text-2xl lg:text-3xl font-extrabold text-gold-400">100%</div>
-                                <div class="text-xs text-slate-400 font-medium">Digital Archiving</div>
+                                <div class="text-2xl lg:text-3xl font-extrabold text-gold-400">Closed</div>
+                                <div class="text-xs text-slate-400 font-medium">Testing on Google Play</div>
                             </div>
                             <div>
-                                <div class="text-2xl lg:text-3xl font-extrabold text-gold-400">Complete</div>
-                                <div class="text-xs text-slate-400 font-medium">Male & Female Lineage</div>
+                                <div class="text-2xl lg:text-3xl font-extrabold text-gold-400">30</div>
+                                <div class="text-xs text-slate-400 font-medium">Testers on the tester list</div>
                             </div>
                             <div>
-                                <div class="text-2xl lg:text-3xl font-extrabold text-gold-400">Verified</div>
-                                <div class="text-xs text-slate-400 font-medium">Record Updates</div>
+                                <div class="text-2xl lg:text-3xl font-extrabold text-gold-400">SHA-256</div>
+                                <div class="text-xs text-slate-400 font-medium">Certificate integrity check</div>
                             </div>
                         </div>
                     </div>
@@ -184,7 +200,7 @@
                     <div class="lg:col-span-5 relative">
                         <div class="relative mx-auto max-w-md lg:max-w-none">
                             <!-- Glassmorphism Card Showcase -->
-                            <div class="relative z-10 rounded-3xl p-6 lg:p-8 bg-gradient-to-b from-emerald-900/80 to-emerald-950/90 border border-gold-500/30 shadow-2xl shadow-emerald-950/80 backdrop-blur-xl space-y-6">
+                            <div class="showcase-card relative z-10 rounded-3xl p-6 lg:p-8 bg-gradient-to-b from-emerald-900/80 to-emerald-950/90 border border-gold-500/30 shadow-2xl shadow-emerald-950/80 backdrop-blur-xl space-y-6">
                                 
                                 <div class="flex items-center justify-between border-b border-emerald-800/60 pb-4">
                                     <div class="flex items-center space-x-3">
@@ -195,7 +211,7 @@
                                         </div>
                                     </div>
                                     <span class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-gold-500/20 text-gold-300 border border-gold-500/30">
-                                        App Showcase
+                                        Closed testing
                                     </span>
                                 </div>
 
@@ -245,7 +261,40 @@
 
                 </div>
             </div>
-        </section>
+        
+                <!-- ==================== IMAGES / SHOWCASE ==================== -->
+                <div id="showcase" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 lg:mt-20">
+                    <div class="text-center space-y-3 max-w-3xl mx-auto">
+                        <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs font-semibold uppercase tracking-wider">
+                            <i class="fa-solid fa-images"></i>
+                            <span>Images &amp; Showcase</span>
+                        </div>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold text-white">See NASSAB at a glance</h2>
+                        <p class="text-slate-300 text-base sm:text-lg">
+                            The family tree, kept private by design. Rada&apos;at kinship shown as its own relationship, not as a footnote.
+                        </p>
+                    </div>
+                    <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="showcase-card rounded-3xl p-6 sm:p-8 bg-emerald-900/40 border border-emerald-800/60 space-y-4">
+                            <img src="logo.png" alt="NASSAB logo" class="h-20 w-auto object-contain rounded-xl mx-auto">
+                            <h3 class="text-xl font-bold text-white text-center">NASSAB &mdash; Family tree &amp; heritage, done right</h3>
+                            <p class="text-slate-300 text-sm leading-relaxed text-center">
+                                The NASSAB mark, as used on the app and on Instagram @nassabapp. A tree, a lineage, and a heritage to keep.
+                            </p>
+                        </div>
+                        <div class="showcase-card rounded-3xl p-6 sm:p-8 bg-emerald-900/40 border border-emerald-800/60 space-y-4">
+                            <h3 class="text-xl font-bold text-white">Shajra Explorer Preview</h3>
+                            <p class="text-slate-300 text-sm leading-relaxed">
+                                The tree preview above shows a father, two marriages, and full and half lineages without duplicate records &mdash; the same structure the mobile app explores, with complete male and female lineage.
+                            </p>
+                            <p class="text-slate-400 text-sm leading-relaxed">
+                                <strong class="text-gold-400">App screenshots will be added here.</strong> Needed files: one home/tree screenshot, one Rada&apos;at view screenshot, and one certificate screenshot, saved as <span class="font-mono text-xs">app-home.png</span>, <span class="font-mono text-xs">app-radaat.png</span>, and <span class="font-mono text-xs">app-certificate.png</span> in the site folder. No placeholder images are used in the meantime.
+                            </p>
+                            <button onclick="navTo('features')" class="px-6 py-3 rounded-xl bg-gold-500 hover:bg-gold-400 text-emerald-950 font-bold text-sm transition-all">Explore the features</button>
+                        </div>
+                    </div>
+                </div>
+</section>
 
         <!-- ==================== ABOUT NASSAB PAGE ==================== -->
         <section id="page-about" class="page-section hidden py-16 lg:py-24">
@@ -293,6 +342,9 @@
                         </p>
                         <p class="text-slate-300 leading-relaxed text-base">
                             NASSAB aims to combine traditional genealogical records with modern technology so that family history can be preserved digitally for future generations.
+                        </p>
+                        <p class="text-slate-300 leading-relaxed text-base">
+                            The mobile app is built with Flutter &amp; Firebase and is led by <strong class="text-white">Syed Mansoor ul Hassan Bukhari</strong>, Founder &amp; Lead Developer, Aug 2026&ndash;present, Rawalpindi, Pakistan. It is in closed testing on Google Play and is not public yet. Developed by CyberFantics.
                         </p>
                     </div>
                 </div>
@@ -386,11 +438,11 @@
                             NASSAB is a project focused on using technology to preserve and make genealogical information accessible for present and future generations.
                         </p>
                         <div class="flex items-center space-x-4 pt-1">
-                            <a href="https://facebook.com/cyberfantics?utm_source=chatgpt.com" target="_blank" rel="noopener noreferrer" class="text-slate-300 hover:text-gold-400 text-sm flex items-center space-x-1.5">
+                            <a href="https://facebook.com/NassabApp" target="_blank" rel="noopener noreferrer" class="text-slate-300 hover:text-gold-400 text-sm flex items-center space-x-1.5">
                                 <i class="fa-brands fa-facebook"></i>
                                 <span class="text-xs">Facebook</span>
                             </a>
-                            <a href="https://instagram.com/cyberfantics?utm_source=chatgpt.com" target="_blank" rel="noopener noreferrer" class="text-slate-300 hover:text-gold-400 text-sm flex items-center space-x-1.5">
+                            <a href="https://www.instagram.com/nassabapp/" target="_blank" rel="noopener noreferrer" class="text-slate-300 hover:text-gold-400 text-sm flex items-center space-x-1.5">
                                 <i class="fa-brands fa-instagram"></i>
                                 <span class="text-xs">Instagram</span>
                             </a>
@@ -412,14 +464,14 @@
                     </div>
                     <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Advanced Genealogical Features</h2>
                     <p class="text-slate-300 text-base sm:text-lg">
-                        Traditional family trees fail with complex family structures. NASSAB uses a relational graph architecture to handle real-world historical records accurately.
+                        Traditional family trees fail with complex family structures. NASSAB uses a relational graph architecture to handle real-world historical records accurately. The Flutter &amp; Firebase mobile app is in closed testing on Google Play and is not public yet.
                     </p>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     
                     <!-- Feature Card 1 -->
-                    <div class="p-8 rounded-3xl bg-emerald-900/40 border border-emerald-800/60 hover:border-gold-500/40 transition-all space-y-4 hover:-translate-y-1">
+                    <div class="feature-card p-8 rounded-3xl bg-emerald-900/40 border border-emerald-800/60 hover:border-gold-500/40 transition-all space-y-4 hover:-translate-y-1">
                         <div class="w-12 h-12 rounded-2xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-400 text-xl">
                             <i class="fa-solid fa-users"></i>
                         </div>
@@ -430,7 +482,7 @@
                     </div>
 
                     <!-- Feature Card 2 -->
-                    <div class="p-8 rounded-3xl bg-emerald-900/40 border border-emerald-800/60 hover:border-gold-500/40 transition-all space-y-4 hover:-translate-y-1">
+                    <div class="feature-card p-8 rounded-3xl bg-emerald-900/40 border border-emerald-800/60 hover:border-gold-500/40 transition-all space-y-4 hover:-translate-y-1">
                         <div class="w-12 h-12 rounded-2xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-400 text-xl">
                             <i class="fa-solid fa-code-merge"></i>
                         </div>
@@ -441,7 +493,7 @@
                     </div>
 
                     <!-- Feature Card 3 -->
-                    <div class="p-8 rounded-3xl bg-emerald-900/40 border border-emerald-800/60 hover:border-gold-500/40 transition-all space-y-4 hover:-translate-y-1">
+                    <div class="feature-card p-8 rounded-3xl bg-emerald-900/40 border border-emerald-800/60 hover:border-gold-500/40 transition-all space-y-4 hover:-translate-y-1">
                         <div class="w-12 h-12 rounded-2xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-400 text-xl">
                             <i class="fa-solid fa-scroll"></i>
                         </div>
@@ -452,7 +504,7 @@
                     </div>
 
                     <!-- Feature Card 4 -->
-                    <div class="p-8 rounded-3xl bg-emerald-900/40 border border-emerald-800/60 hover:border-gold-500/40 transition-all space-y-4 hover:-translate-y-1">
+                    <div class="feature-card p-8 rounded-3xl bg-emerald-900/40 border border-emerald-800/60 hover:border-gold-500/40 transition-all space-y-4 hover:-translate-y-1">
                         <div class="w-12 h-12 rounded-2xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-400 text-xl">
                             <i class="fa-solid fa-magnifying-glass-chart"></i>
                         </div>
@@ -463,7 +515,7 @@
                     </div>
 
                     <!-- Feature Card 5 -->
-                    <div class="p-8 rounded-3xl bg-emerald-900/40 border border-emerald-800/60 hover:border-gold-500/40 transition-all space-y-4 hover:-translate-y-1">
+                    <div class="feature-card p-8 rounded-3xl bg-emerald-900/40 border border-emerald-800/60 hover:border-gold-500/40 transition-all space-y-4 hover:-translate-y-1">
                         <div class="w-12 h-12 rounded-2xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-400 text-xl">
                             <i class="fa-solid fa-shield-halved"></i>
                         </div>
@@ -474,7 +526,7 @@
                     </div>
 
                     <!-- Feature Card 6 -->
-                    <div class="p-8 rounded-3xl bg-emerald-900/40 border border-emerald-800/60 hover:border-gold-500/40 transition-all space-y-4 hover:-translate-y-1">
+                    <div class="feature-card p-8 rounded-3xl bg-emerald-900/40 border border-emerald-800/60 hover:border-gold-500/40 transition-all space-y-4 hover:-translate-y-1">
                         <div class="w-12 h-12 rounded-2xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-400 text-xl">
                             <i class="fa-solid fa-cloud-arrow-up"></i>
                         </div>
@@ -487,6 +539,51 @@
                 </div>
             </div>
         </section>
+
+
+                    <!-- Feature Card: Rada'at -->
+                    <div class="feature-card p-8 rounded-3xl bg-emerald-900/40 border border-emerald-800/60 hover:border-gold-500/40 transition-all space-y-4 hover:-translate-y-1">
+                        <div class="w-12 h-12 rounded-2xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-400 text-xl">
+                            <i class="fa-solid fa-heart"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white">Rada&apos;at (Milk-Kinship)</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            Rada&apos;at is handled as its own relationship type, not as a footnote to blood lineage &mdash; so milk-kinship is shown clearly, in its own view, with its own meaning.
+                        </p>
+                    </div>
+
+                    <!-- Feature Card: Mahram -->
+                    <div class="feature-card p-8 rounded-3xl bg-emerald-900/40 border border-emerald-800/60 hover:border-gold-500/40 transition-all space-y-4 hover:-translate-y-1">
+                        <div class="w-12 h-12 rounded-2xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-400 text-xl">
+                            <i class="fa-solid fa-scale-balanced"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white">Mahram &amp; Marriage-Eligibility</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            Mahram and marriage-eligibility are interpreted from the recorded relationships, including Rada&apos;at. Where evidence is missing, the answer stays undetermined &mdash; never guessed.
+                        </p>
+                    </div>
+
+                    <!-- Feature Card: Privacy by design -->
+                    <div class="feature-card p-8 rounded-3xl bg-emerald-900/40 border border-emerald-800/60 hover:border-gold-500/40 transition-all space-y-4 hover:-translate-y-1">
+                        <div class="w-12 h-12 rounded-2xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-400 text-xl">
+                            <i class="fa-solid fa-user-shield"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white">Privacy by Design</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            Protected female names are masked, and guest mode lets visitors explore without exposing private family data. Privacy is enforced at the data layer, not just on the screen.
+                        </p>
+                    </div>
+
+                    <!-- Feature Card: Certificates -->
+                    <div class="feature-card p-8 rounded-3xl bg-emerald-900/40 border border-emerald-800/60 hover:border-gold-500/40 transition-all space-y-4 hover:-translate-y-1">
+                        <div class="w-12 h-12 rounded-2xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-400 text-xl">
+                            <i class="fa-solid fa-certificate"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white">Verified Lineage Certificates</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            Lineage certificates carry SHA-256 document-integrity verification, so a record can be checked against its hash. This is document-integrity verification &mdash; it is not blockchain verification, and it is not legally certified ancestry.
+                        </p>
+                    </div>
 
         <!-- ==================== UPGRADED INTERACTIVE RECORD UPDATES PAGE ==================== -->
         <section id="page-contact" class="page-section hidden py-16 lg:py-24">
@@ -690,7 +787,7 @@
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
                 <div class="border-b border-emerald-800/60 pb-6">
                     <h2 class="text-3xl font-extrabold text-white">Privacy Policy</h2>
-                    <p class="text-xs text-gold-400 mt-1">Last Updated: September 2026 — NASSAB Platform</p>
+                    <p class="text-xs text-gold-400 mt-1">Last Updated: October 2026 — NASSAB Platform</p>
                 </div>
 
                 <div class="prose prose-invert max-w-none text-slate-300 space-y-6 text-sm leading-relaxed">
@@ -726,7 +823,7 @@
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
                 <div class="border-b border-emerald-800/60 pb-6">
                     <h2 class="text-3xl font-extrabold text-white">Terms of Service</h2>
-                    <p class="text-xs text-gold-400 mt-1">Effective Date: September 2026 — NASSAB Platform</p>
+                    <p class="text-xs text-gold-400 mt-1">Effective Date: October 2026 — NASSAB Platform</p>
                 </div>
 
                 <div class="prose prose-invert max-w-none text-slate-300 space-y-6 text-sm leading-relaxed">
@@ -782,17 +879,17 @@
                     <a href="https://wa.me/923408100868" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-full bg-emerald-900/80 border border-emerald-800 flex items-center justify-center text-emerald-400 hover:text-white hover:bg-emerald-800 transition-all" title="WhatsApp Direct Chat: 03408100868">
                         <i class="fa-brands fa-whatsapp text-lg"></i>
                     </a>
-                    <a href="https://facebook.com/cyberfantics?utm_source=chatgpt.com" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-full bg-emerald-900/80 border border-emerald-800 flex items-center justify-center text-slate-300 hover:text-gold-400 hover:bg-emerald-800 transition-all" title="Facebook">
+                    <a href="https://facebook.com/NassabApp" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-full bg-emerald-900/80 border border-emerald-800 flex items-center justify-center text-slate-300 hover:text-gold-400 hover:bg-emerald-800 transition-all" title="Facebook">
                         <i class="fa-brands fa-facebook-f text-base"></i>
                     </a>
-                    <a href="https://instagram.com/cyberfantics?utm_source=chatgpt.com" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-full bg-emerald-900/80 border border-emerald-800 flex items-center justify-center text-slate-300 hover:text-gold-400 hover:bg-emerald-800 transition-all" title="Instagram">
+                    <a href="https://www.instagram.com/nassabapp/" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-full bg-emerald-900/80 border border-emerald-800 flex items-center justify-center text-slate-300 hover:text-gold-400 hover:bg-emerald-800 transition-all" title="Instagram">
                         <i class="fa-brands fa-instagram text-base"></i>
                     </a>
                 </div>
             </div>
 
             <div class="pt-6 border-t border-emerald-900/80 flex flex-col sm:flex-row items-center justify-between text-slate-500 gap-4">
-                <p>© 2026 NASSAB. All rights reserved. Developed by <strong class="text-gold-400/80">CyberFantics</strong>.</p>
+                <p>© 2026 NASSAB. All rights reserved. Family tree &amp; heritage, done right. Developed by <strong class="text-gold-400/80">CyberFantics</strong>.</p>
                 <p>WhatsApp: <strong class="text-emerald-400/80">+92 340 8100868</strong></p>
             </div>
         </div>
